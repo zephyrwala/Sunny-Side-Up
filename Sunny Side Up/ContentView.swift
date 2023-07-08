@@ -15,61 +15,86 @@ struct ContentView: View {
     var body: some View {
         
         
-        ZStack {
-            Map(coordinateRegion: $region, showsUserLocation: true, userTrackingMode: .constant(.follow))
-                .edgesIgnoringSafeArea(.all)
-            
-            
-            LinearGradient(gradient: Gradient(colors: [.yellow, .black]), startPoint: .top, endPoint: .center)
-                .opacity(0.9)
-                .edgesIgnoringSafeArea(.all)
-//                .blendMode(.multiply)
-            
-            
-            VStack {
-                HStack {
-                    
-//                    Image(systemName: "location")
-                    
-                    Text("Bengaluru")
-                        .foregroundColor(.black)
-                   
+        NavigationStack {
+            ScrollView(.vertical) {
+                ZStack {
+                    Map(coordinateRegion: $region, showsUserLocation: true, userTrackingMode: .constant(.follow))
+                        .edgesIgnoringSafeArea(.all)
                     
                     
-                }
-                .padding(.bottom, 66)
-                
-            
-               
-                HStack {
-                    Image(systemName: "cloud.sun.rain")
-                        .font(.system(size: 30))
-                    Text("Rainy")
-                        .font(.system(size: 30))
-                }
-                Text("21°C")
-                    .foregroundColor(.black)
-                    .font(.system(size: 90))
-                .foregroundColor(.white)
-                
-                
-               
-                VStack(alignment: .leading) {
-                   
-                    ScrollView(.horizontal) {
+                    LinearGradient(gradient: Gradient(colors: [.yellow, .black]), startPoint: .top, endPoint: .center)
+                        .opacity(0.9)
+                        .edgesIgnoringSafeArea(.all)
+        //                .blendMode(.multiply)
+                    
+                    
+                    VStack {
                         HStack {
+                            
+        //                    Image(systemName: "location")
+                            
+//                            Text("Bengaluru")
+//                                .foregroundColor(.black)
+                           
+                            
+                            
+                        }
+                        .padding(.bottom, 66)
+                        
+                    
+                       
+                        HStack {
+                            Image(systemName: "cloud.sun.rain")
+                                .font(.system(size: 30))
+                            Text("Rainy")
+                                .font(.system(size: 30))
+                        }
+                        Text("21°C")
+                            .foregroundColor(.black)
+                            .font(.system(size: 90))
+                        .foregroundColor(.white)
+                        
+                        HStack(spacing: 18) {
+                            Image(systemName: "arrow.up")
+                            Text("28°C")
+                                .font(.system(size: 21))
+                            
+                            Image(systemName: "arrow.down")
+                            Text("18°C")
+                                .font(.system(size: 21))
+                        }
+                       
+                        VStack(alignment: .leading) {
+                           
+                            ScrollView(.horizontal) {
+                                HStack(spacing: 12) {
+                                    ForEach(0 ..< 9) { item in
+                                        HourlyCard()
+                                            
+                                            
+                                    }
+                                }
+                            }
+                        }.padding(.top, 66)
+                            .padding()
+                        
+                       //hourly chart^
+                        
+                        VStack {
                             ForEach(0 ..< 9) { item in
-                                HourlyCard()
-                                    
+                                WeeklyCard()
                             }
                         }
+                        Spacer()
                     }
-                }.padding(.top, 66)
-                
+                   
+                }
+            }.edgesIgnoringSafeArea(.bottom)
+                .navigationTitle("Bengaluru")
                
-                Spacer()
-            }
-           
+                .navigationBarTitleDisplayMode(.inline)
+                .background(.yellow.opacity(0.9))
+                .toolbarBackground(Color.yellow, for: .navigationBar)
         }
         
     }

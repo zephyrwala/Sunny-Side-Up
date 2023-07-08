@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		69BD74882A59948800492590 /* WeeklyCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BD74872A59948800492590 /* WeeklyCard.swift */; };
 		69C173FD2A595B5900EC91E1 /* Sunny_Side_UpApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C173FC2A595B5900EC91E1 /* Sunny_Side_UpApp.swift */; };
 		69C173FF2A595B5900EC91E1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C173FE2A595B5900EC91E1 /* ContentView.swift */; };
 		69C174012A595B5B00EC91E1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 69C174002A595B5B00EC91E1 /* Assets.xcassets */; };
@@ -15,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		69BD74872A59948800492590 /* WeeklyCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyCard.swift; sourceTree = "<group>"; };
 		69C173F92A595B5900EC91E1 /* Sunny Side Up.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sunny Side Up.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		69C173FC2A595B5900EC91E1 /* Sunny_Side_UpApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sunny_Side_UpApp.swift; sourceTree = "<group>"; };
 		69C173FE2A595B5900EC91E1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -58,6 +60,7 @@
 				69C174002A595B5B00EC91E1 /* Assets.xcassets */,
 				69C174022A595B5B00EC91E1 /* Preview Content */,
 				69C1740A2A59826D00EC91E1 /* HourlyCard.swift */,
+				69BD74872A59948800492590 /* WeeklyCard.swift */,
 			);
 			path = "Sunny Side Up";
 			sourceTree = "<group>";
@@ -142,6 +145,7 @@
 			files = (
 				69C173FF2A595B5900EC91E1 /* ContentView.swift in Sources */,
 				69C173FD2A595B5900EC91E1 /* Sunny_Side_UpApp.swift in Sources */,
+				69BD74882A59948800492590 /* WeeklyCard.swift in Sources */,
 				69C1740B2A59826D00EC91E1 /* HourlyCard.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -277,8 +281,10 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -307,8 +313,10 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -18,7 +18,10 @@ struct HourlyCard: View {
             Text("23°")
                 .font(.system(size: 13))
                 .foregroundColor(.yellow)
-        }.frame(width: 80, height: 100)
+        }.frame(width: 80, height: 90)
+            .background(.black.opacity(0.4))
+            .shadow(color: .black.opacity(0.3), radius: 6)
+            .cornerRadius(10)
             .opacity(0.8)
     }
 }
