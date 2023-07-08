@@ -9,7 +9,7 @@ import SwiftUI
 
 struct WeeklyCard: View {
     var body: some View {
-        HStack(spacing: 66) {
+        HStack(spacing: 55) {
             Text("Monday")
                 .foregroundColor(.gray)
            Image(systemName: "cloud.drizzle")

@@ -12,6 +12,8 @@ struct ContentView: View {
     
     @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
     
+    @State private var searchText = ""
+    
     var body: some View {
         
         
@@ -95,6 +97,17 @@ struct ContentView: View {
                 .navigationBarTitleDisplayMode(.inline)
                 .background(.yellow.opacity(0.9))
                 .toolbarBackground(Color.yellow, for: .navigationBar)
+                .toolbar {
+                    Button {
+                        print("Edit button was tapped")
+                    } label: {
+                        Image(systemName: "magnifyingglass")
+                            .foregroundColor(.black)
+                            
+                    }
+                }
+            
+               
         }
         
     }
