@@ -31,7 +31,11 @@ struct WeeklyCard: View {
                 }
 //                    .font(.system(size: 21))
             }
-        }.frame(width: UIScreen.main.bounds.width - 30, height: 60)
+        }.frame(width: UIScreen.main.bounds.width - 30, height: 66)
+            .background(.black.opacity(0.4))
+            .shadow(color: .black.opacity(0.3), radius: 6)
+            .cornerRadius(10)
+            .opacity(0.8)
     }
 }
 
