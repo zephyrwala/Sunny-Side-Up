@@ -20,7 +20,7 @@ enum TabbedItems: Int, CaseIterable{
         case .home:
             return "Today"
         case .favorite:
-            return "Weekly"
+            return "10-Days"
         case .chat:
             return "Settings"
         
@@ -40,12 +40,13 @@ enum TabbedItems: Int, CaseIterable{
     }
 }
 
+
 struct ContentView: View {
     
    
     
  
-        
+    @StateObject private var viewModel = LocationManager()
         @State var selectedTab = 0
         
         var body: some View {
@@ -69,6 +70,8 @@ struct ContentView: View {
                         ForEach((TabbedItems.allCases), id: \.self){ item in
                             Button{
                                 selectedTab = item.rawValue
+                                let impactMed = UIImpactFeedbackGenerator(style: .medium)
+                                    impactMed.impactOccurred()
                                 
                             } label: {
                                 CustomTabItem(imageName: item.iconName, title: item.title, isActive: (selectedTab == item.rawValue))
@@ -81,10 +84,13 @@ struct ContentView: View {
                 .background(.black.opacity(0.85))
                 .cornerRadius(35)
                 .padding(.horizontal, 30)
-            }
+            }.preferredColorScheme(.light)
+            
+                .task{
+                    viewModel.checkIfLocationServiceIsEnabled()
+                
+                }
         }
-        
-        
     
 }
 
@@ -127,7 +133,7 @@ extension ContentView{
             Spacer()
         }
         .frame(width: isActive ? .infinity : 90, height: 60)
-        .background(isActive ? .yellow.opacity(0.75) : .clear)
+        .background(isActive ? .yellow.opacity(0.6) : .clear)
         .shadow(color: isActive ? .yellow : .clear, radius: 10, x: 10.0, y: 10.0)
         
         .cornerRadius(30)

@@ -17,6 +17,8 @@
 		69CD5DC32A59DE0100DB2402 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69CD5DC22A59DE0000DB2402 /* HomeView.swift */; };
 		69CD5DC72A5A63E000DB2402 /* WeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69CD5DC62A5A63E000DB2402 /* WeekView.swift */; };
 		69CD5DC92A5A63EB00DB2402 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69CD5DC82A5A63EB00DB2402 /* MapView.swift */; };
+		69CD5DCD2A5C264700DB2402 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69CD5DCC2A5C264700DB2402 /* MapViewModel.swift */; };
+		69CD5DD12A60FFF600DB2402 /* LocalWeatherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69CD5DD02A60FFF600DB2402 /* LocalWeatherManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +33,10 @@
 		69CD5DC22A59DE0000DB2402 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		69CD5DC62A5A63E000DB2402 /* WeekView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekView.swift; sourceTree = "<group>"; };
 		69CD5DC82A5A63EB00DB2402 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		69CD5DCA2A5BDE8400DB2402 /* Sunny Side Up.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Sunny Side Up.entitlements"; sourceTree = "<group>"; };
+		69CD5DCB2A5C051500DB2402 /* Sunny-Side-Up-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Sunny-Side-Up-Info.plist"; sourceTree = SOURCE_ROOT; };
+		69CD5DCC2A5C264700DB2402 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
+		69CD5DD02A60FFF600DB2402 /* LocalWeatherManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalWeatherManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +69,8 @@
 		69C173FB2A595B5900EC91E1 /* Sunny Side Up */ = {
 			isa = PBXGroup;
 			children = (
+				69CD5DCB2A5C051500DB2402 /* Sunny-Side-Up-Info.plist */,
+				69CD5DCA2A5BDE8400DB2402 /* Sunny Side Up.entitlements */,
 				69C173FC2A595B5900EC91E1 /* Sunny_Side_UpApp.swift */,
 				69C173FE2A595B5900EC91E1 /* ContentView.swift */,
 				69C174002A595B5B00EC91E1 /* Assets.xcassets */,
@@ -73,6 +81,8 @@
 				69CD5DC22A59DE0000DB2402 /* HomeView.swift */,
 				69CD5DC62A5A63E000DB2402 /* WeekView.swift */,
 				69CD5DC82A5A63EB00DB2402 /* MapView.swift */,
+				69CD5DCC2A5C264700DB2402 /* MapViewModel.swift */,
+				69CD5DD02A60FFF600DB2402 /* LocalWeatherManager.swift */,
 			);
 			path = "Sunny Side Up";
 			sourceTree = "<group>";
@@ -163,6 +173,8 @@
 				69CD5DC32A59DE0100DB2402 /* HomeView.swift in Sources */,
 				69BD74882A59948800492590 /* WeeklyCard.swift in Sources */,
 				69C1740B2A59826D00EC91E1 /* HourlyCard.swift in Sources */,
+				69CD5DD12A60FFF600DB2402 /* LocalWeatherManager.swift in Sources */,
+				69CD5DCD2A5C264700DB2402 /* MapViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,12 +300,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Sunny Side Up/Sunny Side Up.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Sunny Side Up/Preview Content\"";
-				DEVELOPMENT_TEAM = T4H854M6Q6;
+				DEVELOPMENT_TEAM = 4WM2BL94N5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Sunny-Side-Up-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Sunny Side Up - Weather Forecast";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.weather";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app needs your location to show your weather";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -306,8 +323,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "app.zephyrwala.sun.Sunny-Side-Up";
+				MARKETING_VERSION = 0.3;
+				PRODUCT_BUNDLE_IDENTIFIER = "app.mayurpchow.Sunny-Side-Up";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -320,12 +337,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Sunny Side Up/Sunny Side Up.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Sunny Side Up/Preview Content\"";
-				DEVELOPMENT_TEAM = T4H854M6Q6;
+				DEVELOPMENT_TEAM = 4WM2BL94N5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Sunny-Side-Up-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Sunny Side Up - Weather Forecast";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.weather";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app needs your location to show your weather";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -338,8 +360,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "app.zephyrwala.sun.Sunny-Side-Up";
+				MARKETING_VERSION = 0.3;
+				PRODUCT_BUNDLE_IDENTIFIER = "app.mayurpchow.Sunny-Side-Up";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
