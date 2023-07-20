@@ -19,6 +19,9 @@
 		69CD5DC92A5A63EB00DB2402 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69CD5DC82A5A63EB00DB2402 /* MapView.swift */; };
 		69CD5DCD2A5C264700DB2402 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69CD5DCC2A5C264700DB2402 /* MapViewModel.swift */; };
 		69CD5DD12A60FFF600DB2402 /* LocalWeatherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69CD5DD02A60FFF600DB2402 /* LocalWeatherManager.swift */; };
+		69CD5DD32A62C7A200DB2402 /* WeeklyChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69CD5DD22A62C7A200DB2402 /* WeeklyChart.swift */; };
+		69CD5DD52A67EFFC00DB2402 /* PrecipitationHour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69CD5DD42A67EFFC00DB2402 /* PrecipitationHour.swift */; };
+		69CD5DD72A69557E00DB2402 /* MoonCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69CD5DD62A69557E00DB2402 /* MoonCard.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +40,9 @@
 		69CD5DCB2A5C051500DB2402 /* Sunny-Side-Up-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Sunny-Side-Up-Info.plist"; sourceTree = SOURCE_ROOT; };
 		69CD5DCC2A5C264700DB2402 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		69CD5DD02A60FFF600DB2402 /* LocalWeatherManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalWeatherManager.swift; sourceTree = "<group>"; };
+		69CD5DD22A62C7A200DB2402 /* WeeklyChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyChart.swift; sourceTree = "<group>"; };
+		69CD5DD42A67EFFC00DB2402 /* PrecipitationHour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrecipitationHour.swift; sourceTree = "<group>"; };
+		69CD5DD62A69557E00DB2402 /* MoonCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoonCard.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +89,9 @@
 				69CD5DC82A5A63EB00DB2402 /* MapView.swift */,
 				69CD5DCC2A5C264700DB2402 /* MapViewModel.swift */,
 				69CD5DD02A60FFF600DB2402 /* LocalWeatherManager.swift */,
+				69CD5DD22A62C7A200DB2402 /* WeeklyChart.swift */,
+				69CD5DD42A67EFFC00DB2402 /* PrecipitationHour.swift */,
+				69CD5DD62A69557E00DB2402 /* MoonCard.swift */,
 			);
 			path = "Sunny Side Up";
 			sourceTree = "<group>";
@@ -169,12 +178,15 @@
 				69CD5DC92A5A63EB00DB2402 /* MapView.swift in Sources */,
 				69CD5DC12A59D47E00DB2402 /* ConditionsCard.swift in Sources */,
 				69C173FD2A595B5900EC91E1 /* Sunny_Side_UpApp.swift in Sources */,
+				69CD5DD72A69557E00DB2402 /* MoonCard.swift in Sources */,
 				69CD5DC72A5A63E000DB2402 /* WeekView.swift in Sources */,
 				69CD5DC32A59DE0100DB2402 /* HomeView.swift in Sources */,
 				69BD74882A59948800492590 /* WeeklyCard.swift in Sources */,
 				69C1740B2A59826D00EC91E1 /* HourlyCard.swift in Sources */,
 				69CD5DD12A60FFF600DB2402 /* LocalWeatherManager.swift in Sources */,
+				69CD5DD32A62C7A200DB2402 /* WeeklyChart.swift in Sources */,
 				69CD5DCD2A5C264700DB2402 /* MapViewModel.swift in Sources */,
+				69CD5DD52A67EFFC00DB2402 /* PrecipitationHour.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

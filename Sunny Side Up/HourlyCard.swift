@@ -31,15 +31,17 @@ struct HourlyCard: View {
                 Text(hourlyWeatherItem.date.formatted(date: .omitted, time: .shortened))
                     .font(.system(size: 10))
                     .foregroundColor(.gray)
-                Image(systemName: "\(hourlyWeatherItem.symbolName).fill")
+                Image(systemName: "\(hourlyWeatherItem.symbolName)")
                     .foregroundColor(.white)
-                Text(hourlyWeatherItem.temperature.formatted(.measurement(width: .narrow, usage: .asProvided)))
+                Text(hourlyWeatherItem.precipitationChance.formatted(.percent)).font(.system(size: 12))
+                Text(hourlyWeatherItem.temperature.formatted(.measurement(width: .abbreviated, usage: .person)))
                     .font(.system(size: 13))
                     .foregroundColor(.yellow)
-            }.frame(width: 80, height: 90)
+            }.frame(width: 80, height: 120)
                 .background(.black.opacity(0.4))
                 .shadow(color: .black.opacity(0.3), radius: 6)
                 .cornerRadius(15)
+              
             .opacity(0.8)
         }
     }

@@ -24,7 +24,15 @@ import MapKit
             self.weather = try await weatherService.weather(for: location)
             safeWeather = self.weather
            
-            print("WEATHER view model works \(weather)")
+            print("WEATHER view model works \(weather?.minuteForecast)")
+            if let safeloopweather = weather?.minuteForecast {
+               
+                for eachweather in safeloopweather {
+                    print("minute is \(eachweather.precipitationChance.formatted(.percent))")
+                }
+                
+            }
+           
             return weather!
             
         } catch {
@@ -42,6 +50,17 @@ import MapKit
           return convert ?? "Loading Weather Data"
           
       }
+    
+    
+}
+
+extension Date {
+    
+    func formatAsAbbreviatedDay() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEE"
+        return formatter.string(from: self)
+    }
     
     
 }

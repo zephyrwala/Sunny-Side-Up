@@ -13,10 +13,10 @@ struct WeeklyCard: View {
     var body: some View {
         ForEach(weeklyWeather, id: \.date) { weeklyWeatherItem in
             HStack(spacing: 40) {
-                Text(weeklyWeatherItem.date.formatted(date: .abbreviated, time: .omitted))
+                Text(weeklyWeatherItem.date.formatAsAbbreviatedDay())
                     .foregroundColor(.gray)
                    
-                Image(systemName: "\(weeklyWeatherItem.symbolName).fill")
+                Image(systemName: "\(weeklyWeatherItem.symbolName)")
                     .foregroundColor(.white)
                 HStack(spacing: 10) {
                     HStack {
