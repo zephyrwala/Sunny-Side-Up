@@ -11,45 +11,42 @@ import Charts
 
 struct PrecipitationHour: View {
     var hourPrecipitation: [HourWeather]
-    private var yAxisStride: Double {
-        let minValue = hourPrecipitation.map { $0.humidity }.min() ?? 0
-        let maxValue = hourPrecipitation.map { $0.humidity }.max() ?? 0
-        return (minValue + maxValue) / 2
-    }
+//    private var yAxisStride: Double {
+//        let minValue = hourPrecipitation.map { $0.humidity }.min() ?? 0
+//        let maxValue = hourPrecipitation.map { $0.humidity }.max() ?? 0
+//        return (minValue + maxValue) / 2
+//    }
      
   
 
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             Chart {
-                ForEach(hourPrecipitation.prefix(6), id: \.date.timeIntervalSinceReferenceDate) { hourPrep in
+                ForEach(hourPrecipitation.prefix(12), id: \.date.timeIntervalSinceReferenceDate) { hourPrep in
                     
                     LineMark(x: .value("Time", hourPrep.date.formatted(date: .omitted, time: .shortened)), y: .value("Rain", hourPrep.precipitationChance.formatted(.percent)))
                     
                         .interpolationMethod(.monotone)
                 }
-            }.frame(width: 350, height: 180)
+            }.frame(width: 950, height: 180)
                 .foregroundColor(.yellow)
-//                .chartYAxis {
-//                    let consumptions = hourPrecipitation.map { $0.temperature.formatted() }
-//                    let min = consumptions.min()!
-//                    let max = consumptions.max()!
-//                    let consumptionStride = Array(stride(from: min,
-//                                                            through: max,
-//                                                         by: (max - min)/1.0))
-//                    AxisMarks(position: .trailing, values: consumptionStride) { axis in
-//                        let value = consumptionStride[axis.index]
-//                        AxisValueLabel("\(String(format: "%.2F", value)) kWh", centered: false)
-//                    }
-//                }
-//                .chartYAxis {
-//
-//                    AxisMarks(format: .percent)
-////                    AxisMarks(position: .leading, values: .stride(by: yAxisStride)) { value in
-////                        AxisGridLine()
-////
-////                    }
-//                }
+                .chartXAxis{
+                    AxisMarks(values: .automatic) { _ in
+                       AxisGridLine(centered: true, stroke: StrokeStyle(dash: [1, 2]))
+                            .foregroundStyle(Color.white.opacity(0.6))
+                       AxisValueLabel()
+                            .foregroundStyle(Color.white.opacity(0.6))
+                     }
+                }
+                .chartYAxis{
+                    AxisMarks(values: .automatic()) { _ in
+//                       AxisGridLine(centered: true, stroke: StrokeStyle(dash: [1, 2]))
+//                            .foregroundStyle(Color.white.opacity(0.6))
+                       AxisValueLabel()
+                            .foregroundStyle(Color.white.opacity(0.6))
+                     }
+            }
+
            
         }
     }

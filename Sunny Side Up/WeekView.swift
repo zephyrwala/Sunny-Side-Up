@@ -45,7 +45,7 @@ struct WeekView: View {
 //                    .padding(.bottom, 56)
                         if let saferWeather = weather {
                             WeeklyChart(weeklyWeather: saferWeather.dailyForecast.forecast)
-                             .frame(height: 300)
+//                             .frame(height: 300)
                              .foregroundColor(.black)
                              
                         }

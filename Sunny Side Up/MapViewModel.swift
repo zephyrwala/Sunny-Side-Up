@@ -92,11 +92,18 @@ extension LocationManager: CLLocationManagerDelegate {
             // Place details
             guard let placeMark = placemarks?.first else { return }
             
-            if let safeLocation = placeMark.subAdministrativeArea {
-                DispatchQueue.main.async {
-                    print("Location name - \(safeLocation)")
-                    self.locationName = safeLocation
+            
+            if let safeLocation = placeMark.subLocality {
+                
+                if let safeCityName = placeMark.locality {
+                    
+                    DispatchQueue.main.async {
+                        print("Location name - \(safeLocation)")
+                        self.locationName = "\(safeCityName) | \(safeLocation)"
+                    }
+                    
                 }
+               
                
 //                DispatchQueue.main.async {
 //                    self.locationName = safeLocation

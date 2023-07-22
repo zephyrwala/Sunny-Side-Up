@@ -19,21 +19,53 @@ struct WeeklyChart: View {
                             ForEach(weeklyWeather, id: \.date) { weeklyWeatherItem in
                                 
                                 LineMark(x: .value("Day", weeklyWeatherItem.date.formatted(date: .abbreviated, time: .omitted)),
-                                         y: .value("Temp", weeklyWeatherItem.highTemperature.formatted()), series: .value("High", "High"))
+                                         y: .value("Temp", weeklyWeatherItem.highTemperature.formatted(.measurement(width: .abbreviated, usage: .person))), series: .value("High", "High Temperature"))
                                 .foregroundStyle(Color.yellow.opacity(0.6))
-                                .interpolationMethod(.linear)
-                                
-                                LineMark(x: .value("Day", weeklyWeatherItem.date.formatted(date: .abbreviated, time: .omitted)),
-                                         y: .value("Temp", weeklyWeatherItem.lowTemperature.formatted()), series: .value("Low", "Low"))
-                                .foregroundStyle(Color.black)
-                                .interpolationMethod(.linear)
+                                .symbol(by: .value("High", "High Temperature"))
+                                .interpolationMethod(.monotone)
 
+                                LineMark(x: .value("Day", weeklyWeatherItem.date.formatted(date: .abbreviated, time: .omitted)),
+                                         y: .value("sTemp", weeklyWeatherItem.lowTemperature.formatted(.measurement(width: .abbreviated, usage: .person))), series: .value("Low", "Low Temperature"))
+                                .foregroundStyle(Color.black)
+                                .interpolationMethod(.monotone)
+                                .symbol(by: .value("Low", "Low Temperature"))
+                                
+                               
+                                
+                                
+                                
+//                                BarMark(x: .value("Day", weeklyWeatherItem.date.formatted(date: .abbreviated, time: .omitted)),
+//                                        y: .value("Temp", weeklyWeatherItem.highTemperature.converted(to: .fahrenheit).value))
+//                                .foregroundStyle(Color.yellow.opacity(0.9))
+//                                .cornerRadius(12)
+//                                .interpolationMethod(.linear)
+
+//                                AreaMark(x: .value("Day", weeklyWeatherItem.date.formatted(date: .abbreviated, time: .omitted)),
+//                                        y: .value("High", weeklyWeatherItem.highTemperature.formatted(.measurement(width: .narrow, usage: .person))))
+//                                .foregroundStyle(Color.yellow.opacity(0.9))
+//                                .interpolationMethod(.catmullRom)
+//
+//                                LineMark(x: .value("Day", weeklyWeatherItem.date.formatted(date: .abbreviated, time: .omitted)),
+//                                        y: .value("Temp", weeklyWeatherItem.highTemperature.converted(to: .fahrenheit).value))
+//
+//
+//                                .foregroundStyle(Color.yellow.opacity(0.9))
+////
+//                                .interpolationMethod(.catmullRom)
                                 
                             }
                             
-                        }.frame(width: 900, height: 270)
-               
-            .chartXAxis{
+                        }.frame(width: 950, height: 270)
+                .aspectRatio(contentMode: .fit)
+                .chartForegroundStyleScale([
+                        "Low Temperature": Color.black,
+                        "High Temperature": Color.yellow
+                        
+                    ])
+//                .chartLegend(position: .bottom, alignment: .leading, spacing: 16) {
+//                            Text("Invoices Payments").foregroundColor(.blue) // just an example View
+//                        }
+            .chartXAxis(){
                 AxisMarks(values: .automatic) { _ in
                    AxisGridLine(centered: true, stroke: StrokeStyle(dash: [1, 2]))
                         .foregroundStyle(Color.white.opacity(0.6))
@@ -42,11 +74,13 @@ struct WeeklyChart: View {
                  }
             }
             .chartYAxis{
-                AxisMarks(values: .automatic()) { _ in
-                   AxisGridLine(centered: true, stroke: StrokeStyle(dash: [1, 2]))
+                AxisMarks(position: .leading) { _ in
+                   
+                    
+                        
+                    AxisValueLabel()
                         .foregroundStyle(Color.white.opacity(0.6))
-                   AxisValueLabel()
-                        .foregroundStyle(Color.white.opacity(0.6))
+                        
                  }
         }
         }.padding()

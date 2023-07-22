@@ -34,6 +34,7 @@ struct HourlyCard: View {
                 Image(systemName: "\(hourlyWeatherItem.symbolName)")
                     .foregroundColor(.white)
                 Text(hourlyWeatherItem.precipitationChance.formatted(.percent)).font(.system(size: 12))
+                    .foregroundColor(.gray)
                 Text(hourlyWeatherItem.temperature.formatted(.measurement(width: .abbreviated, usage: .person)))
                     .font(.system(size: 13))
                     .foregroundColor(.yellow)

@@ -22,6 +22,7 @@
 		69CD5DD32A62C7A200DB2402 /* WeeklyChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69CD5DD22A62C7A200DB2402 /* WeeklyChart.swift */; };
 		69CD5DD52A67EFFC00DB2402 /* PrecipitationHour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69CD5DD42A67EFFC00DB2402 /* PrecipitationHour.swift */; };
 		69CD5DD72A69557E00DB2402 /* MoonCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69CD5DD62A69557E00DB2402 /* MoonCard.swift */; };
+		69CD5DD92A6AAE9D00DB2402 /* HumidityHour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69CD5DD82A6AAE9D00DB2402 /* HumidityHour.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +44,7 @@
 		69CD5DD22A62C7A200DB2402 /* WeeklyChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyChart.swift; sourceTree = "<group>"; };
 		69CD5DD42A67EFFC00DB2402 /* PrecipitationHour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrecipitationHour.swift; sourceTree = "<group>"; };
 		69CD5DD62A69557E00DB2402 /* MoonCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoonCard.swift; sourceTree = "<group>"; };
+		69CD5DD82A6AAE9D00DB2402 /* HumidityHour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HumidityHour.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +94,7 @@
 				69CD5DD22A62C7A200DB2402 /* WeeklyChart.swift */,
 				69CD5DD42A67EFFC00DB2402 /* PrecipitationHour.swift */,
 				69CD5DD62A69557E00DB2402 /* MoonCard.swift */,
+				69CD5DD82A6AAE9D00DB2402 /* HumidityHour.swift */,
 			);
 			path = "Sunny Side Up";
 			sourceTree = "<group>";
@@ -180,6 +183,7 @@
 				69C173FD2A595B5900EC91E1 /* Sunny_Side_UpApp.swift in Sources */,
 				69CD5DD72A69557E00DB2402 /* MoonCard.swift in Sources */,
 				69CD5DC72A5A63E000DB2402 /* WeekView.swift in Sources */,
+				69CD5DD92A6AAE9D00DB2402 /* HumidityHour.swift in Sources */,
 				69CD5DC32A59DE0100DB2402 /* HomeView.swift in Sources */,
 				69BD74882A59948800492590 /* WeeklyCard.swift in Sources */,
 				69C1740B2A59826D00EC91E1 /* HourlyCard.swift in Sources */,

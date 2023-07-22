@@ -115,7 +115,24 @@ struct HomeView: View {
                             
                            //hourly chart^
                           
-                            
+                            VStack {
+                                
+                                
+                                Text("Rain in the next 6 hours")
+                                    .foregroundColor(.gray.opacity(0.6))
+                                    .padding(.leading, 25)
+                                
+                                if let weather {
+                                    let safear =  Array(weather.hourlyForecast.filter({ hourlyWeather in
+                                        return hourlyWeather.date.timeIntervalSince(Date()) >= 0
+                                    }).prefix(24))
+                                    
+                                  
+                                    
+                                    PrecipitationHour(hourPrecipitation: safear)
+                                }
+                                
+                            }.padding()
     //                       Spacer()
                             VStack(alignment: .center) {
                                 
@@ -157,24 +174,7 @@ struct HomeView: View {
                                 }
                             } .padding(.top, 15)
                             
-                            VStack {
-                                
-                                
-                                Text("Rain in the next 6 hours")
-                                    .foregroundColor(.gray.opacity(0.6))
-                                    .padding(.leading, 25)
-                                
-                                if let weather {
-                                    let safear =  Array(weather.hourlyForecast.filter({ hourlyWeather in
-                                        return hourlyWeather.date.timeIntervalSince(Date()) >= 0
-                                    }).prefix(24))
-                                    
-                                  
-                                    
-                                    PrecipitationHour(hourPrecipitation: safear)
-                                }
-                                
-                            }.padding()
+                          
                             
     //                        Spacer()
                        
@@ -186,7 +186,22 @@ struct HomeView: View {
             //                        }
                             
                             
+                            
+                            if let weather {
+                                let safear =  Array(weather.hourlyForecast.filter({ hourlyWeather in
+                                    return hourlyWeather.date.timeIntervalSince(Date()) >= 0
+                                }).prefix(24))
+                                
+                              
+                                
+                                HumidityHour(hourPrecipitation: safear)
+                                    .padding()
+                                    .padding(.top, 21)
+                                    .padding(.bottom, 21)
+                            }
+                                
                             //weekly
+                            MoonCard()
                             
                             Spacer()
                             
@@ -241,8 +256,11 @@ struct HomeView: View {
                                 
                                 Text(locationManager.locationName ?? "loading")
                                     .foregroundColor(.white)
+                                    .font(.subheadline)
+                                    .shadow(color: .yellow, radius: 9)
                             }
-//                            Text("current").font(.subheadline)
+//                            Text("current")
+//                                .font(.system(size: 9))
                         }
                     }
                 }
