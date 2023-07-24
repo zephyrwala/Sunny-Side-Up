@@ -24,7 +24,7 @@ import MapKit
             self.weather = try await weatherService.weather(for: location)
             safeWeather = self.weather
            
-            print("WEATHER view model works \(weather?.minuteForecast)")
+            print("WEATHER view model works \(weather?.currentWeather.condition.description)")
             if let safeloopweather = weather?.minuteForecast {
                
                 for eachweather in safeloopweather {

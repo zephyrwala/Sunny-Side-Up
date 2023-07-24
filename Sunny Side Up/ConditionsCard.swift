@@ -12,6 +12,7 @@ import WeatherKit
 struct ConditionsCard: View {
     var currentWeatherCondition: String?
     var weatherconditionValue: String?
+    var weatherColorIs: Color
     var icons: String?
     @State private var dayWeatherStuff: DayWeather?
     var body: some View {
@@ -19,7 +20,7 @@ struct ConditionsCard: View {
         VStack(alignment: .leading, spacing: 10) {
             HStack {
                 Image(systemName: icons ?? "wind")
-                    .foregroundColor(.yellow)
+                    .foregroundColor(weatherColorIs)
                 Text(weatherconditionValue ?? "fetching")
                     .foregroundColor(.white)
             }
@@ -38,7 +39,7 @@ struct ConditionsCard: View {
 
 struct ConditionsCard_Previews: PreviewProvider {
     static var previews: some View {
-        ConditionsCard()
+        ConditionsCard( weatherColorIs: Color.yellow)
             .previewLayout(.sizeThatFits)
     }
 }

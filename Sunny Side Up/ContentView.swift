@@ -7,46 +7,52 @@
 
 import SwiftUI
 import MapKit
+import WeatherKit
 
 
-enum TabbedItems: Int, CaseIterable{
-    case home = 0
-    case favorite
-    case chat
-   
-    
-    var title: String{
-        switch self {
-        case .home:
-            return "Today"
-        case .favorite:
-            return "10-Days"
-        case .chat:
-            return "Settings"
-        
-        }
-    }
-    
-    var iconName: String{
-        switch self {
-        case .home:
-            return "week"
-        case .favorite:
-            return "week"
-        case .chat:
-            return "week"
-        
-        }
-    }
-}
 
 
 struct ContentView: View {
     
-   
     
+    
+    private enum TabbedItems: Int, CaseIterable{
+        case home = 0
+        case favorite
+        case chat
+       
+        
+        var title: String{
+            switch self {
+            case .home:
+                return "Today"
+            case .favorite:
+                return "10-Days"
+            case .chat:
+                return "Settings"
+            
+            }
+        }
+        
+        var iconName: String{
+            switch self {
+            case .home:
+                return "thermometer.sun"
+            case .favorite:
+                return "calendar"
+            case .chat:
+                return "gear"
+            
+            }
+        }
+    }
+   
+    @State private var weather: Weather?
+    let weatherService = WeatherService.shared
+    @State private var weatherTabIcon = "week"
+    @State private var weatherColor = Color.yellow
  
-    @StateObject private var viewModel = LocationManager()
+    @StateObject private var locationManager = LocationManager()
         @State var selectedTab = 0
         
         var body: some View {
@@ -61,6 +67,7 @@ struct ContentView: View {
 
                     MapView()
                         .tag(2)
+                    
 
                        
                 }
@@ -74,7 +81,7 @@ struct ContentView: View {
                                     impactMed.impactOccurred()
                                 
                             } label: {
-                                CustomTabItem(imageName: item.iconName, title: item.title, isActive: (selectedTab == item.rawValue))
+                                CustomTabItem(systemName: item.iconName, title: item.title, isActive: (selectedTab == item.rawValue))
                             }
                         }
                     }
@@ -86,8 +93,35 @@ struct ContentView: View {
                 .padding(.horizontal, 30)
             }.preferredColorScheme(.light)
             
-                .task{
-                    viewModel.checkIfLocationServiceIsEnabled()
+                .task(id: locationManager.currentLocation) {
+                    locationManager.checkIfLocationServiceIsEnabled()
+                    
+                    
+                    do {
+                        //TODO: - un comment this for actual location
+                        if let location = locationManager.currentLocation {
+                           
+                          //static location 12.97573174471989, 77.60148697323523
+                          
+                            self.weather = try await weatherService.weather(for: location)
+                          
+                            if let safeCondition = weather?.currentWeather.condition.description {
+                                
+                                switch safeCondition {
+                                case "Rain":
+                                    self.weatherColor = Color.gray
+                                    
+                                default:
+                                    self.weatherColor = Color.orange
+                                }
+                                
+                            }
+                            print("weather is \(weather)")
+    
+                     }
+                    }catch {
+                        print(error)
+                    }
                 
                 }
         }
@@ -116,25 +150,26 @@ struct ContentView_Previews: PreviewProvider {
 
 
 extension ContentView{
-    func CustomTabItem(imageName: String, title: String, isActive: Bool) -> some View{
+    func CustomTabItem(systemName: String, title: String, isActive: Bool) -> some View{
         HStack(spacing: 10){
             Spacer()
-            Image(imageName)
+            Image(systemName: systemName)
                 .resizable()
                 .renderingMode(.template)
-                .foregroundColor(isActive ? .black : .yellow)
-                .frame(width: 20, height: 20)
+                .foregroundColor(isActive ? .black : weatherColor)
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 24, height: 24)
             if isActive{
                 Text(title)
                     .font(.system(size: 14))
                     .fontWeight(.medium)
-                    .foregroundColor(isActive ? .black : .yellow)
+                    .foregroundColor(isActive ? .black : weatherColor)
             }
             Spacer()
         }
         .frame(width: isActive ? .infinity : 90, height: 60)
-        .background(isActive ? .yellow.opacity(0.6) : .clear)
-        .shadow(color: isActive ? .yellow : .clear, radius: 10, x: 10.0, y: 10.0)
+        .background(isActive ? weatherColor.opacity(0.6) : .clear)
+        .shadow(color: isActive ? weatherColor : .clear, radius: 10, x: 10.0, y: 10.0)
         
         .cornerRadius(30)
     }

@@ -8,12 +8,13 @@
 import SwiftUI
 
 struct MoonCard: View {
+    var weatherColorIs: Color
     var body: some View {
         HStack(spacing: 10) {
             
             VStack(spacing: 15) {
                 Image(systemName: "moonphase.waxing.gibbous")
-                    .foregroundColor(.yellow)
+                    .foregroundColor(weatherColorIs)
                     .font(.system(size: 50))
                 
                 Text("Waxing Gibbous")
@@ -49,6 +50,6 @@ struct MoonCard: View {
 
 struct MoonCard_Previews: PreviewProvider {
     static var previews: some View {
-        MoonCard()
+        MoonCard(weatherColorIs: Color.yellow)
     }
 }

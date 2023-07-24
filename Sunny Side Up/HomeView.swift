@@ -17,6 +17,7 @@ struct HomeView: View {
     @State private var weather: Weather?
    
     @State private var cityName = "Loading"
+    @State private var weatherColor = Color.yellow
     
     
     let weatherService = WeatherService.shared
@@ -28,11 +29,11 @@ struct HomeView: View {
         NavigationStack {
             ZStack {
                 Map(coordinateRegion: $locationManager.region, showsUserLocation: true, userTrackingMode: .constant(.follow))
-                    .accentColor(.yellow)
+                    .accentColor(weatherColor)
                     .edgesIgnoringSafeArea(.all)
                 
                 
-                LinearGradient(gradient: Gradient(colors: [.yellow, .black]), startPoint: .top, endPoint: .center)
+                LinearGradient(gradient: Gradient(colors: [weatherColor, .black]), startPoint: .top, endPoint: .center)
                     .opacity(0.9)
                     .edgesIgnoringSafeArea(.all)
 //                    .blendMode(.multiply)
@@ -104,7 +105,7 @@ struct HomeView: View {
                                                 return hourlyWeather.date.timeIntervalSince(Date()) >= 0
                                             }).prefix(25))
                                             
-                                            HourlyCard(hourlyWeather: safear)
+                                            HourlyCard(hourlyWeather: safear, weatherColorIs: weatherColor)
                                             
                                            
                                         }
@@ -129,7 +130,7 @@ struct HomeView: View {
                                     
                                   
                                     
-                                    PrecipitationHour(hourPrecipitation: safear)
+                                    PrecipitationHour(hourPrecipitation: safear, weatherColorIs: weatherColor)
                                 }
                                 
                             }.padding()
@@ -144,14 +145,14 @@ struct HomeView: View {
                                     HStack(spacing: 15) {
                                         if let safeWeather = weather?.dailyForecast {
                                             if let sunrise = safeWeather[0].sun.sunrise {
-                                                ConditionsCard(currentWeatherCondition: "Sunrise", weatherconditionValue: "\(sunrise.formatted(date: .omitted, time: .shortened))", icons: "sunrise.fill")
+                                                ConditionsCard(currentWeatherCondition: "Sunrise", weatherconditionValue: "\(sunrise.formatted(date: .omitted, time: .shortened))", weatherColorIs: weatherColor, icons: "sunrise.fill")
                                             }
                                         }
                                        
                                         
                                         if let safeWeather = weather?.dailyForecast {
                                             if let sunrise = safeWeather[0].sun.sunset {
-                                                ConditionsCard(currentWeatherCondition: "Sunset", weatherconditionValue: "\(sunrise.formatted(date: .omitted, time: .shortened))", icons: "sunset.fill")
+                                                ConditionsCard(currentWeatherCondition: "Sunset", weatherconditionValue: "\(sunrise.formatted(date: .omitted, time: .shortened))", weatherColorIs: weatherColor, icons: "sunset.fill")
                                             }
                                         }
                                     }
@@ -161,13 +162,13 @@ struct HomeView: View {
                                         
                                         if let safeWeather = weather?.dailyForecast {
                                          
-                                            ConditionsCard(currentWeatherCondition: "Rain", weatherconditionValue: "\(safeWeather[0].precipitationChance.formatted(.percent))", icons: "drop.degreesign.fill")
+                                            ConditionsCard(currentWeatherCondition: "Rain", weatherconditionValue: "\(safeWeather[0].precipitationChance.formatted(.percent))", weatherColorIs: weatherColor, icons: "drop.degreesign.fill")
                                             
                                         }
                                         
                                         if let safeWeather = weather?.currentWeather {
                                          
-                                            ConditionsCard(currentWeatherCondition: "Humidity", weatherconditionValue: "\(safeWeather.humidity.formatted(.percent))", icons: "humidity.fill")
+                                            ConditionsCard(currentWeatherCondition: "Humidity", weatherconditionValue: "\(safeWeather.humidity.formatted(.percent))", weatherColorIs: weatherColor, icons: "humidity.fill")
                                             
                                         }
                                     }
@@ -194,14 +195,14 @@ struct HomeView: View {
                                 
                               
                                 
-                                HumidityHour(hourPrecipitation: safear)
+                                HumidityHour(hourPrecipitation: safear, weatherColorIs: weatherColor)
                                     .padding()
                                     .padding(.top, 21)
                                     .padding(.bottom, 21)
                             }
                                 
                             //weekly
-                            MoonCard()
+                            MoonCard(weatherColorIs: weatherColor)
                             
                             Spacer()
                             
@@ -230,6 +231,17 @@ struct HomeView: View {
                           
                             self.weather = try await weatherService.weather(for: location)
                           
+                            if let safeCondition = weather?.currentWeather.condition.description {
+                                
+                                switch safeCondition {
+                                case "Rain":
+                                    self.weatherColor = Color.gray
+                                    
+                                default:
+                                    self.weatherColor = Color.blue
+                                }
+                                
+                            }
                             print("weather is \(weather)")
     
                      }
@@ -252,12 +264,13 @@ struct HomeView: View {
                             HStack {
                                 
                                 Image(systemName: "location.circle.fill")
-                                    .foregroundColor(.yellow)
+                                    .foregroundColor(weatherColor)
+                                    .shadow(color: .black.opacity(0.3), radius: 9)
                                 
                                 Text(locationManager.locationName ?? "loading")
                                     .foregroundColor(.white)
                                     .font(.subheadline)
-                                    .shadow(color: .yellow, radius: 9)
+                                    .shadow(color: weatherColor, radius: 9)
                             }
 //                            Text("current")
 //                                .font(.system(size: 9))

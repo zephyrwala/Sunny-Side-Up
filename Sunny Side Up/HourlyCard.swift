@@ -11,7 +11,8 @@ import WeatherKit
 struct HourlyCard: View {
     
    
-    var hourlyWeather: [HourWeather] 
+    var hourlyWeather: [HourWeather]
+    var weatherColorIs: Color
 //
 //        if let weather {
 //            return Array(weather.hourlyForecast.filter({ hourlyWeather in
@@ -37,7 +38,7 @@ struct HourlyCard: View {
                     .foregroundColor(.gray)
                 Text(hourlyWeatherItem.temperature.formatted(.measurement(width: .abbreviated, usage: .person)))
                     .font(.system(size: 13))
-                    .foregroundColor(.yellow)
+                    .foregroundColor(weatherColorIs)
             }.frame(width: 80, height: 120)
                 .background(.black.opacity(0.4))
                 .shadow(color: .black.opacity(0.3), radius: 6)
