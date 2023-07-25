@@ -88,7 +88,9 @@ struct ContentView: View {
                     .padding(6)
                 }
                 .frame(height: 72)
-                .background(.black.opacity(0.85))
+                //tab bar backgrond blur
+                .background(.black.opacity(0.75))
+               
                 .cornerRadius(35)
                 .padding(.horizontal, 30)
             }.preferredColorScheme(.light)
@@ -112,7 +114,7 @@ struct ContentView: View {
                                     self.weatherColor = Color.gray
                                     
                                 default:
-                                    self.weatherColor = Color.orange
+                                    self.weatherColor = Color.mint
                                 }
                                 
                             }
@@ -169,7 +171,7 @@ extension ContentView{
         }
         .frame(width: isActive ? .infinity : 90, height: 60)
         .background(isActive ? weatherColor.opacity(0.6) : .clear)
-        .shadow(color: isActive ? weatherColor : .clear, radius: 10, x: 10.0, y: 10.0)
+        .shadow(color: isActive ? weatherColor : .clear, radius: 10, x: 3.0, y: 10.0)
         
         .cornerRadius(30)
     }

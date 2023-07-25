@@ -17,9 +17,11 @@ struct HomeView: View {
     @State private var weather: Weather?
    
     @State private var cityName = "Loading"
+    
     @State private var weatherColor = Color.yellow
     
-    
+    @State private var showButton = false
+    @State private var offset = CGFloat.zero
     let weatherService = WeatherService.shared
     @State private var searchText = ""
     
@@ -41,31 +43,19 @@ struct HomeView: View {
                     .opacity(0.4)
                     .edgesIgnoringSafeArea(.all)
                    
-                ScrollView(.vertical, showsIndicators: false) {
-                   
+               
+                    ScrollView(.vertical, showsIndicators: false) {
                         
                         
                         VStack {
-//                            HStack {
-//
-//                                Image(systemName: "location")
-//
-//                                Text(locationManager.locationName ?? "loading")
-//                                    .foregroundColor(.black)
-//
-//
-//
-//                            }.foregroundColor(.black)
-//                            .padding(.bottom, 56)
                             
-                        
-                           
+                            
                             HStack {
                                 Image(systemName: weather?.currentWeather.symbolName ?? "cloud")
                                     .font(.system(size: 30))
                                     .symbolRenderingMode(.palette)
                                     .foregroundStyle(Color.black)
-                                   
+                                
                                 Text(weather?.currentWeather.condition.description ?? "loading")
                                     .font(.system(size: 30))
                                     .foregroundColor(.black)
@@ -80,24 +70,23 @@ struct HomeView: View {
                                 Image(systemName: "arrow.up")
                                 Text("28°C")
                                     .font(.system(size: 21))
-                               
+                                
                                 Image(systemName: "arrow.down")
-                                Text("18°C")
+                                Text("18°C \(offset)")
                                     .font(.system(size: 21))
                             }.padding(.bottom, 21)
                                 .foregroundColor(.black)
-                               
-                           
+                            
+                            
                             
                             Spacer()
                             
                             //MARK: - Hourly chart
                             
-                           
                             
                             VStack(alignment: .leading) {
-                               
-                               
+                                
+                                
                                 ScrollView(.horizontal) {
                                     HStack(spacing: 12) {
                                         if let weather {
@@ -107,15 +96,15 @@ struct HomeView: View {
                                             
                                             HourlyCard(hourlyWeather: safear, weatherColorIs: weatherColor)
                                             
-                                           
+                                            
                                         }
                                     }
                                 }
                             }.padding(.top, 21)
                                 .padding()
                             
-                           //hourly chart^
-                          
+                            //hourly chart^
+                            
                             VStack {
                                 
                                 
@@ -128,13 +117,13 @@ struct HomeView: View {
                                         return hourlyWeather.date.timeIntervalSince(Date()) >= 0
                                     }).prefix(24))
                                     
-                                  
+                                    
                                     
                                     PrecipitationHour(hourPrecipitation: safear, weatherColorIs: weatherColor)
                                 }
                                 
                             }.padding()
-    //                       Spacer()
+                            //                       Spacer()
                             VStack(alignment: .center) {
                                 
                                 Text("Today")
@@ -148,7 +137,7 @@ struct HomeView: View {
                                                 ConditionsCard(currentWeatherCondition: "Sunrise", weatherconditionValue: "\(sunrise.formatted(date: .omitted, time: .shortened))", weatherColorIs: weatherColor, icons: "sunrise.fill")
                                             }
                                         }
-                                       
+                                        
                                         
                                         if let safeWeather = weather?.dailyForecast {
                                             if let sunrise = safeWeather[0].sun.sunset {
@@ -161,13 +150,13 @@ struct HomeView: View {
                                     HStack(spacing: 15) {
                                         
                                         if let safeWeather = weather?.dailyForecast {
-                                         
+                                            
                                             ConditionsCard(currentWeatherCondition: "Rain", weatherconditionValue: "\(safeWeather[0].precipitationChance.formatted(.percent))", weatherColorIs: weatherColor, icons: "drop.degreesign.fill")
                                             
                                         }
                                         
                                         if let safeWeather = weather?.currentWeather {
-                                         
+                                            
                                             ConditionsCard(currentWeatherCondition: "Humidity", weatherconditionValue: "\(safeWeather.humidity.formatted(.percent))", weatherColorIs: weatherColor, icons: "humidity.fill")
                                             
                                         }
@@ -175,16 +164,16 @@ struct HomeView: View {
                                 }
                             } .padding(.top, 15)
                             
-                          
                             
-    //                        Spacer()
-                       
                             
-            //                        VStack {
-            //                            ForEach(0 ..< 9) { item in
-            //                                WeeklyCard()
-            //                            }
-            //                        }
+                            //                        Spacer()
+                            
+                            
+                            //                        VStack {
+                            //                            ForEach(0 ..< 9) { item in
+                            //                                WeeklyCard()
+                            //                            }
+                            //                        }
                             
                             
                             
@@ -193,25 +182,28 @@ struct HomeView: View {
                                     return hourlyWeather.date.timeIntervalSince(Date()) >= 0
                                 }).prefix(24))
                                 
-                              
+                                
                                 
                                 HumidityHour(hourPrecipitation: safear, weatherColorIs: weatherColor)
                                     .padding()
                                     .padding(.top, 21)
                                     .padding(.bottom, 21)
                             }
-                                
+                            
                             //weekly
                             MoonCard(weatherColorIs: weatherColor)
                             
                             Spacer()
                             
                             
-                           
+                            
                         }.padding(.top, 60)
                             .padding(.bottom, 100)
-                       
+                        
+                        
+                        
                     }
+                
                 
                 
                 }.edgesIgnoringSafeArea(.all)
@@ -220,7 +212,9 @@ struct HomeView: View {
 
     //                 viewModel.checkIfLocationServiceIsEnabled()
                   
-                   
+                    if offset > 20.0 {
+                        showButton.toggle()
+                    }
                    
                     
                     do {
@@ -238,7 +232,7 @@ struct HomeView: View {
                                     self.weatherColor = Color.gray
                                     
                                 default:
-                                    self.weatherColor = Color.blue
+                                    self.weatherColor = Color.mint
                                 }
                                 
                             }
@@ -276,6 +270,29 @@ struct HomeView: View {
 //                                .font(.system(size: 9))
                         }
                     }
+                    
+                    
+                    if showButton == false {
+                        
+                        ToolbarItem(placement: .navigationBarTrailing) { // <3>
+                            VStack {
+                              
+                                Button {
+                                    print("Add Pressed")
+                                } label: {
+                                    Image(systemName: "plus")
+                                        .font(.system(.caption2))
+                                }
+
+                                
+                               
+                            }
+                        }
+                        
+                    }
+               
+                    
+                    
                 }
         }
         
