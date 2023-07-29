@@ -12,7 +12,8 @@ struct MapView: View {
         VStack {
             Text("Hello, World!")
                 
-        }
+        }.background(.blue)
+            
     }
 }
 

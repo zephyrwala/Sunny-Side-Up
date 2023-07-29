@@ -53,15 +53,18 @@ struct ContentView: View {
     @State private var weatherColor = Color.yellow
  
     @StateObject private var locationManager = LocationManager()
-        @State var selectedTab = 0
+        @State private var selectedTab = 0
         
         var body: some View {
-            
+          
             ZStack(alignment: .bottom){
                 TabView(selection: $selectedTab) {
                     HomeView()
                         .tag(0)
-
+                        .tabItem {
+                                    Image(systemName: "house.fill")
+                                    Text("Home")
+                                }
                     WeekView()
                         .tag(1)
 
@@ -71,7 +74,8 @@ struct ContentView: View {
 
                        
                 }
-
+                
+//
                 ZStack{
                     HStack{
                         ForEach((TabbedItems.allCases), id: \.self){ item in
@@ -79,7 +83,7 @@ struct ContentView: View {
                                 selectedTab = item.rawValue
                                 let impactMed = UIImpactFeedbackGenerator(style: .medium)
                                     impactMed.impactOccurred()
-                                
+
                             } label: {
                                 CustomTabItem(systemName: item.iconName, title: item.title, isActive: (selectedTab == item.rawValue))
                             }
@@ -90,11 +94,12 @@ struct ContentView: View {
                 .frame(height: 72)
                 //tab bar backgrond blur
                 .background(.black.opacity(0.75))
-               
+
                 .cornerRadius(35)
                 .padding(.horizontal, 30)
-            }.preferredColorScheme(.light)
+            }.preferredColorScheme(.dark)
             
+              
                 .task(id: locationManager.currentLocation) {
                     locationManager.checkIfLocationServiceIsEnabled()
                     
@@ -114,7 +119,7 @@ struct ContentView: View {
                                     self.weatherColor = Color.gray
                                     
                                 default:
-                                    self.weatherColor = Color.mint
+                                    self.weatherColor = Color.yellow
                                 }
                                 
                             }
@@ -172,7 +177,7 @@ extension ContentView{
         .frame(width: isActive ? .infinity : 90, height: 60)
         .background(isActive ? weatherColor.opacity(0.6) : .clear)
         .shadow(color: isActive ? weatherColor : .clear, radius: 10, x: 3.0, y: 10.0)
-        
+
         .cornerRadius(30)
     }
 }
@@ -183,7 +188,8 @@ extension UITabBarController {
     override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         let appearance = UITabBarAppearance()
-        appearance.configureWithTransparentBackground()
+        appearance.backgroundColor = .black
+        appearance.configureWithOpaqueBackground()
         tabBar.standardAppearance = appearance
     }
 }

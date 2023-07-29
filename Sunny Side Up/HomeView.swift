@@ -14,13 +14,18 @@ import WeatherKit
 struct HomeView: View {
     
     @StateObject private var locationManager = LocationManager()
+//    @EnvironmentObject var locationManager: LocationManager
     @State private var weather: Weather?
-   
+    @State private var returnedPlace = MKCoordinateRegion()
+    @State var thisPlaceReturned = Place(mapItem: MKMapItem())
+
+    @State var manualLocationShow = false
     @State private var cityName = "Loading"
     
     @State private var weatherColor = Color.yellow
-    
+    @State private var showReturnedPlace = false
     @State private var showButton = false
+    @State private var showingSheet = false
     @State private var offset = CGFloat.zero
     let weatherService = WeatherService.shared
     @State private var searchText = ""
@@ -30,9 +35,20 @@ struct HomeView: View {
         
         NavigationStack {
             ZStack {
-                Map(coordinateRegion: $locationManager.region, showsUserLocation: true, userTrackingMode: .constant(.follow))
-                    .accentColor(weatherColor)
-                    .edgesIgnoringSafeArea(.all)
+                if manualLocationShow == true {
+                    
+                    Map(coordinateRegion: $returnedPlace, showsUserLocation: true, userTrackingMode: .constant(.follow))
+                        .accentColor(weatherColor)
+                        .edgesIgnoringSafeArea(.all)
+                }else {
+//                    var newStartingLocation = CLLocation(latitude: returnedPlace.latitude, longitude: returnedPlace.longitude)
+//                    var newSpan = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+//
+                    Map(coordinateRegion: $locationManager.region, showsUserLocation: true, userTrackingMode: .constant(.follow))
+                        .accentColor(weatherColor)
+                        .edgesIgnoringSafeArea(.all)
+                }
+               
                 
                 
                 LinearGradient(gradient: Gradient(colors: [weatherColor, .black]), startPoint: .top, endPoint: .center)
@@ -40,14 +56,14 @@ struct HomeView: View {
                     .edgesIgnoringSafeArea(.all)
 //                    .blendMode(.multiply)
                 LinearGradient(gradient: Gradient(colors: [.clear, .black]), startPoint: .top, endPoint: .center)
-                    .opacity(0.4)
+                    .opacity(0.1)
                     .edgesIgnoringSafeArea(.all)
                    
                
                     ScrollView(.vertical, showsIndicators: false) {
                         
                         
-                        VStack {
+                        VStack(alignment: .leading) {
                             
                             
                             HStack {
@@ -72,7 +88,7 @@ struct HomeView: View {
                                     .font(.system(size: 21))
                                 
                                 Image(systemName: "arrow.down")
-                                Text("18°C \(offset)")
+                                Text("18°C")
                                     .font(.system(size: 21))
                             }.padding(.bottom, 21)
                                 .foregroundColor(.black)
@@ -208,40 +224,52 @@ struct HomeView: View {
                 
                 }.edgesIgnoringSafeArea(.all)
                 .background(.black)
+                
                 .task(id: locationManager.currentLocation) {
 
     //                 viewModel.checkIfLocationServiceIsEnabled()
                   
-                    if offset > 20.0 {
-                        showButton.toggle()
-                    }
-                   
-                    
-                    do {
-                        //TODO: - un comment this for actual location
-                        if let location = locationManager.currentLocation {
-                           
-                          //static location 12.97573174471989, 77.60148697323523
-                          
-                            self.weather = try await weatherService.weather(for: location)
-                          
-                            if let safeCondition = weather?.currentWeather.condition.description {
-                                
-                                switch safeCondition {
-                                case "Rain":
-                                    self.weatherColor = Color.gray
+                    if manualLocationShow == true {
+                      
+                        do {
+                            
+                            let safeLoca = CLLocation(latitude: thisPlaceReturned.latitude, longitude: thisPlaceReturned.longitude)
+                            self.weather = try await weatherService.weather(for: safeLoca)
+                            
+                            
+                        } catch {
+                            print("Error in fetching weather maniual")
+                        }
+                        
+                    } else {
+                        do {
+                            //TODO: - un comment this for actual location
+                            if let location = locationManager.currentLocation {
+                               
+                              //static location 12.97573174471989, 77.60148697323523
+                              
+                                self.weather = try await weatherService.weather(for: location)
+                              
+                                if let safeCondition = weather?.currentWeather.condition.description {
                                     
-                                default:
-                                    self.weatherColor = Color.mint
+                                    switch safeCondition {
+                                    case "Rain":
+                                        self.weatherColor = Color.gray
+                                        
+                                    default:
+                                        self.weatherColor = Color.yellow
+                                    }
+                                    
                                 }
-                                
-                            }
-                            print("weather is \(weather)")
-    
-                     }
-                    }catch {
-                        print(error)
+                                print("weather is \(weather)")
+        
+                         }
+                        }catch {
+                            print(error)
+                        }
                     }
+                 
+                   
                     
                     
             }
@@ -249,48 +277,93 @@ struct HomeView: View {
                     locationManager.checkIfLocationServiceIsEnabled()
     //                viewModel.checkLocationAuth()
                     
+                    
             }
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbarColorScheme(.dark, for: .navigationBar)
                 .toolbar { // <2>
-                    ToolbarItem(placement: .principal) { // <3>
-                        VStack {
-                            HStack {
-                                
-                                Image(systemName: "location.circle.fill")
-                                    .foregroundColor(weatherColor)
-                                    .shadow(color: .black.opacity(0.3), radius: 9)
-                                
-                                Text(locationManager.locationName ?? "loading")
-                                    .foregroundColor(.white)
-                                    .font(.subheadline)
-                                    .shadow(color: weatherColor, radius: 9)
+                    
+                    ToolbarItem(placement: .navigationBarTrailing, content: {
+                        
+                        Button {
+                            
+                            showReturnedPlace.toggle()
+                            print("show toggel \(showReturnedPlace)")
+                            showingSheet.toggle()
+                           
+
+                        } label: {
+                            
+//                            Image(systemName: "plus.magnifyingglass")
+                            
+                            NavigationLink {
+                                SearchPlacesView(returnedPlace: $thisPlaceReturned, showManualLocation: $manualLocationShow, returnedRegion: $returnedPlace)
+                                    .toolbar(.hidden, for: .bottomBar)
+                            } label: {
+                                VStack{
+                                    Image(systemName: "plus.magnifyingglass")
+
+                                        .foregroundColor(.white)
+                                }
                             }
+
+//                            NavigationLink("+", destination: SearchPlacesView(returnedPlace: $thisPlaceReturned, showManualLocation: $manualLocationShow, returnedRegion: $returnedPlace))
+                        }
+
+                        
+                        
+                    })
+                    ToolbarItem(placement: .navigationBarLeading) { // <3>
+                        
+                        
+                        VStack {
+                            
+                            Button {
+                                showReturnedPlace.toggle()
+                                print("show toggel \(showReturnedPlace)")
+                                showingSheet.toggle()
+                                
+                            } label: {
+                                HStack {
+                                    
+                                    Image(systemName: "location.circle.fill")
+                                        .foregroundColor(weatherColor)
+//                                        .shadow(color: .black.opacity(0.3), radius: 9)
+                                    if manualLocationShow == true {
+                                        Text(thisPlaceReturned.name ?? "loading")
+                                            .foregroundColor(.white)
+                                            .font(.subheadline)
+                                            .shadow(color: weatherColor, radius: 9)
+                                    } else {
+                                        
+                                        Text(locationManager.locationName ?? "loading")
+                                            .foregroundColor(.white)
+                                            .font(.subheadline)
+                                            .shadow(color: weatherColor, radius: 9)
+                                    }
+                                  
+                                }
+                            }
+//                            .sheet(isPresented: $showingSheet) {
+//                                SearchPlacesView(returnedPlace: $thisPlaceReturned, showManualLocation: $manualLocationShow, returnedRegion: $returnedPlace)
+//                            .presentationDetents([.medium, .large])
+//
+                                                            }
+
+                          
 //                            Text("current")
 //                                .font(.system(size: 9))
                         }
                     }
                     
                     
-                    if showButton == false {
-                        
-                        ToolbarItem(placement: .navigationBarTrailing) { // <3>
-                            VStack {
-                              
-                                Button {
-                                    print("Add Pressed")
-                                } label: {
-                                    Image(systemName: "plus")
-                                        .font(.system(.caption2))
-                                }
-
-                                
-                               
-                            }
-                        }
-                        
-                    }
                
+                        
+                  
+               
+                    
+                  
+                     
                     
                     
                 }
@@ -298,7 +371,7 @@ struct HomeView: View {
         
         
     }
-}
+
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
