@@ -52,12 +52,17 @@ struct HomeView: View {
                 
                 
                 LinearGradient(gradient: Gradient(colors: [weatherColor, .black]), startPoint: .top, endPoint: .center)
+//                    .blendMode(.multiply)
                     .opacity(0.9)
                     .edgesIgnoringSafeArea(.all)
-//                    .blendMode(.multiply)
-                LinearGradient(gradient: Gradient(colors: [.clear, .black]), startPoint: .top, endPoint: .center)
-                    .opacity(0.1)
-                    .edgesIgnoringSafeArea(.all)
+                  
+//                LinearGradient(gradient: Gradient(colors: [.clear, .black]), startPoint: .top, endPoint: .center)
+//                    .opacity(0.1)
+//                    .edgesIgnoringSafeArea(.all)
+////
+//                LinearGradient(gradient: Gradient(colors: [weatherColor, .clear]), startPoint: .bottomTrailing, endPoint: .center)
+//                    .opacity(0.9)
+//                    .edgesIgnoringSafeArea(.all)
                    
                
                     ScrollView(.vertical, showsIndicators: false) {
@@ -65,19 +70,21 @@ struct HomeView: View {
                         
                         VStack(alignment: .leading) {
                             
+                            VStack (alignment: .leading){
                             
                             HStack {
                                 Image(systemName: weather?.currentWeather.symbolName ?? "cloud")
                                     .font(.system(size: 30))
                                     .symbolRenderingMode(.palette)
                                     .foregroundStyle(Color.black)
-                                
+                               
                                 Text(weather?.currentWeather.condition.description ?? "loading")
                                     .font(.system(size: 30))
                                     .foregroundColor(.black)
+                               
                                 
                             } .padding(.top, 80)
-                            Text("\(weather?.currentWeather.temperature.formatted(.measurement(width: .abbreviated, usage: .person)) ?? "..")")
+                            Text("\(weather?.currentWeather.temperature.formatted(.measurement(width: .abbreviated, usage: .person)) ?? "--")")
                                 .foregroundColor(.black)
                                 .font(.system(size: 90))
                                 .foregroundColor(.black)
@@ -93,7 +100,7 @@ struct HomeView: View {
                             }.padding(.bottom, 21)
                                 .foregroundColor(.black)
                             
-                            
+                            }.padding(.leading, 24)
                             
                             Spacer()
                             
@@ -123,11 +130,12 @@ struct HomeView: View {
                             
                             VStack {
                                 
-                                
-                                Text("Rain in the next 6 hours")
-                                    .foregroundColor(.gray.opacity(0.6))
-                                    .padding(.leading, 25)
-                                
+                                HStack {
+                                    Text("Rain in the next 6 hours")
+                                        .foregroundColor(.gray.opacity(0.6))
+                                        .padding(.leading, 10)
+                                    Spacer()
+                                }
                                 if let weather {
                                     let safear =  Array(weather.hourlyForecast.filter({ hourlyWeather in
                                         return hourlyWeather.date.timeIntervalSince(Date()) >= 0
@@ -142,10 +150,14 @@ struct HomeView: View {
                             //                       Spacer()
                             VStack(alignment: .center) {
                                 
-                                Text("Today")
-                                    .foregroundColor(.gray.opacity(0.6))
-                                    .padding(.leading, 25)
-                                VStack (spacing: 15){
+                                HStack{
+                                    Text("Today")
+                                        .foregroundColor(.gray.opacity(0.6))
+                                        .padding(.leading, 15)
+                                    Spacer()
+                                }
+                                
+                                VStack (alignment: .center, spacing: 15){
                                     //1
                                     HStack(spacing: 15) {
                                         if let safeWeather = weather?.dailyForecast {
@@ -178,7 +190,8 @@ struct HomeView: View {
                                         }
                                     }
                                 }
-                            } .padding(.top, 15)
+                            }
+                                .padding()
                             
                             
                             
@@ -303,7 +316,9 @@ struct HomeView: View {
                                 VStack{
                                     Image(systemName: "plus.magnifyingglass")
 
-                                        .foregroundColor(.white)
+//                                        .foregroundColor(.white)
+                                        .symbolRenderingMode(.palette)
+                                        .foregroundStyle(Color.white, Color.black)
                                 }
                             }
 

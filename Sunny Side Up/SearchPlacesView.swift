@@ -29,14 +29,45 @@ struct SearchPlacesView: View {
         NavigationStack{
             List(placeVM.places) { place in
                 
-                VStack(alignment: .leading) {
-                    Text(place.name)
-                        .font(.subheadline)
-                        .foregroundColor(.yellow)
+                ZStack {
+                  
+                    Map(coordinateRegion: $placeVM.myRegion)
+                        .frame(height: 90)
+                        .cornerRadius(15)
+
+                    LinearGradient(gradient: Gradient(colors: [.black.opacity(0.8), .black.opacity(0.9)]), startPoint: .top, endPoint: .center)
+//                        .blendMode(.multiply)
+                        .opacity(0.9)
+                        .frame(height: 90)
+                        .cornerRadius(15)
                     
-                    Text(place.address)
-                        .font(.callout)
-                        .foregroundColor(.gray)
+                 
+
+                 
+                VStack(alignment: .leading, spacing: 6) {
+                 
+                    Spacer()
+                   
+                    HStack {
+                        
+                        Image(systemName: "location.circle.fill")
+                            .foregroundColor(.yellow)
+                        
+                        Text(place.name)
+                            .font(.system(size: 15, weight: .semibold))
+                            .shadow(radius: 10)
+                            .foregroundColor(.yellow.opacity(0.9))
+                        Spacer()
+                    }.padding(.leading, 12)
+                    HStack {
+                        Text("+ \(place.address)")
+                            .font(.system(size: 12, weight: .light))
+                            .shadow(radius: 10)
+                            .foregroundColor(.gray)
+                        Spacer()
+                    }.padding(.leading, 12)
+                    
+                 
                     
                 }.onTapGesture {
                     
@@ -45,6 +76,10 @@ struct SearchPlacesView: View {
                     showManualLocation.toggle()
                     dismiss()
                     print("This is selected \(place.name) and latitude is \(place.latitude) and longitude is \(place.longitude) and region is \(place.myRegion)")
+                }
+//                .frame(height: 150)
+                .padding(.bottom, 15)
+                .padding(.top, 21)
                 }
                 
             }.listStyle(.plain)
