@@ -8,6 +8,7 @@
 import SwiftUI
 import MapKit
 import Combine
+import WeatherKit
 
 
 struct SearchPlacesView: View {
@@ -15,7 +16,8 @@ struct SearchPlacesView: View {
     let searchTextPublisher = PassthroughSubject<String, Never>()
     @StateObject private var locationManager = LocationManager()
     @StateObject var placeVM = PlaceViewModel()
-  
+    @State private var weather: Weather?
+    let weatherService = WeatherService.shared
     @Binding var returnedPlace : Place
     @Binding var showManualLocation: Bool
     @Binding var returnedRegion : MKCoordinateRegion
@@ -31,58 +33,96 @@ struct SearchPlacesView: View {
                 
                 ZStack {
                   
-                    Map(coordinateRegion: $placeVM.myRegion)
-                        .frame(height: 90)
-                        .cornerRadius(15)
-
-                    LinearGradient(gradient: Gradient(colors: [.black.opacity(0.8), .black.opacity(0.9)]), startPoint: .top, endPoint: .center)
-//                        .blendMode(.multiply)
-                        .opacity(0.9)
-                        .frame(height: 90)
-                        .cornerRadius(15)
+                    Color.gray
+                        .background(.ultraThickMaterial)
+                        .opacity(0.1)
+                        .frame(height: 75)
+                        .cornerRadius(10)
+//
+//
+//                    Map(coordinateRegion: $placeVM.myRegion)
+//                        .frame(height: 90)
+//                        .cornerRadius(15)
+//
+//                    LinearGradient(gradient: Gradient(colors: [.black.opacity(0.8), .black.opacity(0.9)]), startPoint: .top, endPoint: .center)
+////                        .blendMode(.multiply)
+//                        .opacity(0.9)
+//                        .frame(height: 90)
+//                        .cornerRadius(15)
                     
                  
 
-                 
-                VStack(alignment: .leading, spacing: 6) {
-                 
-                    Spacer()
-                   
-                    HStack {
+                    HStack(alignment: .top){
                         
-                        Image(systemName: "location.circle.fill")
-                            .foregroundColor(.yellow)
+                    
                         
-                        Text(place.name)
-                            .font(.system(size: 15, weight: .semibold))
-                            .shadow(radius: 10)
-                            .foregroundColor(.yellow.opacity(0.9))
-                        Spacer()
-                    }.padding(.leading, 12)
-                    HStack {
-                        Text("+ \(place.address)")
-                            .font(.system(size: 12, weight: .light))
-                            .shadow(radius: 10)
-                            .foregroundColor(.gray)
-                        Spacer()
-                    }.padding(.leading, 12)
+                        VStack(alignment: .leading, spacing: 6) {
+                            
+                            Spacer()
+                            
+                            HStack {
+                                
+//                                Image(systemName: "mappin.circle")
+//                                    .foregroundColor(.yellow)
+                                
+                                Text(place.name)
+                                    .font(.system(size: 16, weight: .regular))
+                                    .shadow(radius: 10)
+                                    .foregroundColor(.yellow.opacity(0.9))
+                                Spacer()
+                            }
+                            HStack {
+                                Text(place.address)
+                                    .font(.system(size: 12, weight: .light))
+                                    .shadow(radius: 10)
+                                    .foregroundColor(.gray)
+                                Spacer()
+                            }
+                            
+                            
+                            
+                        }.onTapGesture {
+                            
+                            returnedPlace = place
+                            returnedRegion = place.myRegion
+                            showManualLocation.toggle()
+                            dismiss()
+                            print("This is selected \(place.name) and latitude is \(place.latitude) and longitude is \(place.longitude) and region is \(place.myRegion)")
+                        }
+                        .padding()
+                        .frame(height: 70)
+                        
+                        
+                        VStack(spacing: 6) {
+                            Image(systemName: weather?.currentWeather.symbolName ?? "ellipsis")
+                            
+                            Text(weather?.currentWeather.temperature.formatted() ?? "--")
+                                .foregroundColor(.gray)
+                        }
+                        .padding()
+                      
+                    }
+                    .frame(height: 75)
                     
-                 
-                    
-                }.onTapGesture {
-                    
-                    returnedPlace = place
-                    returnedRegion = place.myRegion
-                    showManualLocation.toggle()
-                    dismiss()
-                    print("This is selected \(place.name) and latitude is \(place.latitude) and longitude is \(place.longitude) and region is \(place.myRegion)")
-                }
-//                .frame(height: 150)
-                .padding(.bottom, 15)
-                .padding(.top, 21)
-                }
                 
-            }.listStyle(.plain)
+                .task {
+                    do {
+                        
+                        let safeLoca = CLLocation(latitude: place.latitude, longitude: place.longitude)
+                        self.weather = try await weatherService.weather(for: safeLoca)
+                        
+                        
+                    } catch {
+                        print("Error in fetching weather maniual")
+                    }
+                    
+                }
+                }
+                .listRowSeparator(.hidden)
+            }
+           
+            .listStyle(.plain)
+          
                 .searchable(text: $searchText)
                 .navigationTitle("Search")
                 .navigationBarTitleDisplayMode(.inline)
@@ -92,6 +132,7 @@ struct SearchPlacesView: View {
                     showManualLocation = false
                 }
             
+             
                 .onChange(of: searchText) { searchText in
                     
                            searchTextPublisher.send(searchText)

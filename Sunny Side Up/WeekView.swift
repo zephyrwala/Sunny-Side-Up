@@ -24,8 +24,8 @@ struct WeekView: View {
                 Map(coordinateRegion: $locationManger.region, showsUserLocation: true, userTrackingMode: .constant(.follow))
                     .edgesIgnoringSafeArea(.all)
                 
-                
-                LinearGradient(gradient: Gradient(colors: [.yellow, .black]), startPoint: .top, endPoint: .center)
+                LinearGradient(gradient: Gradient(colors: [.black.opacity(0.9), .black]), startPoint: .top, endPoint: .center)
+//                                .blendMode(.multiply)
                     .opacity(0.9)
                     .edgesIgnoringSafeArea(.all)
                 //                .blendMode(.multiply)

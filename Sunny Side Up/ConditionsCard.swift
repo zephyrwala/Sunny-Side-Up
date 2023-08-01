@@ -28,7 +28,8 @@ struct ConditionsCard: View {
             Text(currentWeatherCondition ?? "fetching")
                 .foregroundColor(.gray)
         }.frame(width: 170, height: 90)
-            .background(.black.opacity(0.5))
+//            .background(.black.opacity(0.5))
+            .background(.ultraThickMaterial.opacity(0.9))
 //            .shadow(color: .black.opacity(0.3), radius: 6)
             .cornerRadius(15)
          

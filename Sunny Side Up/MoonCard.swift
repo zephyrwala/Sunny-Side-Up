@@ -42,7 +42,8 @@ struct MoonCard: View {
             }.padding(.trailing, 50)
             
         }.frame(width: UIScreen.main.bounds.width - 20, height: 120)
-            .background(.black.opacity(0.4))
+//            .background(.black.opacity(0.4))
+            .background(.ultraThickMaterial.opacity(0.9))
             .shadow(color: .black.opacity(0.3), radius: 6)
             .cornerRadius(15)
     }

@@ -26,7 +26,7 @@ struct WeeklyChart: View {
 
                                 LineMark(x: .value("Day", weeklyWeatherItem.date.formatted(date: .abbreviated, time: .omitted)),
                                          y: .value("sTemp", weeklyWeatherItem.lowTemperature.formatted(.measurement(width: .abbreviated, usage: .person))), series: .value("Low", "Low Temperature"))
-                                .foregroundStyle(Color.black)
+                                .foregroundStyle(Color.white.opacity(0.7))
                                 .interpolationMethod(.monotone)
                                 .symbol(by: .value("Low", "Low Temperature"))
                                 

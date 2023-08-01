@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		690DB3382A751B01000FDC77 /* ManualLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690DB3372A751B01000FDC77 /* ManualLocationManager.swift */; };
+		690DB33A2A78A6EC000FDC77 /* MainWeatherCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690DB3392A78A6EC000FDC77 /* MainWeatherCard.swift */; };
+		690DB33C2A78A85C000FDC77 /* WeatherCard2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690DB33B2A78A85C000FDC77 /* WeatherCard2.swift */; };
 		69BD74882A59948800492590 /* WeeklyCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BD74872A59948800492590 /* WeeklyCard.swift */; };
 		69C173FD2A595B5900EC91E1 /* Sunny_Side_UpApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C173FC2A595B5900EC91E1 /* Sunny_Side_UpApp.swift */; };
 		69C173FF2A595B5900EC91E1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C173FE2A595B5900EC91E1 /* ContentView.swift */; };
@@ -31,6 +33,8 @@
 
 /* Begin PBXFileReference section */
 		690DB3372A751B01000FDC77 /* ManualLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualLocationManager.swift; sourceTree = "<group>"; };
+		690DB3392A78A6EC000FDC77 /* MainWeatherCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWeatherCard.swift; sourceTree = "<group>"; };
+		690DB33B2A78A85C000FDC77 /* WeatherCard2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherCard2.swift; sourceTree = "<group>"; };
 		69BD74872A59948800492590 /* WeeklyCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyCard.swift; sourceTree = "<group>"; };
 		69C173F92A595B5900EC91E1 /* Sunny Side Up.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sunny Side Up.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		69C173FC2A595B5900EC91E1 /* Sunny_Side_UpApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sunny_Side_UpApp.swift; sourceTree = "<group>"; };
@@ -85,6 +89,7 @@
 		69C173FB2A595B5900EC91E1 /* Sunny Side Up */ = {
 			isa = PBXGroup;
 			children = (
+				690DB3392A78A6EC000FDC77 /* MainWeatherCard.swift */,
 				69CD5DCB2A5C051500DB2402 /* Sunny-Side-Up-Info.plist */,
 				69CD5DCA2A5BDE8400DB2402 /* Sunny Side Up.entitlements */,
 				69C173FC2A595B5900EC91E1 /* Sunny_Side_UpApp.swift */,
@@ -107,6 +112,7 @@
 				69CD5DDC2A72605F00DB2402 /* Place.swift */,
 				69CD5DDE2A726BC100DB2402 /* PlaceViewModel.swift */,
 				690DB3372A751B01000FDC77 /* ManualLocationManager.swift */,
+				690DB33B2A78A85C000FDC77 /* WeatherCard2.swift */,
 			);
 			path = "Sunny Side Up";
 			sourceTree = "<group>";
@@ -194,6 +200,7 @@
 				69CD5DC12A59D47E00DB2402 /* ConditionsCard.swift in Sources */,
 				69C173FD2A595B5900EC91E1 /* Sunny_Side_UpApp.swift in Sources */,
 				69CD5DD72A69557E00DB2402 /* MoonCard.swift in Sources */,
+				690DB33C2A78A85C000FDC77 /* WeatherCard2.swift in Sources */,
 				69CD5DC72A5A63E000DB2402 /* WeekView.swift in Sources */,
 				69CD5DDB2A713B0100DB2402 /* SearchPlacesView.swift in Sources */,
 				69CD5DD92A6AAE9D00DB2402 /* HumidityHour.swift in Sources */,
@@ -201,6 +208,7 @@
 				69BD74882A59948800492590 /* WeeklyCard.swift in Sources */,
 				69C1740B2A59826D00EC91E1 /* HourlyCard.swift in Sources */,
 				69CD5DDD2A72605F00DB2402 /* Place.swift in Sources */,
+				690DB33A2A78A6EC000FDC77 /* MainWeatherCard.swift in Sources */,
 				69CD5DD12A60FFF600DB2402 /* LocalWeatherManager.swift in Sources */,
 				69CD5DD32A62C7A200DB2402 /* WeeklyChart.swift in Sources */,
 				690DB3382A751B01000FDC77 /* ManualLocationManager.swift in Sources */,
@@ -334,7 +342,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Sunny Side Up/Sunny Side Up.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_ASSET_PATHS = "\"Sunny Side Up/Preview Content\"";
 				DEVELOPMENT_TEAM = 4WM2BL94N5;
 				ENABLE_PREVIEWS = YES;
@@ -371,7 +379,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Sunny Side Up/Sunny Side Up.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_ASSET_PATHS = "\"Sunny Side Up/Preview Content\"";
 				DEVELOPMENT_TEAM = 4WM2BL94N5;
 				ENABLE_PREVIEWS = YES;

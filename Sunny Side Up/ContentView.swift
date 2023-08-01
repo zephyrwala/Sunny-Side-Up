@@ -62,42 +62,53 @@ struct ContentView: View {
                     HomeView()
                         .tag(0)
                         .tabItem {
-                                    Image(systemName: "house.fill")
-                                    Text("Home")
-                                }
+                            Image(systemName: weather?.currentWeather.symbolName ?? "sun")
+                                
+                            Text("Today")
+                        }
                     WeekView()
                         .tag(1)
-
-                    MapView()
-                        .tag(2)
-                    
-
-                       
-                }
-                
-//
-                ZStack{
-                    HStack{
-                        ForEach((TabbedItems.allCases), id: \.self){ item in
-                            Button{
-                                selectedTab = item.rawValue
-                                let impactMed = UIImpactFeedbackGenerator(style: .medium)
-                                    impactMed.impactOccurred()
-
-                            } label: {
-                                CustomTabItem(systemName: item.iconName, title: item.title, isActive: (selectedTab == item.rawValue))
-                            }
+                        .tabItem {
+                            Image(systemName: "calendar")
+                            Text("10-Days")
+                            
                         }
-                    }
-                    .padding(6)
-                }
-                .frame(height: 72)
-                //tab bar backgrond blur
-                .background(.black.opacity(0.75))
-
-                .cornerRadius(35)
-                .padding(.horizontal, 30)
-            }.preferredColorScheme(.dark)
+                            MapView()
+                                .tag(2)
+                                .tabItem {
+                                    Image(systemName: "gear")
+                                    Text("Settings")
+                                    
+                                    
+                                    
+                                }
+                            
+                            //
+                            //                ZStack{
+                            //                    HStack{
+                            //                        ForEach((TabbedItems.allCases), id: \.self){ item in
+                            //                            Button{
+                            //                                selectedTab = item.rawValue
+                            //                                let impactMed = UIImpactFeedbackGenerator(style: .medium)
+                            //                                    impactMed.impactOccurred()
+                            //
+                            //                            } label: {
+                            //                                CustomTabItem(systemName: item.iconName, title: item.title, isActive: (selectedTab == item.rawValue))
+                            //                            }
+                            //                        }
+                            //                    }
+                            //                    .padding(6)
+                            //                }
+                            //                .frame(height: 72)
+                            //                //tab bar backgrond blur
+                            //                .background(.black.opacity(0.75))
+                            //
+                            //                .cornerRadius(35)
+                            //                .padding(.horizontal, 30)
+                        }.accentColor(Color.yellow)
+                
+                        }.preferredColorScheme(.dark)
+                
             
               
                 .task(id: locationManager.currentLocation) {
@@ -155,32 +166,32 @@ struct ContentView_Previews: PreviewProvider {
 //}
 
 
-
-extension ContentView{
-    func CustomTabItem(systemName: String, title: String, isActive: Bool) -> some View{
-        HStack(spacing: 10){
-            Spacer()
-            Image(systemName: systemName)
-                .resizable()
-                .renderingMode(.template)
-                .foregroundColor(isActive ? .black : weatherColor)
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 24, height: 24)
-            if isActive{
-                Text(title)
-                    .font(.system(size: 14))
-                    .fontWeight(.medium)
-                    .foregroundColor(isActive ? .black : weatherColor)
-            }
-            Spacer()
-        }
-        .frame(width: isActive ? .infinity : 90, height: 60)
-        .background(isActive ? weatherColor.opacity(0.6) : .clear)
-        .shadow(color: isActive ? weatherColor : .clear, radius: 10, x: 3.0, y: 10.0)
-
-        .cornerRadius(30)
-    }
-}
+//
+//extension ContentView{
+//    func CustomTabItem(systemName: String, title: String, isActive: Bool) -> some View{
+//        HStack(spacing: 10){
+//            Spacer()
+//            Image(systemName: systemName)
+//                .resizable()
+//                .renderingMode(.template)
+//                .foregroundColor(isActive ? .black : weatherColor)
+//                .aspectRatio(contentMode: .fit)
+//                .frame(width: 24, height: 24)
+//            if isActive{
+//                Text(title)
+//                    .font(.system(size: 14))
+//                    .fontWeight(.medium)
+//                    .foregroundColor(isActive ? .black : weatherColor)
+//            }
+//            Spacer()
+//        }
+//        .frame(width: isActive ? .infinity : 90, height: 60)
+//        .background(isActive ? weatherColor.opacity(0.6) : .clear)
+//        .shadow(color: isActive ? weatherColor : .clear, radius: 10, x: 3.0, y: 10.0)
+//
+//        .cornerRadius(30)
+//    }
+//}
 
 
 
@@ -189,7 +200,7 @@ extension UITabBarController {
         super.viewDidAppear(animated)
         let appearance = UITabBarAppearance()
         appearance.backgroundColor = .black
-        appearance.configureWithOpaqueBackground()
+        appearance.configureWithDefaultBackground()
         tabBar.standardAppearance = appearance
     }
 }

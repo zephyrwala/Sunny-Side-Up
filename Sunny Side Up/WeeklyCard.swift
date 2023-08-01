@@ -37,7 +37,8 @@ struct WeeklyCard: View {
                 }
             }.frame(width: UIScreen.main.bounds.width - 30, height: 66)
             
-                .background(.black.opacity(0.4))
+//                .background(.black.opacity(0.4))
+                .background(.ultraThickMaterial.opacity(0.9))
                 .shadow(color: .black.opacity(0.3), radius: 6)
                 .cornerRadius(10)
                 
