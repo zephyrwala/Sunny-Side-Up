@@ -30,7 +30,7 @@ struct MainWeatherCard: View {
                 
                 
             } .padding(.top, 75)
-            Text("\(currentWeather?.currentWeather.temperature.formatted(.measurement(width: .abbreviated, usage: .person)) ?? "--")")
+            Text("\(currentWeather?.currentWeather.temperature.formatted(.measurement(width: .abbreviated, usage: .asProvided)) ?? "--")")
                 .foregroundColor(weatherColorIs)
                 .font(.system(size: 90))
                 .fontWeight(.regular)

@@ -26,20 +26,20 @@ struct PrecipitationHour: View {
                 ForEach(hourPrecipitation.prefix(12), id: \.date.timeIntervalSinceReferenceDate) { hourPrep in
                     
                     LineMark(x: .value("Time", hourPrep.date.formatted(date: .omitted, time: .shortened)), y: .value("Rain", hourPrep.precipitationChance.formatted(.percent)))
-                    
+                        .symbol(by: .value("High", "Rain in the next few hours"))
                         .interpolationMethod(.monotone)
                 }
-            }.frame(width: 950, height: 180)
+            }.frame(width: 950, height: 150)
                 .foregroundColor(weatherColorIs)
                 .chartXAxis{
                     AxisMarks(values: .automatic) { _ in
-                       AxisGridLine(centered: true, stroke: StrokeStyle(dash: [1, 2]))
-                            .foregroundStyle(Color.white.opacity(0.6))
+//                       AxisGridLine(centered: true, stroke: StrokeStyle(dash: [1, 2]))
+//                            .foregroundStyle(Color.white.opacity(0.6))
                        AxisValueLabel()
                             .foregroundStyle(Color.white.opacity(0.6))
                      }
                 }
-                .chartYAxis{
+                .chartYAxis(){
                     AxisMarks(values: .automatic()) { _ in
 //                       AxisGridLine(centered: true, stroke: StrokeStyle(dash: [1, 2]))
 //                            .foregroundStyle(Color.white.opacity(0.6))
@@ -47,6 +47,8 @@ struct PrecipitationHour: View {
                             .foregroundStyle(Color.white.opacity(0.6))
                      }
             }
+            
+
 
            
         }

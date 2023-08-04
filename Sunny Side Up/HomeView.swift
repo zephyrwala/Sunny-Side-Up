@@ -29,7 +29,7 @@ struct HomeView: View {
     @State private var offset = CGFloat.zero
     let weatherService = WeatherService.shared
     @State private var searchText = ""
-    
+    let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
     private var twoColumnGrid = [GridItem(.flexible()), GridItem(.flexible())]
     var body: some View {
         
@@ -38,19 +38,23 @@ struct HomeView: View {
                 if manualLocationShow == true {
                     
                     Map(coordinateRegion: $returnedPlace, showsUserLocation: true, userTrackingMode: .constant(.follow))
+                        .foregroundColor(.yellow)
                         .accentColor(weatherColor)
                         .edgesIgnoringSafeArea(.all)
+                        
                 }else {
 //                    var newStartingLocation = CLLocation(latitude: returnedPlace.latitude, longitude: returnedPlace.longitude)
 //                    var newSpan = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
 //
                     Map(coordinateRegion: $locationManager.region, showsUserLocation: true, userTrackingMode: .constant(.follow))
-                        .accentColor(weatherColor)
+                        .accentColor(Color.black)
                         .edgesIgnoringSafeArea(.all)
+                    
                 }
                
-                LinearGradient(gradient: Gradient(colors: [.black.opacity(0.9), .black]), startPoint: .top, endPoint: .center)
-//                                .blendMode(.multiply)
+                LinearGradient(gradient: Gradient(colors: [.black.opacity(0.9), .black]), startPoint: .top, endPoint: .bottom)
+                   .blendMode(.multiply)
+//                   .background(.ultraThickMaterial)
                     .opacity(0.9)
                     .edgesIgnoringSafeArea(.all)
                 
@@ -80,7 +84,30 @@ struct HomeView: View {
                                
                                 Spacer()
                                 
+                                
+                                VStack {
+                                    
+//                                    HStack {
+//                                        Text("Rain in the next few hours")
+//                                            .foregroundColor(.gray.opacity(0.6))
+//                                            .padding(.leading, 10)
+//                                        Spacer()
+//                                    }
+                                    if let weather {
+                                        let safear =  Array(weather.hourlyForecast.filter({ hourlyWeather in
+                                            return hourlyWeather.date.timeIntervalSince(Date()) >= 0
+                                        }).prefix(24))
+                                        
+                                        
+                                        
+                                        PrecipitationHour(hourPrecipitation: safear, weatherColorIs: weatherColor)
+//                                            .padding()
+                                            .padding(.top, 21)
+                                    }
+                                    
+                                
                                 //MARK: - Hourly chart
+                                
                                 
                                 
                                 VStack(alignment: .leading) {
@@ -98,31 +125,16 @@ struct HomeView: View {
                                                 
                                             }
                                         }
-                                    }
-                                }.padding(.top, 21)
-                                    .padding()
-                                
+                                        
+                                    }.scrollIndicators(.hidden)
+                                    
+                                }.padding(.top, 51)
+//                                    .padding()
+                               
                                 //hourly chart^
-                                
-                                VStack {
-                                    
-                                    HStack {
-                                        Text("Rain in the next 6 hours")
-                                            .foregroundColor(.gray.opacity(0.6))
-                                            .padding(.leading, 10)
-                                        Spacer()
-                                    }
-                                    if let weather {
-                                        let safear =  Array(weather.hourlyForecast.filter({ hourlyWeather in
-                                            return hourlyWeather.date.timeIntervalSince(Date()) >= 0
-                                        }).prefix(24))
-                                        
-                                        
-                                        
-                                        PrecipitationHour(hourPrecipitation: safear, weatherColorIs: weatherColor)
-                                    }
-                                    
+                          
                                 }.padding()
+                                
                                 //                       Spacer()
                                 VStack(alignment: .center) {
                                     
@@ -326,13 +338,13 @@ struct HomeView: View {
                                         Text(thisPlaceReturned.name ?? "loading")
                                             .foregroundColor(.white)
                                             .font(.subheadline)
-                                            .shadow(color: weatherColor, radius: 3)
+//                                            .shadow(color: weatherColor, radius: 3)
                                     } else {
                                         
                                         Text(locationManager.locationName ?? "loading")
                                             .foregroundColor(.white)
                                             .font(.subheadline)
-                                            .shadow(color: weatherColor, radius: 9)
+//                                            .shadow(color: weatherColor, radius: 9)
                                     }
                                   
                                 }

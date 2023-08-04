@@ -20,15 +20,16 @@ struct WeatherCard2: View {
             HStack{
                 
                 VStack{
-                    Text("\(currentWeather?.currentWeather.temperature.formatted(.measurement(width: .abbreviated, usage: .person)) ?? "--")")
+                    Text("\(currentWeather?.currentWeather.temperature.formatted(.measurement(width: .abbreviated, usage: .weather)) ?? "--")")
                         .foregroundColor(weatherColorIs)
                         .font(.system(size: 65))
                         .fontWeight(.regular)
                         .foregroundColor(weatherColorIs)
                     
-                    Text(currentWeather?.currentWeather.condition.description ?? "loading")
-                        .font(.system(size: 30))
-                        .foregroundColor(weatherColorIs)
+                    Text(currentWeather?.currentWeather.condition.description ?? "fetching")
+                       
+                        .font(.system(size: 27, weight: .semibold))
+                        .foregroundColor(.white.opacity(0.7))
                     
                 }
                 

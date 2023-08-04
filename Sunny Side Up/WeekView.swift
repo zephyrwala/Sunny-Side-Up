@@ -61,7 +61,9 @@ struct WeekView: View {
                     }.padding(.top, 12)
                 }
                
-            }.task(id: locationManger.currentLocation) {
+            }
+            
+            .task(id: locationManger.currentLocation) {
                 if let safeLocation = locationManger.currentLocation {
                     do {
                         self.weather = try await weatherManager.getWeather(location: safeLocation)
