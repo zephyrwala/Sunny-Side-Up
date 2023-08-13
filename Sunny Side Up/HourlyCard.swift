@@ -28,6 +28,14 @@ struct HourlyCard: View {
     var body: some View {
         
         ForEach(hourlyWeather, id: \.date.timeIntervalSinceReferenceDate) { hourlyWeatherItem in
+            ZStack{
+               
+                VStack{
+                    Spacer()
+                   
+                    
+                }
+                
             VStack(spacing: 10) {
                 Text(hourlyWeatherItem.date.formatted(date: .omitted, time: .shortened))
                     .font(.system(size: 10))
@@ -36,20 +44,39 @@ struct HourlyCard: View {
                     .symbolRenderingMode(.palette)
                     .foregroundStyle(Color.white, weatherColorIs)
                     .font(.system(size: 21, weight: .bold))
-//                    .foregroundColor(.white)
+                //                    .foregroundColor(.white)
                 Text(hourlyWeatherItem.precipitationChance.formatted(.percent)).font(.system(size: 12))
                     .foregroundColor(.gray)
                 Text(hourlyWeatherItem.temperature.formatted(.measurement(width: .abbreviated, usage: .person)))
                     .font(.system(size: 13))
                     .foregroundColor(weatherColorIs)
             }.frame(width: 80, height: 120)
-              
+            
                 .background(.ultraThickMaterial.opacity(0.9))
             
                 .shadow(color: .black.opacity(0.3), radius: 6)
                 .cornerRadius(15)
-              
-            .opacity(0.8)
+            
+                .opacity(0.8)
+                
+                
+                .overlay {
+                    VStack {
+                        
+                        Spacer(minLength: 0.0)
+                    weatherColorIs.opacity(0.036)
+                        
+                        .frame(width: 80, height: 120 * hourlyWeatherItem.precipitationChance, alignment: .bottom)
+                        .cornerRadius(15)
+                       
+//                        .blendMode(.colorDodge)
+                        .padding(0.0)
+                    }
+                    
+                }
+            
+            
+        }
         }
     }
 }

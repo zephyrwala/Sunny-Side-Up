@@ -48,16 +48,23 @@ struct ContentView: View {
     }
    
     @State private var weather: Weather?
+    
     let weatherService = WeatherService.shared
     @State private var weatherTabIcon = "week"
     @State private var weatherColor = Color.yellow
- 
-    @StateObject private var locationManager = LocationManager()
+ //we make this our environment object
+    @StateObject private var environmentLocationManager = LocationManager()
         @State private var selectedTab = 0
         
         var body: some View {
           
             ZStack(alignment: .bottom){
+                
+                  LinearGradient(gradient: Gradient(colors: [.pink.opacity(0.8), .blue]), startPoint: .top, endPoint: .center)
+  //                                .blendMode(.multiply)
+                      .opacity(0.8)
+                      .edgesIgnoringSafeArea(.all)
+                
                 TabView(selection: $selectedTab) {
                     HomeView()
                         .tag(0)
@@ -107,17 +114,19 @@ struct ContentView: View {
                             //                .padding(.horizontal, 30)
                         }.accentColor(Color.yellow)
                 
+                    .environmentObject(environmentLocationManager)
+                    
                         }.preferredColorScheme(.dark)
                 
             
               
-                .task(id: locationManager.currentLocation) {
-                    locationManager.checkIfLocationServiceIsEnabled()
-                    
+                .task(id: environmentLocationManager.currentLocation) {
+                  
+//                    locationManager.showManualLocation = false
                     
                     do {
                         //TODO: - un comment this for actual location
-                        if let location = locationManager.currentLocation {
+                        if let location = environmentLocationManager.currentLocation {
                            
                           //static location 12.97573174471989, 77.60148697323523
                           
@@ -149,6 +158,7 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+            .environmentObject(LocationManager())
     }
 }
 

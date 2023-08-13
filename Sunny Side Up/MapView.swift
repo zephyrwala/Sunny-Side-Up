@@ -11,8 +11,12 @@ struct MapView: View {
     var body: some View {
         VStack {
             Text("Hello, World!")
+                .foregroundColor(.blue)
+                .padding(.top, 200)
+                Spacer()
                 
-        }.background(.blue)
+        }.edgesIgnoringSafeArea(.all)
+            .background(.clear)
             
     }
 }

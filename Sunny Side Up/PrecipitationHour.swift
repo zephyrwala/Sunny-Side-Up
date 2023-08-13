@@ -26,7 +26,7 @@ struct PrecipitationHour: View {
                 ForEach(hourPrecipitation.prefix(12), id: \.date.timeIntervalSinceReferenceDate) { hourPrep in
                     
                     LineMark(x: .value("Time", hourPrep.date.formatted(date: .omitted, time: .shortened)), y: .value("Rain", hourPrep.precipitationChance.formatted(.percent)))
-                        .symbol(by: .value("High", "Rain in the next few hours"))
+//                        .symbol(by: .value("High", "Rain in the next few hours"))
                         .interpolationMethod(.monotone)
                 }
             }.frame(width: 950, height: 150)

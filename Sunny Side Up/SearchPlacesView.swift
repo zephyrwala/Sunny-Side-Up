@@ -12,9 +12,9 @@ import WeatherKit
 
 
 struct SearchPlacesView: View {
-//    @EnvironmentObject var locationManager : LocationManager
+    @EnvironmentObject var environmentLocationManager : LocationManager
     let searchTextPublisher = PassthroughSubject<String, Never>()
-    @StateObject private var locationManager = LocationManager()
+//    @StateObject private var locationManager = LocationManager()
     @StateObject var placeVM = PlaceViewModel()
     @State private var weather: Weather?
     let weatherService = WeatherService.shared
@@ -82,12 +82,22 @@ struct SearchPlacesView: View {
                             
                             
                         }.onTapGesture {
-                            
+                            environmentLocationManager.returnedPlace = place
                             returnedPlace = place
                             returnedRegion = place.myRegion
-                            showManualLocation.toggle()
+                            environmentLocationManager.showManualLocation = true
+                          
+                            environmentLocationManager.currentLocation = CLLocation(latitude: place.latitude, longitude: place.longitude)
+                            environmentLocationManager.returnedRegion = place.myRegion
+                            DispatchQueue.main.async {
+                                UserDefaults.standard.set(place.latitude, forKey: "lati")
+                                UserDefaults.standard.set(place.longitude, forKey: "longi")
+                            }
+                           
+//                            showManualLocation.toggle()
+                            
                             dismiss()
-                            print("This is selected \(place.name) and latitude is \(place.latitude) and longitude is \(place.longitude) and region is \(place.myRegion)")
+                            print("This is selected \(place.name) and latitude is \(place.latitude) and longitude is \(place.longitude) and region is \(place.myRegion) and location manager \(environmentLocationManager.returnedRegion)")
                         }
                         .padding()
                         .frame(height: 70)
@@ -125,11 +135,11 @@ struct SearchPlacesView: View {
           
                 .searchable(text: $searchText)
                 .navigationTitle("Search")
-                .navigationBarTitleDisplayMode(.inline)
+                .navigationBarTitleDisplayMode(.large)
                 .preferredColorScheme(.dark)
                 .onAppear{
                     
-                    showManualLocation = false
+                   
                 }
             
              
@@ -142,7 +152,7 @@ struct SearchPlacesView: View {
                                .debounce(for: .milliseconds(500), scheduler: DispatchQueue.main)
                        ) { debouncedSearchText in
                            if !debouncedSearchText.isEmpty {
-                               placeVM.search(text: debouncedSearchText, region: locationManager.region)
+                               placeVM.search(text: debouncedSearchText, region: environmentLocationManager.region)
                                print("LOGA \($placeVM.myRegion)")
                            } else {
                                placeVM.places = []
@@ -161,9 +171,14 @@ struct SearchPlacesView: View {
                 .toolbar {
                     
                     ToolbarItem(placement: .navigationBarTrailing, content: {
-                        Button("Dismiss") {
+                        Button("Current Location") {
                             print("Dismissed")
+                            environmentLocationManager.showManualLocation = false
+                            environmentLocationManager.checkLocationSource()
+                            dismiss()
+                            
                         }
+                        
                     })
                 }
         }.preferredColorScheme(.dark)

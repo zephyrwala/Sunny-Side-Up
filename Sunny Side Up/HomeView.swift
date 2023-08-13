@@ -13,17 +13,22 @@ import WeatherKit
 
 struct HomeView: View {
     
-    @StateObject private var locationManager = LocationManager()
+//    @StateObject private var locationManager = LocationManager()
 //    @EnvironmentObject var locationManager: LocationManager
     @State private var weather: Weather?
     @State private var returnedPlace = MKCoordinateRegion()
     @State var thisPlaceReturned = Place(mapItem: MKMapItem())
 
+    @State var testRegion = MKCoordinateRegion(
+            center: .init(latitude: 37.334_900,longitude: -122.009_020),
+            span: .init(latitudeDelta: 0.2, longitudeDelta: 0.2)
+        )
     @State var manualLocationShow = false
     @State private var cityName = "Loading"
-    
+    @EnvironmentObject var environmentLocationManager: LocationManager
     @State private var weatherColor = Color.yellow
     @State private var showReturnedPlace = false
+    @State private var favoriteColor = 0
     @State private var showButton = false
     @State private var showingSheet = false
     @State private var offset = CGFloat.zero
@@ -35,27 +40,33 @@ struct HomeView: View {
         
         NavigationStack {
             ZStack {
-                if manualLocationShow == true {
-                    
-                    Map(coordinateRegion: $returnedPlace, showsUserLocation: true, userTrackingMode: .constant(.follow))
-                        .foregroundColor(.yellow)
-                        .accentColor(weatherColor)
-                        .edgesIgnoringSafeArea(.all)
-                        
-                }else {
+             
 //                    var newStartingLocation = CLLocation(latitude: returnedPlace.latitude, longitude: returnedPlace.longitude)
 //                    var newSpan = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
 //
-                    Map(coordinateRegion: $locationManager.region, showsUserLocation: true, userTrackingMode: .constant(.follow))
-                        .accentColor(Color.black)
-                        .edgesIgnoringSafeArea(.all)
+                
+                if environmentLocationManager.showManualLocation == false {
+                    
+                    Map(coordinateRegion: $environmentLocationManager.region, showsUserLocation: true, userTrackingMode: .constant(.follow))
+                            .accentColor(Color.black)
+                            .edgesIgnoringSafeArea(.all)
+                    
+                }else {
+                    
+                    Map(coordinateRegion: $environmentLocationManager.returnedRegion, showsUserLocation: false, userTrackingMode: .constant(.none))
+                            .accentColor(Color.black)
+                            .edgesIgnoringSafeArea(.all)
                     
                 }
+           
+                
+                    
+                
                
-                LinearGradient(gradient: Gradient(colors: [.black.opacity(0.9), .black]), startPoint: .top, endPoint: .bottom)
+                LinearGradient(gradient: Gradient(colors: [.black.opacity(0.8), .black]), startPoint: .top, endPoint: .center)
                    .blendMode(.multiply)
 //                   .background(.ultraThickMaterial)
-                    .opacity(0.9)
+                    .opacity(0.8)
                     .edgesIgnoringSafeArea(.all)
                 
              
@@ -73,6 +84,13 @@ struct HomeView: View {
                         
                         ZStack{
                             
+                            
+                            LinearGradient(gradient: Gradient(colors: [.green.opacity(0.0), .black.opacity(0.6)]), startPoint: .topLeading, endPoint: .center)
+                                .blendMode(.hardLight)
+//                                .background(.ultraThinMaterial)
+                                 .opacity(0.3)
+                                 .edgesIgnoringSafeArea(.all)
+                             
                             
                           
                             VStack(alignment: .leading) {
@@ -105,6 +123,13 @@ struct HomeView: View {
                                             .padding(.top, 21)
                                     }
                                     
+//                                    Picker("What is your favorite color?", selection: $favoriteColor) {
+//                                                    Text("Red").tag(0)
+//                                                    Text("Green").tag(1)
+//                                                    Text("Blue").tag(2)
+//                                                }
+//                                    .pickerStyle(.segmented)
+//                                    .opacity(0.6)
                                 
                                 //MARK: - Hourly chart
                                 
@@ -228,26 +253,17 @@ struct HomeView: View {
                 }.edgesIgnoringSafeArea(.all)
                 .background(.black)
                 
-                .task(id: locationManager.currentLocation) {
+                .task(id: environmentLocationManager.currentLocation) {
 
+                    
     //                 viewModel.checkIfLocationServiceIsEnabled()
                   
-                    if manualLocationShow == true {
+                
                       
                         do {
                             
-                            let safeLoca = CLLocation(latitude: thisPlaceReturned.latitude, longitude: thisPlaceReturned.longitude)
-                            self.weather = try await weatherService.weather(for: safeLoca)
-                            
-                            
-                        } catch {
-                            print("Error in fetching weather maniual")
-                        }
-                        
-                    } else {
-                        do {
                             //TODO: - un comment this for actual location
-                            if let location = locationManager.currentLocation {
+                            if let location = environmentLocationManager.currentLocation {
                                
                               //static location 12.97573174471989, 77.60148697323523
                               
@@ -267,21 +283,27 @@ struct HomeView: View {
                                 print("weather is \(weather)")
         
                          }
-                        }catch {
-                            print(error)
+                            
+                            
+                        } catch {
+                            print("Error in fetching weather maniual")
                         }
-                    }
+                        
+                    
                  
                    
                     
                     
             }
                 .onAppear{
-                    locationManager.checkIfLocationServiceIsEnabled()
+                   
+//                    environmentLocationManager.checkLocationSource()
+//                    environmentLocation.checkIfLocationServiceIsEnabled()
     //                viewModel.checkLocationAuth()
                     
                     
             }
+            
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbarColorScheme(.dark, for: .navigationBar)
                 .toolbar { // <2>
@@ -300,7 +322,7 @@ struct HomeView: View {
 //                            Image(systemName: "plus.magnifyingglass")
                             
                             NavigationLink {
-                                SearchPlacesView(returnedPlace: $thisPlaceReturned, showManualLocation: $manualLocationShow, returnedRegion: $returnedPlace)
+                                SearchPlacesView(returnedPlace: $thisPlaceReturned, showManualLocation: $environmentLocationManager.showManualLocation, returnedRegion: $returnedPlace)
                                     .toolbar(.hidden, for: .bottomBar)
                             } label: {
                                 VStack{
@@ -315,9 +337,9 @@ struct HomeView: View {
 //                            NavigationLink("+", destination: SearchPlacesView(returnedPlace: $thisPlaceReturned, showManualLocation: $manualLocationShow, returnedRegion: $returnedPlace))
                         }
 
-                        
-                        
+              
                     })
+                    
                     ToolbarItem(placement: .navigationBarLeading) { // <3>
                         
                         
@@ -334,19 +356,24 @@ struct HomeView: View {
                                     Image(systemName: "location.circle.fill")
                                         .foregroundColor(weatherColor)
 //                                        .shadow(color: .black.opacity(0.3), radius: 9)
-                                    if manualLocationShow == true {
+                                    if environmentLocationManager.showManualLocation == true {
                                         Text(thisPlaceReturned.name ?? "loading")
                                             .foregroundColor(.white)
                                             .font(.subheadline)
 //                                            .shadow(color: weatherColor, radius: 3)
                                     } else {
-                                        
-                                        Text(locationManager.locationName ?? "loading")
+
+                                        Text(environmentLocationManager.locationName ?? "loading")
                                             .foregroundColor(.white)
                                             .font(.subheadline)
 //                                            .shadow(color: weatherColor, radius: 9)
                                     }
-                                  
+                                    
+                                    
+//                                    Text(environmentLocation.locationName ?? "loading")
+//                                        .foregroundColor(.white)
+//                                        .font(.subheadline)
+//
                                 }
                             }
 //                            .sheet(isPresented: $showingSheet) {
