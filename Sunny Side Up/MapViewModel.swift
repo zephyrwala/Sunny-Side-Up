@@ -7,6 +7,7 @@
 
 
 import MapKit
+import WeatherKit
 
 enum MapDetails {
     
@@ -22,8 +23,9 @@ enum MapDetails {
     @Published var showManualLocation = false
     @Published var currentLocation : CLLocation?
     @Published var locationName : String?
+    @Published var weather: Weather?
     @Published var region = MKCoordinateRegion(
-           center: .init(latitude: 37.334_900, longitude: -122.009_020),
+        center: .init(latitude: 0.0, longitude: 0.0),
            span: .init(latitudeDelta: 0.5, longitudeDelta: 0.5)
        )
     @Published var returnedRegion = MKCoordinateRegion(center: MapDetails.startingLocation, span: MapDetails.defaultSpan)
@@ -36,6 +38,10 @@ enum MapDetails {
            
         self.locationManager.delegate = self
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+//        self.region = MKCoordinateRegion(
+//            center: .init(latitude: currentLocation?.coordinate.latitude ?? 37.334_900, longitude: currentLocation?.coordinate.longitude ?? -122.009_020),
+//            span: .init(latitudeDelta: 0.5, longitudeDelta: 0.5)
+//        )
         self.setup()
 //           self.checkLocationSource()
        }
@@ -68,13 +74,14 @@ enum MapDetails {
                 locationManager.startUpdatingLocation()
                 locationManager.requestWhenInUseAuthorization()
                            
-                
+                //NOTE: - this has been modified
             case .authorizedAlways:
-                DispatchQueue.main.async { [self] in
-                    region = MKCoordinateRegion(center: locationManager.location!.coordinate, span: MapDetails.defaultSpan)
+//                DispatchQueue.main.async { [self] in
+                region = MKCoordinateRegion(center: locationManager.location!.coordinate, span: MapDetails.defaultSpan)
+            
+               
     
-    
-                }
+//                }
                 
             default:
                 break
@@ -155,6 +162,8 @@ extension LocationManager: CLLocationManagerDelegate {
                     DispatchQueue.main.async {
                         print("Location name - \(safeLocation)")
                         self.locationName = "\(safeCityName) | \(safeLocation)"
+                        
+                        
                     }
                     
                 }
@@ -172,7 +181,8 @@ extension LocationManager: CLLocationManagerDelegate {
         
         DispatchQueue.main.async {
             self.currentLocation = location
-            
+          
+         
         }
     }
     

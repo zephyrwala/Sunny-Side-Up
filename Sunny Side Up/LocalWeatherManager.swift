@@ -28,7 +28,7 @@ import MapKit
             if let safeloopweather = weather?.minuteForecast {
                
                 for eachweather in safeloopweather {
-                    print("minute is \(eachweather.precipitationChance.formatted(.percent))")
+//                    print("minute is \(eachweather.precipitationChance.formatted(.percent))")
                 }
                 
             }

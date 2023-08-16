@@ -10,13 +10,25 @@ import MapKit
 
 @MainActor class ManualLocationManager: ObservableObject {
     
- 
+    @Published var weekLati: Double {
+           didSet {
+               UserDefaults.standard.set(weekLati, forKey: "lati")
+           }
+       }
+    @Published var weekLongi: Double {
+           didSet {
+               UserDefaults.standard.set(weekLongi, forKey: "longi")
+           }
+       }
     @Published var manualLocation : CLLocation?
+    
     @Published var manualRegion = MKCoordinateRegion(center: MapDetails.startingLocation, span: MapDetails.defaultSpan)
     
     init(manualLocation: CLLocation? = nil, manualRegion: MKCoordinateRegion = MKCoordinateRegion(center: MapDetails.startingLocation, span: MapDetails.defaultSpan)) {
         self.manualLocation = manualLocation
         self.manualRegion = manualRegion
+        self.weekLati = UserDefaults.standard.object(forKey: "longi") as? Double ?? 0.9
+        self.weekLongi = UserDefaults.standard.object(forKey: "longi") as? Double ?? 0.1
         setupManual()
        
     }

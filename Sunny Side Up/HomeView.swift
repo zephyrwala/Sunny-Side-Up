@@ -15,7 +15,10 @@ struct HomeView: View {
     
 //    @StateObject private var locationManager = LocationManager()
 //    @EnvironmentObject var locationManager: LocationManager
-    @State private var weather: Weather?
+//    @State private var weather: Weather?
+    
+    @AppStorage ("latits") private var latits = 0.0
+    @AppStorage ("longis") private var longis = 0.0
     @State private var returnedPlace = MKCoordinateRegion()
     @State var thisPlaceReturned = Place(mapItem: MKMapItem())
 
@@ -23,6 +26,9 @@ struct HomeView: View {
             center: .init(latitude: 37.334_900,longitude: -122.009_020),
             span: .init(latitudeDelta: 0.2, longitudeDelta: 0.2)
         )
+    
+   
+   
     @State var manualLocationShow = false
     @State private var cityName = "Loading"
     @EnvironmentObject var environmentLocationManager: LocationManager
@@ -47,13 +53,14 @@ struct HomeView: View {
                 
                 if environmentLocationManager.showManualLocation == false {
                     
+                  
                     Map(coordinateRegion: $environmentLocationManager.region, showsUserLocation: true, userTrackingMode: .constant(.follow))
                             .accentColor(Color.black)
                             .edgesIgnoringSafeArea(.all)
                     
                 }else {
                     
-                    Map(coordinateRegion: $environmentLocationManager.returnedRegion, showsUserLocation: false, userTrackingMode: .constant(.none))
+                    Map(coordinateRegion: $returnedPlace, showsUserLocation: false, userTrackingMode: .constant(.none))
                             .accentColor(Color.black)
                             .edgesIgnoringSafeArea(.all)
                     
@@ -94,10 +101,11 @@ struct HomeView: View {
                             
                           
                             VStack(alignment: .leading) {
-                                
+//
+                               
 //                                MainWeatherCard(currentWeather: weather, weatherColorIs: weatherColor)
-                                
-                                WeatherCard2(currentWeather: weather, weatherColorIs: weatherColor)
+
+                                WeatherCard2(currentWeather: environmentLocationManager.weather, weatherColorIs: weatherColor)
                                 
                                
                                 Spacer()
@@ -111,8 +119,8 @@ struct HomeView: View {
 //                                            .padding(.leading, 10)
 //                                        Spacer()
 //                                    }
-                                    if let weather {
-                                        let safear =  Array(weather.hourlyForecast.filter({ hourlyWeather in
+                                    if let safeWeather = environmentLocationManager.weather {
+                                        let safear =  Array(safeWeather.hourlyForecast.filter({ hourlyWeather in
                                             return hourlyWeather.date.timeIntervalSince(Date()) >= 0
                                         }).prefix(24))
                                         
@@ -140,8 +148,8 @@ struct HomeView: View {
                                     
                                     ScrollView(.horizontal) {
                                         HStack(spacing: 12) {
-                                            if let weather {
-                                                let safear =  Array(weather.hourlyForecast.filter({ hourlyWeather in
+                                            if let safeWeather = environmentLocationManager.weather {
+                                                let safear =  Array(safeWeather.hourlyForecast.filter({ hourlyWeather in
                                                     return hourlyWeather.date.timeIntervalSince(Date()) >= 0
                                                 }).prefix(25))
                                                 
@@ -173,14 +181,14 @@ struct HomeView: View {
                                     VStack (alignment: .center, spacing: 15){
                                         //1
                                         HStack(spacing: 15) {
-                                            if let safeWeather = weather?.dailyForecast {
+                                            if let safeWeather = environmentLocationManager.weather?.dailyForecast {
                                                 if let sunrise = safeWeather[0].sun.sunrise {
                                                     ConditionsCard(currentWeatherCondition: "Sunrise", weatherconditionValue: "\(sunrise.formatted(date: .omitted, time: .shortened))", weatherColorIs: weatherColor, icons: "sunrise.fill")
                                                 }
                                             }
                                             
                                             
-                                            if let safeWeather = weather?.dailyForecast {
+                                            if let safeWeather = environmentLocationManager.weather?.dailyForecast {
                                                 if let sunrise = safeWeather[0].sun.sunset {
                                                     ConditionsCard(currentWeatherCondition: "Sunset", weatherconditionValue: "\(sunrise.formatted(date: .omitted, time: .shortened))", weatherColorIs: weatherColor, icons: "sunset.fill")
                                                 }
@@ -190,13 +198,13 @@ struct HomeView: View {
                                         //2
                                         HStack(spacing: 15) {
                                             
-                                            if let safeWeather = weather?.dailyForecast {
+                                            if let safeWeather = environmentLocationManager.weather?.dailyForecast {
                                                 
                                                 ConditionsCard(currentWeatherCondition: "Rain", weatherconditionValue: "\(safeWeather[0].precipitationChance.formatted(.percent))", weatherColorIs: weatherColor, icons: "drop.degreesign.fill")
                                                 
                                             }
                                             
-                                            if let safeWeather = weather?.currentWeather {
+                                            if let safeWeather = environmentLocationManager.weather?.currentWeather {
                                                 
                                                 ConditionsCard(currentWeatherCondition: "Humidity", weatherconditionValue: "\(safeWeather.humidity.formatted(.percent))", weatherColorIs: weatherColor, icons: "humidity.fill")
                                                 
@@ -219,8 +227,8 @@ struct HomeView: View {
                                 
                                 
                                 
-                                if let weather {
-                                    let safear =  Array(weather.hourlyForecast.filter({ hourlyWeather in
+                                if let safeWeather = environmentLocationManager.weather {
+                                    let safear =  Array(safeWeather.hourlyForecast.filter({ hourlyWeather in
                                         return hourlyWeather.date.timeIntervalSince(Date()) >= 0
                                     }).prefix(24))
                                     
@@ -259,44 +267,58 @@ struct HomeView: View {
     //                 viewModel.checkIfLocationServiceIsEnabled()
                   
                 
-                      
+
                         do {
-                            
+
                             //TODO: - un comment this for actual location
                             if let location = environmentLocationManager.currentLocation {
-                               
+
                               //static location 12.97573174471989, 77.60148697323523
+
+                                self.latits = (self.environmentLocationManager.currentLocation?.coordinate.latitude)!
+                                self.longis = (self.environmentLocationManager.currentLocation?.coordinate.longitude)!
+//                                DispatchQueue.main.async {
+//                                    UserDefaults.standard.set(self.environmentLocationManager.currentLocation?.coordinate.latitude, forKey: "lati")
+//                                   UserDefaults.standard.set(self.environmentLocationManager.currentLocation?.coordinate.longitude, forKey: "longi")
+//                                }
                               
-                                self.weather = try await weatherService.weather(for: location)
-                              
-                                if let safeCondition = weather?.currentWeather.condition.description {
+                                 
+                                 print("This is user def lati :\(self.latits) and longi \(self.longis)")
                                     
+                                self.environmentLocationManager.weather = try await weatherService.weather(for: location)
+
+                                if let safeCondition = environmentLocationManager.weather?.currentWeather.condition.description {
+
                                     switch safeCondition {
                                     case "Rain":
                                         self.weatherColor = Color.yellow
-                                        
+
                                     default:
                                         self.weatherColor = Color.yellow
                                     }
-                                    
+
                                 }
-                                print("weather is \(weather)")
-        
+//                                print("weather is \(weather)")
+
                          }
-                            
-                            
+
+
                         } catch {
                             print("Error in fetching weather maniual")
                         }
-                        
-                    
-                 
+
+
+
                    
                     
                     
             }
                 .onAppear{
-                   
+                    
+                    
+               
+                    
+                    
 //                    environmentLocationManager.checkLocationSource()
 //                    environmentLocation.checkIfLocationServiceIsEnabled()
     //                viewModel.checkLocationAuth()
@@ -308,7 +330,7 @@ struct HomeView: View {
                 .toolbarColorScheme(.dark, for: .navigationBar)
                 .toolbar { // <2>
                     
-                    ToolbarItem(placement: .navigationBarTrailing, content: {
+                    ToolbarItem(placement: .principal, content: {
                         
                         Button {
                             
@@ -326,11 +348,30 @@ struct HomeView: View {
                                     .toolbar(.hidden, for: .bottomBar)
                             } label: {
                                 VStack{
-                                    Image(systemName: "plus.magnifyingglass")
+                                    HStack {
+                                        
+                                        Image(systemName: "location.circle.fill")
+                                            .foregroundColor(weatherColor)
+    //                                        .shadow(color: .black.opacity(0.3), radius: 9)
+                                        if environmentLocationManager.showManualLocation == true {
+                                            Text(thisPlaceReturned.name ?? "loading")
+                                                .foregroundColor(.white)
+                                                .font(.subheadline)
+    //                                            .shadow(color: weatherColor, radius: 3)
+                                        } else {
 
-//                                        .foregroundColor(.white)
-                                        .symbolRenderingMode(.palette)
-                                        .foregroundStyle(Color.white, Color.black)
+                                            Text(environmentLocationManager.locationName ?? "loading")
+                                                .foregroundColor(.white)
+                                                .font(.subheadline)
+    //                                            .shadow(color: weatherColor, radius: 9)
+                                        }
+                                        
+                                        
+    //                                    Text(environmentLocation.locationName ?? "loading")
+    //                                        .foregroundColor(.white)
+    //                                        .font(.subheadline)
+    //
+                                    }
                                 }
                             }
 
@@ -340,52 +381,53 @@ struct HomeView: View {
               
                     })
                     
-                    ToolbarItem(placement: .navigationBarLeading) { // <3>
-                        
-                        
-                        VStack {
-                            
-                            Button {
-                                showReturnedPlace.toggle()
-                                print("show toggel \(showReturnedPlace)")
-                                showingSheet.toggle()
-                                
-                            } label: {
-                                HStack {
-                                    
-                                    Image(systemName: "location.circle.fill")
-                                        .foregroundColor(weatherColor)
-//                                        .shadow(color: .black.opacity(0.3), radius: 9)
-                                    if environmentLocationManager.showManualLocation == true {
-                                        Text(thisPlaceReturned.name ?? "loading")
-                                            .foregroundColor(.white)
-                                            .font(.subheadline)
-//                                            .shadow(color: weatherColor, radius: 3)
-                                    } else {
-
-                                        Text(environmentLocationManager.locationName ?? "loading")
-                                            .foregroundColor(.white)
-                                            .font(.subheadline)
-//                                            .shadow(color: weatherColor, radius: 9)
-                                    }
-                                    
-                                    
-//                                    Text(environmentLocation.locationName ?? "loading")
-//                                        .foregroundColor(.white)
-//                                        .font(.subheadline)
+//                    ToolbarItem(placement: .navigationBarLeading) { // <3>
 //
-                                }
-                            }
-//                            .sheet(isPresented: $showingSheet) {
-//                                SearchPlacesView(returnedPlace: $thisPlaceReturned, showManualLocation: $manualLocationShow, returnedRegion: $returnedPlace)
-//                            .presentationDetents([.medium, .large])
 //
-                                                            }
-
-                          
-//                            Text("current")
-//                                .font(.system(size: 9))
-                        }
+//                        VStack {
+//
+//                            Button {
+//                                showReturnedPlace.toggle()
+//                                print("show toggel \(showReturnedPlace)")
+//                                showingSheet.toggle()
+//
+//                            } label: {
+//
+//                                HStack {
+//
+//                                    Image(systemName: "location.circle.fill")
+//                                        .foregroundColor(weatherColor)
+////                                        .shadow(color: .black.opacity(0.3), radius: 9)
+//                                    if environmentLocationManager.showManualLocation == true {
+//                                        Text(thisPlaceReturned.name ?? "loading")
+//                                            .foregroundColor(.white)
+//                                            .font(.subheadline)
+////                                            .shadow(color: weatherColor, radius: 3)
+//                                    } else {
+//
+//                                        Text(environmentLocationManager.locationName ?? "loading")
+//                                            .foregroundColor(.white)
+//                                            .font(.subheadline)
+////                                            .shadow(color: weatherColor, radius: 9)
+//                                    }
+//
+//
+////                                    Text(environmentLocation.locationName ?? "loading")
+////                                        .foregroundColor(.white)
+////                                        .font(.subheadline)
+////
+//                                }
+//                            }
+////                            .sheet(isPresented: $showingSheet) {
+////                                SearchPlacesView(returnedPlace: $thisPlaceReturned, showManualLocation: $manualLocationShow, returnedRegion: $returnedPlace)
+////                            .presentationDetents([.medium, .large])
+////
+//                                                            }
+//
+//
+////                            Text("current")
+////                                .font(.system(size: 9))
+//                        }
                     }
                     
                     

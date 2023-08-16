@@ -69,7 +69,7 @@ struct ContentView: View {
                     HomeView()
                         .tag(0)
                         .tabItem {
-                            Image(systemName: weather?.currentWeather.symbolName ?? "sun")
+                            Image(systemName: environmentLocationManager.weather?.currentWeather.symbolName ?? "sun")
                                 
                             Text("Today")
                         }
@@ -120,37 +120,38 @@ struct ContentView: View {
                 
             
               
-                .task(id: environmentLocationManager.currentLocation) {
-                  
-//                    locationManager.showManualLocation = false
-                    
-                    do {
-                        //TODO: - un comment this for actual location
-                        if let location = environmentLocationManager.currentLocation {
-                           
-                          //static location 12.97573174471989, 77.60148697323523
-                          
-                            self.weather = try await weatherService.weather(for: location)
-                          
-                            if let safeCondition = weather?.currentWeather.condition.description {
-                                
-                                switch safeCondition {
-                                case "Rain":
-                                    self.weatherColor = Color.gray
-                                    
-                                default:
-                                    self.weatherColor = Color.yellow
-                                }
-                                
-                            }
-                            print("weather is \(weather)")
-    
-                     }
-                    }catch {
-                        print(error)
-                    }
-                
-                }
+//                .task(id: environmentLocationManager.currentLocation) {
+//
+////                    locationManager.showManualLocation = false
+//
+//                    do {
+//                        //TODO: - un comment this for actual location
+//                        if let location = environmentLocationManager.currentLocation {
+//
+//                          //static location 12.97573174471989, 77.60148697323523
+//
+//                            self.weather = try await weatherService.weather(for: location)
+//
+//                            environmentLocationManager.weather = self.weather
+//                            if let safeCondition = weather?.currentWeather.condition.description {
+//
+//                                switch safeCondition {
+//                                case "Rain":
+//                                    self.weatherColor = Color.gray
+//
+//                                default:
+//                                    self.weatherColor = Color.yellow
+//                                }
+//
+//                            }
+//                            print("weather is \(weather)")
+//
+//                     }
+//                    }catch {
+//                        print(error)
+//                    }
+//
+//                }
         }
     
 }

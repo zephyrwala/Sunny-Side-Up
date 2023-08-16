@@ -12,12 +12,17 @@ import MapKit
 struct WeekView: View {
     
     
-   
+    @AppStorage ("latits") private var latits = 0.0
+    @AppStorage ("longis") private var longis = 0.0
     @State private var weather: Weather?
+//    @State private var latits = UserDefaults.standard.double(forKey: "lati")
+//    @State private var longits = UserDefaults.standard.double(forKey: "longi")
+   
     @State private var weatherColor = Color.yellow
    @StateObject private var userdef = ManualLocationManager()
     let weatherService = WeatherService.shared
-//    @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
+    @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 21.4, longitude: 77.5), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
+ 
 //    @StateObject private var locationManger = LocationManager()
     @EnvironmentObject var environmentLocationManager: LocationManager
     @StateObject private var weatherManager = LocalWeatherManager()
@@ -25,19 +30,20 @@ struct WeekView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                if environmentLocationManager.showManualLocation == false {
+//                if environmentLocationManager.showManualLocation == false {
+//
+//                    Map(coordinateRegion: $environmentLocationManager.region, showsUserLocation: false, userTrackingMode: .constant(.none))
+//                            .accentColor(Color.black)
+//                            .edgesIgnoringSafeArea(.all)
                     
-                    Map(coordinateRegion: $environmentLocationManager.region, showsUserLocation: true, userTrackingMode: .constant(.follow))
-                            .accentColor(Color.black)
-                            .edgesIgnoringSafeArea(.all)
-                    
-                }else {
+//                }else {
+                
                    
-                    Map(coordinateRegion: $userdef.manualRegion, showsUserLocation: false, userTrackingMode: .constant(.none))
-                            .accentColor(Color.black)
+                Map(coordinateRegion: $region)
+                            .accentColor(Color.pink)
                             .edgesIgnoringSafeArea(.all)
                     
-                }
+//                }
               
                 LinearGradient(gradient: Gradient(colors: [.black.opacity(0.8), .black]), startPoint: .top, endPoint: .center)
 //                                .blendMode(.multiply)
@@ -58,7 +64,7 @@ struct WeekView: View {
 //
 //                    }
 //                    .padding(.bottom, 56)
-                        if let saferWeather = weather {
+                        if let saferWeather = environmentLocationManager.weather {
                             WeeklyChart(weeklyWeather: saferWeather.dailyForecast.forecast)
 //                             .frame(height: 300)
                              .foregroundColor(.black)
@@ -67,7 +73,7 @@ struct WeekView: View {
                       
                     VStack(spacing: 15) {
                         Spacer()
-                        if let safeWeather = weather {
+                        if let safeWeather = environmentLocationManager.weather {
                             WeeklyCard(weeklyWeather: safeWeather.dailyForecast.forecast)
                         }
                             
@@ -79,85 +85,95 @@ struct WeekView: View {
             }
             
             .onAppear() {
+              
+                DispatchQueue.main.async {
+                    var safeCo = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: latits, longitude: longis), span: MapDetails.defaultSpan)
+                    
+                    self.region = safeCo
+    //                safeCo = self.region
+    //                userdef.setupManual()
+                    print("weekview user def is \(self.latits) and \(self.longis)")
+                }
                 
-                userdef.setupManual()
                 
             }
-            .task(id: environmentLocationManager.currentLocation) {
+//            .task(id: environmentLocationManager.currentLocation) {
 
                 
 //                 viewModel.checkIfLocationServiceIsEnabled()
               
-            
-                if environmentLocationManager.showManualLocation == true {
-                    do {
-                        
-                        //TODO: - un comment this for actual location
-                        environmentLocationManager.currentLocation = CLLocation(latitude: environmentLocationManager.returnedPlace?.latitude ?? 0.0, longitude: environmentLocationManager.returnedPlace?.longitude ?? 0.0)
-                        if let location = environmentLocationManager.currentLocation {
-                           
-                          //static location 12.97573174471989, 77.60148697323523
-                          
-                            self.weather = try await weatherService.weather(for: location)
-                          
-                            if let safeCondition = weather?.currentWeather.condition.description {
-                                
-                                switch safeCondition {
-                                case "Rain":
-                                    self.weatherColor = Color.yellow
-                                    
-                                default:
-                                    self.weatherColor = Color.yellow
-                                }
-                                
-                            }
-//                            print("weather is \(weather)")
-    
-                     }
-                        
-                        
-                    } catch {
-                        print("Error in fetching weather maniual")
-                    }
-                    
-                } else {
-                    do {
-                        
-                        //TODO: - un comment this for actual location
-                        if let location = environmentLocationManager.currentLocation {
-                           
-                          //static location 12.97573174471989, 77.60148697323523
-                          
-                            self.weather = try await weatherService.weather(for: location)
-                          
-                            if let safeCondition = weather?.currentWeather.condition.description {
-                                
-                                switch safeCondition {
-                                case "Rain":
-                                    self.weatherColor = Color.yellow
-                                    
-                                default:
-                                    self.weatherColor = Color.yellow
-                                }
-                                
-                            }
-//                            print("weather is \(weather)")
-    
-                     }
-                        
-                        
-                    } catch {
-                        print("Error in fetching weather maniual")
-                    }
-                }
+                //comment from here
+//
+//                if environmentLocationManager.showManualLocation == true {
+//                    do {
+//
+//                        //TODO: - un comment this for actual location
+//                        environmentLocationManager.currentLocation = CLLocation(latitude: environmentLocationManager.returnedPlace?.latitude ?? 0.0, longitude: environmentLocationManager.returnedPlace?.longitude ?? 0.0)
+//                        if let location = environmentLocationManager.currentLocation {
+//
+//                          //static location 12.97573174471989, 77.60148697323523
+//
+//                            self.weather = try await weatherService.weather(for: location)
+//
+//                            if let safeCondition = weather?.currentWeather.condition.description {
+//
+//                                switch safeCondition {
+//                                case "Rain":
+//                                    self.weatherColor = Color.yellow
+//
+//                                default:
+//                                    self.weatherColor = Color.yellow
+//                                }
+//
+//                            }
+////                            print("weather is \(weather)")
+//
+//                     }
+//
+//
+//                    } catch {
+//                        print("Error in fetching weather maniual")
+//                    }
+//
+//                } else {
+//                    do {
+//
+//                        //TODO: - un comment this for actual location
+//                        if let location = environmentLocationManager.currentLocation {
+//
+//                          //static location 12.97573174471989, 77.60148697323523
+//
+//                            self.weather = try await weatherService.weather(for: location)
+//
+//                            if let safeCondition = weather?.currentWeather.condition.description {
+//
+//                                switch safeCondition {
+//                                case "Rain":
+//                                    self.weatherColor = Color.yellow
+//
+//                                default:
+//                                    self.weatherColor = Color.yellow
+//                                }
+//
+//                            }
+////                            print("weather is \(weather)")
+//
+//                     }
+//
+//
+//                    } catch {
+//                        print("Error in fetching weather maniual")
+//                    }
+//                }
                   
+                //uncommenmt till here
                     
                 
              
                
                 
-                
-        }
+//
+//        }
             
 //            .task(id: environmentLocation.currentLocation) {
 //

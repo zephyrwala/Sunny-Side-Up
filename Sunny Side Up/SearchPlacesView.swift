@@ -23,12 +23,14 @@ struct SearchPlacesView: View {
     @Binding var returnedRegion : MKCoordinateRegion
     
     //binding step one done
-    
+    @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 21.4, longitude: 77.5), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
     @State private var searchText = ""
     @Environment(\.dismiss) private var dismiss
 //    var places = ["Kurla", "Dadar", "Byculla", "Nashik"]
     var body: some View {
         NavigationStack{
+            
+            
             List(placeVM.places) { place in
                 
                 ZStack {
@@ -40,9 +42,7 @@ struct SearchPlacesView: View {
                         .cornerRadius(10)
 //
 //
-//                    Map(coordinateRegion: $placeVM.myRegion)
-//                        .frame(height: 90)
-//                        .cornerRadius(15)
+                
 //
 //                    LinearGradient(gradient: Gradient(colors: [.black.opacity(0.8), .black.opacity(0.9)]), startPoint: .top, endPoint: .center)
 ////                        .blendMode(.multiply)
@@ -88,7 +88,7 @@ struct SearchPlacesView: View {
                             environmentLocationManager.showManualLocation = true
                           
                             environmentLocationManager.currentLocation = CLLocation(latitude: place.latitude, longitude: place.longitude)
-                            environmentLocationManager.returnedRegion = place.myRegion
+                            environmentLocationManager.region = place.myRegion
                             DispatchQueue.main.async {
                                 UserDefaults.standard.set(place.latitude, forKey: "lati")
                                 UserDefaults.standard.set(place.longitude, forKey: "longi")
@@ -178,9 +178,9 @@ struct SearchPlacesView: View {
                             dismiss()
                             
                         }
-                        
                     })
                 }
+            
         }.preferredColorScheme(.dark)
             .accentColor(.gray)
 
