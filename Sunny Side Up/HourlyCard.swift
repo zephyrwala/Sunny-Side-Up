@@ -50,7 +50,7 @@ struct HourlyCard: View {
                 Text(hourlyWeatherItem.temperature.formatted(.measurement(width: .abbreviated, usage: .person)))
                     .font(.system(size: 13))
                     .foregroundColor(weatherColorIs)
-            }.frame(width: 80, height: 120)
+            }.frame(width: 66, height: 120)
             
                 .background(.ultraThickMaterial.opacity(0.9))
             

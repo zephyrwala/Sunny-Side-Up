@@ -34,21 +34,35 @@ struct PrecipitationHour: View {
                     var newValues = [Double]()
 //                    newValues.append(hourPrep.temperature.converted(to: <#T##UnitTemperature#>))
                     
-                    LineMark(x: .value("Time", hourPrep.date.formatted(date: .omitted, time: .shortened)), y: .value("Rain", hourPrep.temperature.formatted()))
+                    LineMark(x: .value("Time", hourPrep.date.formatted(date: .omitted, time: .shortened)), y: .value("Rain", hourPrep.temperature.value))
 //                        .symbol(by: .value("High", "Rain in the next few hours"))
                         .symbol{
-                            VStack{
-                                Text(hourPrep.temperature.formatted())
-                                    .font(.system(.caption2))
-                                    .foregroundColor(weatherColorIs)
-                                    .padding(.bottom, 8)
+                         
+//                                Text(hourPrep.temperature.formatted())
+//                                    .font(.system(.caption2))
+//                                    .foregroundColor(weatherColorIs)
+//                                    .padding(.bottom, 8)
+                            ZStack{
+                                Circle()
+                                    .foregroundColor(Color.black.opacity(0.75))
+                                    .frame(height: 42)
+                                VStack{
+                                    Image(systemName: "\(hourPrep.symbolName)")
+                                        .symbolRenderingMode(.palette)
+                                        .foregroundStyle(Color.white, weatherColorIs)
+                                        .opacity(0.9)
+                                        .padding(.top, 10)
+                                       
+                                    
+                                    
+                                    Text(hourPrep.temperature.formatted())
+                                        .font(.system(.caption2))
+                                        .foregroundColor(weatherColorIs)
+                                    //                                            .padding(.bottom, 8)
+                                }
                                 
-                               
-                                Image(systemName: "\(hourPrep.symbolName).fill")
-                                    .symbolRenderingMode(.palette)
-                                    .foregroundStyle(Color.white, weatherColorIs)
-                                    .opacity(0.9)
-                                    .padding(.bottom, 8)
+                            }
+//                                    .padding(.bottom, 8)
 
                                 
 //                                Text(hourPrep.date.formatted(date: .omitted, time: .shortened))
@@ -56,7 +70,7 @@ struct PrecipitationHour: View {
 //                                    .padding(.bottom, 8)
 //                                    .foregroundColor(.white)
                                 
-                            }.padding()
+                            
                         }
                         .interpolationMethod(.catmullRom)
                     
@@ -72,13 +86,17 @@ struct PrecipitationHour: View {
                     
                     
                 }
-            }.frame(width: 1050, height: 240)
+            }.frame(width: 1250, height: 175)
 //                .chartYScale(domain: [UnitTemperature(rawValue: 0), UnitTemperature(rawValue: 100)])
-                .foregroundColor(weatherColorIs.opacity(0.35))
+                .chartYScale(
+                    domain: hourPrecipitation.temperatureRange()
+                )
+            
+                .foregroundColor(weatherColorIs.opacity(0.6))
                 .chartXAxis{
                     AxisMarks(values: .automatic) { _ in
 //                       AxisGridLine(centered: true, stroke: StrokeStyle(dash: [1, 2]))
-//                            .foregroundStyle(Color.white.opacity(0.6))
+//                            .foregroundStyle(Color.white.opacity(0.4))
                    
                        AxisValueLabel()
                             .foregroundStyle(Color.white.opacity(0.6))
@@ -86,11 +104,11 @@ struct PrecipitationHour: View {
                     
                 }
                 .chartYAxis(){
-                    AxisMarks(values: .automatic) { _ in
-                       AxisGridLine(centered: true, stroke: StrokeStyle(dash: [1, 2]))
-                            .foregroundStyle(Color.white.opacity(0.2))
+                    AxisMarks(position: .leading, values: .automatic) { _ in
+//                       AxisGridLine(centered: true, stroke: StrokeStyle(dash: [1, 2]))
+//                            .foregroundStyle(Color.white.opacity(0.2))
                        AxisValueLabel()
-                            .foregroundStyle(Color.white.opacity(0.0))
+                            .foregroundStyle(Color.white.opacity(0.6))
                            
                      }
             }

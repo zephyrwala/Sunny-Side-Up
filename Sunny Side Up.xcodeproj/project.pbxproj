@@ -10,6 +10,8 @@
 		690DB3382A751B01000FDC77 /* ManualLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690DB3372A751B01000FDC77 /* ManualLocationManager.swift */; };
 		690DB33A2A78A6EC000FDC77 /* MainWeatherCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690DB3392A78A6EC000FDC77 /* MainWeatherCard.swift */; };
 		690DB33C2A78A85C000FDC77 /* WeatherCard2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690DB33B2A78A85C000FDC77 /* WeatherCard2.swift */; };
+		6932D3D12A8F3BA10062C6C6 /* DailyTemperature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6932D3D02A8F3BA10062C6C6 /* DailyTemperature.swift */; };
+		6932D3D32A8F3BED0062C6C6 /* WeatherFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6932D3D22A8F3BED0062C6C6 /* WeatherFetcher.swift */; };
 		69BD74882A59948800492590 /* WeeklyCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BD74872A59948800492590 /* WeeklyCard.swift */; };
 		69C173FD2A595B5900EC91E1 /* Sunny_Side_UpApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C173FC2A595B5900EC91E1 /* Sunny_Side_UpApp.swift */; };
 		69C173FF2A595B5900EC91E1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C173FE2A595B5900EC91E1 /* ContentView.swift */; };
@@ -35,6 +37,8 @@
 		690DB3372A751B01000FDC77 /* ManualLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualLocationManager.swift; sourceTree = "<group>"; };
 		690DB3392A78A6EC000FDC77 /* MainWeatherCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWeatherCard.swift; sourceTree = "<group>"; };
 		690DB33B2A78A85C000FDC77 /* WeatherCard2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherCard2.swift; sourceTree = "<group>"; };
+		6932D3D02A8F3BA10062C6C6 /* DailyTemperature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTemperature.swift; sourceTree = "<group>"; };
+		6932D3D22A8F3BED0062C6C6 /* WeatherFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherFetcher.swift; sourceTree = "<group>"; };
 		69BD74872A59948800492590 /* WeeklyCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyCard.swift; sourceTree = "<group>"; };
 		69C173F92A595B5900EC91E1 /* Sunny Side Up.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sunny Side Up.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		69C173FC2A595B5900EC91E1 /* Sunny_Side_UpApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sunny_Side_UpApp.swift; sourceTree = "<group>"; };
@@ -70,6 +74,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6932D3CF2A8F3B710062C6C6 /* ChartStuff */ = {
+			isa = PBXGroup;
+			children = (
+				6932D3D02A8F3BA10062C6C6 /* DailyTemperature.swift */,
+				6932D3D22A8F3BED0062C6C6 /* WeatherFetcher.swift */,
+			);
+			path = ChartStuff;
+			sourceTree = "<group>";
+		};
 		69C173F02A595B5900EC91E1 = {
 			isa = PBXGroup;
 			children = (
@@ -89,6 +102,7 @@
 		69C173FB2A595B5900EC91E1 /* Sunny Side Up */ = {
 			isa = PBXGroup;
 			children = (
+				6932D3CF2A8F3B710062C6C6 /* ChartStuff */,
 				690DB3392A78A6EC000FDC77 /* MainWeatherCard.swift */,
 				69CD5DCB2A5C051500DB2402 /* Sunny-Side-Up-Info.plist */,
 				69CD5DCA2A5BDE8400DB2402 /* Sunny Side Up.entitlements */,
@@ -195,6 +209,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6932D3D12A8F3BA10062C6C6 /* DailyTemperature.swift in Sources */,
 				69C173FF2A595B5900EC91E1 /* ContentView.swift in Sources */,
 				69CD5DC92A5A63EB00DB2402 /* MapView.swift in Sources */,
 				69CD5DC12A59D47E00DB2402 /* ConditionsCard.swift in Sources */,
@@ -210,6 +225,7 @@
 				69CD5DDD2A72605F00DB2402 /* Place.swift in Sources */,
 				690DB33A2A78A6EC000FDC77 /* MainWeatherCard.swift in Sources */,
 				69CD5DD12A60FFF600DB2402 /* LocalWeatherManager.swift in Sources */,
+				6932D3D32A8F3BED0062C6C6 /* WeatherFetcher.swift in Sources */,
 				69CD5DD32A62C7A200DB2402 /* WeeklyChart.swift in Sources */,
 				690DB3382A751B01000FDC77 /* ManualLocationManager.swift in Sources */,
 				69CD5DCD2A5C264700DB2402 /* MapViewModel.swift in Sources */,
