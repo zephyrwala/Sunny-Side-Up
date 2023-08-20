@@ -28,7 +28,14 @@ struct HomeView: View {
         )
     
    
-   
+    @State private var currentConditions = [
+                                                ConditionItems(condition: "Rain", icon: "cloud.rain", id: UUID().uuidString),
+                                                ConditionItems(condition: "Humidity", icon: "humidity", id: UUID().uuidString),
+                                                ConditionItems(condition: "UV Index", icon: "thermometer.sun", id: UUID().uuidString),
+                                                ConditionItems(condition: "Visiblity", icon: "eye", id: UUID().uuidString),
+                                                ConditionItems(condition: "Wind", icon: "wind", id: UUID().uuidString)
+    
+                                        ]
     @State var manualLocationShow = false
     @State private var cityName = "Loading"
     @EnvironmentObject var environmentLocationManager: LocationManager
@@ -109,8 +116,8 @@ struct HomeView: View {
                                 
                                
                                 Spacer()
-                                
-                                
+                             
+                               
                                 VStack {
                                     
 //                                    HStack {
@@ -138,11 +145,20 @@ struct HomeView: View {
 //                                                }
 //                                    .pickerStyle(.segmented)
 //                                    .opacity(0.6)
-                                
+                                    ScrollView(.horizontal, showsIndicators: false) {
+                                        HStack(spacing: 20) {
+                                           
+                                            WeatherConditionsBtn(weatherConditions: currentConditions)
+                                            
+                                        }
+                                    }
+                                    .padding(.leading, 9)
+                                    .padding(.trailing, 9)
+                                    .padding(.top, 25)
                                 //MARK: - Hourly chart
                                 
                                 
-                                
+                               
                                 VStack(alignment: .leading) {
                                     
                                     

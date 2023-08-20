@@ -48,8 +48,9 @@ struct PrecipitationHour: View {
                                     .frame(height: 42)
                                 VStack{
                                     Image(systemName: "\(hourPrep.symbolName)")
-                                        .symbolRenderingMode(.palette)
-                                        .foregroundStyle(Color.white, weatherColorIs)
+//                                        .symbolRenderingMode(.palette)
+//                                        .foregroundStyle(Color.white, weatherColorIs, .white)
+                                        .foregroundColor(.white)
                                         .opacity(0.9)
                                         .padding(.top, 10)
                                        
