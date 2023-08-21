@@ -34,7 +34,7 @@ struct PrecipitationHour: View {
                     var newValues = [Double]()
 //                    newValues.append(hourPrep.temperature.converted(to: <#T##UnitTemperature#>))
                     
-                    LineMark(x: .value("Time", hourPrep.date.formatted(date: .omitted, time: .shortened)), y: .value("Rain", hourPrep.temperature.value))
+                    LineMark(x: .value("Time", (hourPrep.date.formatAsAbbreviatedTime())), y: .value("Rain", hourPrep.temperature.value))
 //                        .symbol(by: .value("High", "Rain in the next few hours"))
                         .symbol{
                          
@@ -59,6 +59,11 @@ struct PrecipitationHour: View {
                                     Text(hourPrep.temperature.formatted())
                                         .font(.system(.caption2))
                                         .foregroundColor(weatherColorIs)
+                                    
+//                                    Text(hourPrep.date.formatted(date: .omitted, time: .shortened))
+//                                    .font(.system(.caption2))
+//                                    .foregroundColor(.white)
+//                                    .padding(.bottom, 8)
                                     //                                            .padding(.bottom, 8)
                                 }
                                 
@@ -87,7 +92,7 @@ struct PrecipitationHour: View {
                     
                     
                 }
-            }.frame(width: 1250, height: 175)
+            }.frame(width: 950, height: 175)
 //                .chartYScale(domain: [UnitTemperature(rawValue: 0), UnitTemperature(rawValue: 100)])
                 .chartYScale(
                     domain: hourPrecipitation.temperatureRange()

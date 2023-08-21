@@ -63,4 +63,12 @@ extension Date {
     }
     
     
+    func formatAsAbbreviatedTime() -> String {
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "ha"
+        return formatter.string(from: self)
+    }
+    
+    
 }
