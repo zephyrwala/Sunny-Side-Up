@@ -46,6 +46,7 @@ extension Array where Element == HourWeather {
     func temperatureRange() -> ClosedRange<Int> {
         let min = 0.0
         let max = map(\.temperature.value).max()  ?? .zero
+//        let max = 100.0
 
         // Will round the min down 4.6 -> 4
         // and round the max up 15.4 -> 16

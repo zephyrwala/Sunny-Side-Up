@@ -315,6 +315,13 @@ struct HomeView: View {
 
                                 }
 //                                print("weather is \(weather)")
+                                print("UV index is \(environmentLocationManager.weather?.currentWeather.uvIndex)")
+                                
+                                let groupWeather = environmentLocationManager.weather!.hourlyForecast
+                                    
+                                for eachWeather in groupWeather {
+                                    print(eachWeather.uvIndex.category)
+                                }
 
                          }
 

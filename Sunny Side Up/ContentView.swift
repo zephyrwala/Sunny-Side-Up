@@ -80,7 +80,7 @@ struct ContentView: View {
                             Text("10-Days")
                             
                         }
-                            MapView()
+                            SettingsView()
                                 .tag(2)
                                 .tabItem {
                                     Image(systemName: "gear")

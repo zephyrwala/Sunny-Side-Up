@@ -9,7 +9,10 @@ import SwiftUI
 import WeatherKit
 import Charts
 
+
 struct PrecipitationHour: View {
+    @AppStorage("temps") var temps: Bool?
+  
     var hourPrecipitation: [HourWeather]
     var weatherColorIs: Color
 //    private var yAxisStride: Double {
@@ -22,6 +25,7 @@ struct PrecipitationHour: View {
 
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
+            
             Chart {
                 ForEach(hourPrecipitation.prefix(18), id: \.date.timeIntervalSinceReferenceDate) { hourPrep in
                     
@@ -34,7 +38,7 @@ struct PrecipitationHour: View {
                     var newValues = [Double]()
 //                    newValues.append(hourPrep.temperature.converted(to: <#T##UnitTemperature#>))
                     
-                    LineMark(x: .value("Time", (hourPrep.date.formatAsAbbreviatedTime())), y: .value("Rain", hourPrep.temperature.value))
+                    LineMark(x: .value("Time", (hourPrep.date.formatAsAbbreviatedTime())), y: .value("Temp", hourPrep.temperature.value))
 //                        .symbol(by: .value("High", "Rain in the next few hours"))
                         .symbol{
                          
@@ -45,7 +49,11 @@ struct PrecipitationHour: View {
                             ZStack{
                                 Circle()
                                     .foregroundColor(Color.black.opacity(0.75))
+//                                    .foregroundColor(.ultraThin)
                                     .frame(height: 42)
+                                    .offset(y: -7)
+                                
+                            
                                 VStack{
                                     Image(systemName: "\(hourPrep.symbolName)")
 //                                        .symbolRenderingMode(.palette)
@@ -60,10 +68,19 @@ struct PrecipitationHour: View {
                                         .font(.system(.caption2))
                                         .foregroundColor(weatherColorIs)
                                     
-//                                    Text(hourPrep.date.formatted(date: .omitted, time: .shortened))
-//                                    .font(.system(.caption2))
-//                                    .foregroundColor(.white)
-//                                    .padding(.bottom, 8)
+                                   
+                                     
+                                    
+                                    Text(hourPrep.precipitationChance.formatted(.percent))
+//                                    Text(hourPrep.humidity.formatted(.percent))
+//                                    Text(hourPrep.visibility.formatted())
+//                                    Text(hourPrep.cloudCover.formatted(.percent))
+//                                    Text(hourPrep.wind.speed.formatted())
+//                                    Text(hourPrep.apparentTemperature.formatted())
+//                                     Text(hourPrep.uvIndex.category.description ?? "lop")
+                                    .font(.system(.caption2))
+                                    .foregroundColor(.mint)
+                                    .padding(.top, 0.5)
                                     //                                            .padding(.bottom, 8)
                                 }
                                 
@@ -89,10 +106,12 @@ struct PrecipitationHour: View {
 //                    )
 //                    .interpolationMethod(.catmullRom)
                     
+//                    LineMark(x: .value("Time", (hourPrep.date.formatAsAbbreviatedTime())), y: .value("Rain", hourPrep.precipitationChance.formatted(.number) ))
+                    
                     
                     
                 }
-            }.frame(width: 950, height: 175)
+            }.frame(width: 1050, height: 175)
 //                .chartYScale(domain: [UnitTemperature(rawValue: 0), UnitTemperature(rawValue: 100)])
                 .chartYScale(
                     domain: hourPrecipitation.temperatureRange()
@@ -118,6 +137,8 @@ struct PrecipitationHour: View {
                            
                      }
             }
+            
+                .chartYAxis(.hidden)
             
 
 

@@ -16,6 +16,7 @@ struct MapView: View {
     }
 
     var body: some View {
+        
         VStack {
             Text("Bengaluru Daily Weather")
                 .font(.title)
