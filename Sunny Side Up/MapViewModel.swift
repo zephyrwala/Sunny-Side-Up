@@ -21,6 +21,7 @@ enum MapDetails {
     
     @Published var returnedPlace : Place?
     @Published var showManualLocation = false
+    
     @Published var currentLocation : CLLocation?
     @Published var locationName : String?
     @Published var weather: Weather?

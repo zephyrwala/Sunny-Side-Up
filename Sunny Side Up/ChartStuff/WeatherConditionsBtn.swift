@@ -12,30 +12,33 @@ struct ConditionItems: Identifiable {
     
     let condition: String
     let icon: String
-    let id: String
+    let id: Int
 }
 
 struct WeatherConditionsBtn: View {
-//    init() {
-//        UISegmentedControl.appearance().selectedSegmentTintColor = .systemYellow
-//        UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.black], for: .selected)
-//        UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.gray], for: .normal)
-//
-//        UISegmentedControl.appearance().backgroundColor = .black
-//    }
+
+    
     @State private var selectedTheme = "Dark"
     let themes = ["Humidity", "Rain", "UV Index", "Wind"]
     var weatherConditions: [ConditionItems]
-    @State var selectedStuff : String?
+    @State var selectedStuff : Int?
     @State private var selected = false
+    @Binding var showHumidty: Bool
     
     var body: some View {
+        
+        
        
         ForEach(weatherConditions) { condition in
             Button {
                 print("This is working")
                 self.selected.toggle()
                 self.selectedStuff = condition.id
+                if condition.id == 1 {
+                    showHumidty = true
+                } else if condition.id == 0 {
+                    showHumidty = false
+                }
                 let impactMed = UIImpactFeedbackGenerator(style: .medium)
                 impactMed.impactOccurred()
             } label: {
@@ -63,7 +66,11 @@ struct WeatherConditionsBtn: View {
                     .opacity(self.selectedStuff == condition.id ? 0.8 : 0.6)
             }        }
      
-        
+        .onAppear{
+            
+            self.selected.toggle()
+            self.selectedStuff = 0
+        }
         
         //NOTE: - THis works
         
@@ -115,10 +122,10 @@ struct WeatherConditionsBtn: View {
     }
 }
 
-struct WeatherConditionsBtn_Previews: PreviewProvider {
-    static var previews: some View {
-        WeatherConditionsBtn(weatherConditions: [ConditionItems(condition: "rain", icon: "cloud.rain", id: "01")])
-            .previewLayout(.sizeThatFits)
-            //    }
-    }
-}
+//struct WeatherConditionsBtn_Previews: PreviewProvider {
+//    static var previews: some View {
+//        WeatherConditionsBtn(weatherConditions: [ConditionItems(condition: "rain", icon: "cloud.rain", id: 1)], showHumidty: <#Binding<Bool>#>)
+//            .previewLayout(.sizeThatFits)
+//            //    }
+//    }
+//}

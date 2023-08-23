@@ -29,11 +29,11 @@ struct HomeView: View {
     
    
     @State private var currentConditions = [
-                                                ConditionItems(condition: "Rain", icon: "cloud.rain", id: UUID().uuidString),
-                                                ConditionItems(condition: "Humidity", icon: "humidity", id: UUID().uuidString),
-                                                ConditionItems(condition: "UV Index", icon: "thermometer.sun", id: UUID().uuidString),
-                                                ConditionItems(condition: "Visiblity", icon: "eye", id: UUID().uuidString),
-                                                ConditionItems(condition: "Wind", icon: "wind", id: UUID().uuidString)
+                                                ConditionItems(condition: "Rain", icon: "cloud.rain", id: 0),
+                                                ConditionItems(condition: "Humidity", icon: "humidity", id: 1),
+                                                ConditionItems(condition: "UV Index", icon: "thermometer.sun", id: 2),
+                                                ConditionItems(condition: "Visiblity", icon: "eye", id: 3),
+                                                ConditionItems(condition: "Wind", icon: "wind", id: 4)
     
                                         ]
     @State var manualLocationShow = false
@@ -131,9 +131,9 @@ struct HomeView: View {
                                             return hourlyWeather.date.timeIntervalSince(Date()) >= 0
                                         }).prefix(24))
                                         
+                                        ChartComponent(conditions: currentConditions, hourPrecipitation: safear, weatherColorIs: weatherColor)
                                         
-                                        
-                                        PrecipitationHour(hourPrecipitation: safear, weatherColorIs: weatherColor)
+//                                        PrecipitationHour(hourPrecipitation: safear, weatherColorIs: weatherColor)
 //                                            .padding()
                                             .padding(.top, 21)
                                     }
@@ -145,16 +145,16 @@ struct HomeView: View {
 //                                                }
 //                                    .pickerStyle(.segmented)
 //                                    .opacity(0.6)
-                                    ScrollView(.horizontal, showsIndicators: false) {
-                                        HStack(spacing: 20) {
-                                           
-                                            WeatherConditionsBtn(weatherConditions: currentConditions)
-                                            
-                                        }
-                                    }
-                                    .padding(.leading, 9)
-                                    .padding(.trailing, 9)
-                                    .padding(.top, 25)
+//                                    ScrollView(.horizontal, showsIndicators: false) {
+//                                        HStack(spacing: 20) {
+//
+//                                            WeatherConditionsBtn(weatherConditions: currentConditions)
+//
+//                                        }
+//                                    }
+//                                    .padding(.leading, 9)
+//                                    .padding(.trailing, 9)
+//                                    .padding(.top, 25)
                                 //MARK: - Hourly chart
                                 
                                 
