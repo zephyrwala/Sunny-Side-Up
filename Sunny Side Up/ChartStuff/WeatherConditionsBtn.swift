@@ -21,7 +21,7 @@ struct WeatherConditionsBtn: View {
     @State private var selectedTheme = "Dark"
     let themes = ["Humidity", "Rain", "UV Index", "Wind"]
     var weatherConditions: [ConditionItems]
-    @State var selectedStuff : Int?
+    @Binding var selectedStuff : Int
     @State private var selected = false
     @Binding var showHumidty: Bool
     
@@ -35,7 +35,11 @@ struct WeatherConditionsBtn: View {
                 self.selected.toggle()
                 self.selectedStuff = condition.id
                 if condition.id == 1 {
-                    showHumidty = true
+                   
+                        
+                        showHumidty = true
+                  
+                   
                 } else if condition.id == 0 {
                     showHumidty = false
                 }

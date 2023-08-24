@@ -37,8 +37,6 @@ struct HumidityHour: View {
                                     //                                Image(systemName: "\(hourPrep.symbolName)")
                                     Image(systemName: "humidity")
                                     
-//                                                                            .symbolRenderingMode(.palette)
-//                                                                            .foregroundStyle(Color.white, weatherColorIs, )
                                         .foregroundColor(.white)
                                         .opacity(0.9)
                                         .padding(.top, 10)

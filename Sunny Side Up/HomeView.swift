@@ -77,9 +77,9 @@ struct HomeView: View {
                     
                 
                
-                LinearGradient(gradient: Gradient(colors: [.black.opacity(0.8), .black]), startPoint: .top, endPoint: .center)
+                LinearGradient(gradient: Gradient(colors: [.black.opacity(0.8), .black.opacity(0.99)]), startPoint: .top, endPoint: .center)
                    .blendMode(.multiply)
-//                   .background(.ultraThickMaterial)
+                 
                     .opacity(0.8)
                     .edgesIgnoringSafeArea(.all)
                 
