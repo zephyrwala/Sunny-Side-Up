@@ -29,10 +29,10 @@ struct HomeView: View {
     
    
     @State private var currentConditions = [
-                                                ConditionItems(condition: "Rain", icon: "cloud.rain", id: 0),
+                                                ConditionItems(condition: "Temp", icon: "thermometer.sun", id: 0),
                                                 ConditionItems(condition: "Humidity", icon: "humidity", id: 1),
-                                                ConditionItems(condition: "UV Index", icon: "thermometer.sun", id: 2),
-                                                ConditionItems(condition: "Visiblity", icon: "eye", id: 3),
+                                                ConditionItems(condition: "UV Index", icon: "sun.min", id: 2),
+                                                ConditionItems(condition: "Rain", icon: "cloud.rain", id: 3),
                                                 ConditionItems(condition: "Wind", icon: "wind", id: 4)
     
                                         ]

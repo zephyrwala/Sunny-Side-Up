@@ -78,6 +78,28 @@ extension Array where Element == HourWeather {
         // and round the max up 15.4 -> 16
         return Int(min.rounded(.down))...Int(max.rounded(.up))
     }
+    
+    
+    func rainRange() -> ClosedRange<Int> {
+        let min = -15.0
+        let max = 100.0
+//        let max = 100.0
+
+        // Will round the min down 4.6 -> 4
+        // and round the max up 15.4 -> 16
+        return Int(min.rounded(.down))...Int(max.rounded(.up))
+    }
+    
+    
+    func uvindexRange() -> ClosedRange<Int> {
+        let min = -5.0
+        let max = 20.0
+//        let max = 100.0
+
+        // Will round the min down 4.6 -> 4
+        // and round the max up 15.4 -> 16
+        return Int(min.rounded(.down))...Int(max.rounded(.up))
+    }
 }
 
 

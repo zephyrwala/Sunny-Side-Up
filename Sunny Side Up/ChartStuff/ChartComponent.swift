@@ -18,11 +18,11 @@ struct ChartComponent: View {
     var body: some View {
         VStack{
           
-            Text("Selected Stuff : \(selectedNumber)")
-            if showHumidty {
-                } else {
-                
-            }
+//            Text("Selected Stuff : \(selectedNumber)")
+//            if showHumidty {
+//                } else {
+//                
+//            }
          
             //NOTE: - Excellent way to get this done
             switch selectedNumber {
@@ -49,7 +49,20 @@ struct ChartComponent: View {
                 
             case 2:
                 //MARK: - UV Index
-                    Text("Say whaat!")
+                ScrollView(.horizontal, showsIndicators: false){
+                    HStack{
+                        UVindexChart(hourPrecipitation: hourPrecipitation, weatherColorIs: weatherColorIs)
+                    }
+                }
+                
+            case 3:
+                //MARK: - UV Index
+                ScrollView(.horizontal, showsIndicators: false){
+                    HStack{
+                        RainChartView(hourPrecipitation: hourPrecipitation, weatherColorIs: weatherColorIs)
+                    }
+                }
+                   
             default:
                     Text("bro!")
             }
@@ -74,6 +87,9 @@ struct ChartComponent: View {
             .padding(.leading, 9)
             .padding(.trailing, 9)
             .padding(.top, 25)
+            
+            TodaysConditionCard()
+                .padding(.top, 15)
         }
        
     }
