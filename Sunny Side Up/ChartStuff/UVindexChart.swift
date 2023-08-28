@@ -18,7 +18,7 @@ struct UVindexChart: View {
         
         ScrollView(.horizontal, showsIndicators: false) {
             Chart {
-                ForEach(hourPrecipitation.prefix(18), id: \.date.timeIntervalSinceReferenceDate) { hourPrep in
+                ForEach(hourPrecipitation.prefix(24), id: \.date.timeIntervalSinceReferenceDate) { hourPrep in
                     
                     LineMark(x: .value("Time", hourPrep.date.formatAsAbbreviatedTime()), y: .value("UV Index", hourPrep.uvIndex.value))
                     
@@ -34,11 +34,11 @@ struct UVindexChart: View {
                                         
                                         case  .low:
                                         Circle()
-                                            .strokeBorder(.green, lineWidth: 2)
+                                            .strokeBorder(.green, lineWidth: 3).opacity(0.6)
                                                         .background(
                                                             Circle().fill(.black.opacity(0.9))
                                                         )
-                                                        .frame(width: 42, height: 42)
+                                                        .frame(width: 39, height: 39)
                                         
                                            
                                         
@@ -47,11 +47,11 @@ struct UVindexChart: View {
                                     case .moderate:
                                         
                                         Circle()
-                                            .strokeBorder(.yellow, lineWidth: 2)
+                                            .strokeBorder(.yellow, lineWidth: 3).opacity(0.6)
                                                         .background(
                                                             Circle().fill(.black.opacity(0.9))
                                                         )
-                                                        .frame(width: 42, height: 42)
+                                                        .frame(width: 39, height: 39)
 
                                         
                                         
@@ -59,33 +59,33 @@ struct UVindexChart: View {
                                     case .high:
                                         
                                         Circle()
-                                            .strokeBorder(.orange, lineWidth: 2)
+                                            .strokeBorder(.orange, lineWidth: 3).opacity(0.6)
                                                         .background(
                                                             Circle().fill(.black.opacity(0.9))
                                                         )
-                                                        .frame(width: 42, height: 42)
+                                                        .frame(width: 39, height: 39)
 
                                         
                                         
                                     case .veryHigh:
                                         
                                         Circle()
-                                            .strokeBorder(.red, lineWidth: 2)
+                                            .strokeBorder(.red, lineWidth: 3).opacity(0.6)
                                                         .background(
                                                             Circle().fill(.black.opacity(0.9))
                                                         )
-                                                        .frame(width: 42, height: 42)
+                                                        .frame(width: 39, height: 39)
 
                                         
                                         
                                     case .extreme:
                                         
                                         Circle()
-                                            .strokeBorder(.purple, lineWidth: 2)
+                                            .strokeBorder(.purple, lineWidth: 3).opacity(0.6)
                                                         .background(
                                                             Circle().fill(.black.opacity(0.9))
                                                         )
-                                                        .frame(width: 42, height: 42)
+                                                        .frame(width: 39, height: 39)
 
                                     default:
                                         Circle()
@@ -104,21 +104,52 @@ struct UVindexChart: View {
 
                                     switch hourPrep.uvIndex.category {
                                     case .low:
+                                        Text("low")
+                                            .foregroundColor(.green)
+                                            .font(.system(size: 8))
+                                            .offset(y: -30)
+                                           
                                         Text("\(hourPrep.uvIndex.value)")
                                             .foregroundColor(.green)
+                                            .offset(y: -6)
+                                        
                                     case .moderate:
+                                        
+                                        Text("medium")
+                                            .foregroundColor(.yellow)
+                                            .font(.system(size: 8))
+                                            .offset(y: -30)
+                                        
                                         Text("\(hourPrep.uvIndex.value)")
+                                            .offset(y: -6)
                                             .foregroundColor(.yellow)
                                     case .high:
+                                        Text("high")
+                                            .foregroundColor(.orange)
+                                            .font(.system(size: 8))
+                                            .offset(y: -30)
                                         Text("\(hourPrep.uvIndex.value)")
+                                            .offset(y: -6)
                                             .foregroundColor(.orange)
                                     case .veryHigh:
+                                        Text("very\nhigh")
+                                            .foregroundColor(.red)
+                                            .multilineTextAlignment(.center)
+                                            .font(.system(size: 8))
+                                            .offset(y: -30)
+                                        
                                         Text("\(hourPrep.uvIndex.value)")
+                                            .offset(y: -9)
                                             .foregroundColor(.red)
                                     case .extreme:
+                                        Text("extreme")
+                                            .foregroundColor(.purple)
+                                            .font(.system(size: 8))
+                                            .offset(y: -30)
+                                        
                                         Text("\(hourPrep.uvIndex.value)")
                                             .foregroundColor(.purple)
-                                        
+                                            .offset(y: -6)
                                     default:
                                         Text("\(hourPrep.uvIndex.value)")
                                             .foregroundColor(.red)

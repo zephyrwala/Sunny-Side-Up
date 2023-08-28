@@ -62,6 +62,13 @@ struct ChartComponent: View {
                         RainChartView(hourPrecipitation: hourPrecipitation, weatherColorIs: weatherColorIs)
                     }
                 }
+                
+            case 4:
+                ScrollView(.horizontal, showsIndicators: false){
+                    HStack{
+                        WindChart(hourPrecipitation: hourPrecipitation, weatherColorIs: weatherColorIs)
+                    }
+                }
                    
             default:
                     Text("bro!")
