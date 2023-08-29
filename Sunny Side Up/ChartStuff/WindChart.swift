@@ -25,16 +25,16 @@ struct WindChart: View {
                            
                                 ZStack{
                                     Circle()
-                                        .foregroundColor(Color.black.opacity(0.75))
+                                        .foregroundColor(Color.black.opacity(0.9))
     //                                    .foregroundColor(.ultraThin)
                                         .frame(height: 42)
 //                                        .offset(y: -7)
                                 VStack {
                                     
-                                    Text("\(hourPrep.wind.direction.value)" ?? "")
-                                        .font(.system(.caption2))
-                                        .foregroundColor(weatherColorIs)
-//                                        .offset(y: 10)
+//                                    Text("\(hourPrep.wind.direction.value)" ?? "")
+//                                        .font(.system(.caption2))
+//                                        .foregroundColor(weatherColorIs)
+////                                        .offset(y: 10)
                                         Image(systemName: "location.north")
 //                                    Image(systemName: "location.\(hourPrep.wind.direction)")
                                     

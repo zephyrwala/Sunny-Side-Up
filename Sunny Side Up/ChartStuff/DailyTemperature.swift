@@ -80,7 +80,7 @@ extension Array where Element == HourWeather {
     }
     
     func windRange() -> ClosedRange<Int> {
-        let min = 0.0
+        let min = -20.0
         let max = map(\.temperature.value).max()  ?? .zero
 //        let max = 100.0
 

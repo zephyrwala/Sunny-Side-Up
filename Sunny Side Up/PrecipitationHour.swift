@@ -48,10 +48,10 @@ struct PrecipitationHour: View {
 //                                    .padding(.bottom, 8)
                             ZStack{
                                 Circle()
-                                    .foregroundColor(Color.black.opacity(0.75))
+                                    .foregroundColor(Color.black.opacity(0.90))
 //                                    .foregroundColor(.ultraThin)
                                     .frame(height: 42)
-                                    .offset(y: -7)
+                                    .offset(y: -3)
                                 
                             
                                 VStack{
@@ -60,18 +60,19 @@ struct PrecipitationHour: View {
 //                                        .foregroundStyle(Color.white, weatherColorIs, .white)
                                         .foregroundColor(.white)
                                         .opacity(0.9)
-                                        .padding(.top, 10)
-                                       
+//                                        .padding(.top, 1)
+                                        .offset(y: 5)
+//
                                     
                                     
                                     Text(hourPrep.temperature.formatted())
                                         .font(.system(.caption2))
                                         .foregroundColor(weatherColorIs)
-                                    
+                                        .offset(y: 18)
                                    
                                      
-                                    
-                                    Text(hourPrep.precipitationChance.formatted(.percent))
+//
+//                                    Text(hourPrep.precipitationChance.formatted(.percent))
 //                                    Text(hourPrep.humidity.formatted(.percent))
 //                                    Text(hourPrep.visibility.formatted())
 //                                    Text(hourPrep.cloudCover.formatted(.percent))

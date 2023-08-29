@@ -21,6 +21,7 @@
 		6932D3E12A98C9540062C6C6 /* RainChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6932D3E02A98C9540062C6C6 /* RainChartView.swift */; };
 		6932D3E32A98D3580062C6C6 /* TodaysConditionCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6932D3E22A98D3580062C6C6 /* TodaysConditionCard.swift */; };
 		6932D3E52A9CD5DE0062C6C6 /* WindChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6932D3E42A9CD5DE0062C6C6 /* WindChart.swift */; };
+		6932D3E72A9DC6780062C6C6 /* SunStuffCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6932D3E62A9DC6780062C6C6 /* SunStuffCard.swift */; };
 		69BD74882A59948800492590 /* WeeklyCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BD74872A59948800492590 /* WeeklyCard.swift */; };
 		69C173FD2A595B5900EC91E1 /* Sunny_Side_UpApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C173FC2A595B5900EC91E1 /* Sunny_Side_UpApp.swift */; };
 		69C173FF2A595B5900EC91E1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C173FE2A595B5900EC91E1 /* ContentView.swift */; };
@@ -57,6 +58,7 @@
 		6932D3E02A98C9540062C6C6 /* RainChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RainChartView.swift; sourceTree = "<group>"; };
 		6932D3E22A98D3580062C6C6 /* TodaysConditionCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaysConditionCard.swift; sourceTree = "<group>"; };
 		6932D3E42A9CD5DE0062C6C6 /* WindChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindChart.swift; sourceTree = "<group>"; };
+		6932D3E62A9DC6780062C6C6 /* SunStuffCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SunStuffCard.swift; sourceTree = "<group>"; };
 		69BD74872A59948800492590 /* WeeklyCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyCard.swift; sourceTree = "<group>"; };
 		69C173F92A595B5900EC91E1 /* Sunny Side Up.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sunny Side Up.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		69C173FC2A595B5900EC91E1 /* Sunny_Side_UpApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sunny_Side_UpApp.swift; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 				6932D3E02A98C9540062C6C6 /* RainChartView.swift */,
 				6932D3E22A98D3580062C6C6 /* TodaysConditionCard.swift */,
 				6932D3E42A9CD5DE0062C6C6 /* WindChart.swift */,
+				6932D3E62A9DC6780062C6C6 /* SunStuffCard.swift */,
 			);
 			path = ChartStuff;
 			sourceTree = "<group>";
@@ -241,6 +244,7 @@
 				69CD5DC92A5A63EB00DB2402 /* MapView.swift in Sources */,
 				69CD5DC12A59D47E00DB2402 /* ConditionsCard.swift in Sources */,
 				69C173FD2A595B5900EC91E1 /* Sunny_Side_UpApp.swift in Sources */,
+				6932D3E72A9DC6780062C6C6 /* SunStuffCard.swift in Sources */,
 				69CD5DD72A69557E00DB2402 /* MoonCard.swift in Sources */,
 				690DB33C2A78A85C000FDC77 /* WeatherCard2.swift in Sources */,
 				6932D3DD2A96041B0062C6C6 /* EmoViewModel.swift in Sources */,

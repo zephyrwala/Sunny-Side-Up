@@ -28,7 +28,7 @@ struct HumidityHour: View {
                            
                                 ZStack{
                                     Circle()
-                                        .foregroundColor(Color.black.opacity(0.75))
+                                        .foregroundColor(Color.black.opacity(0.90))
     //                                    .foregroundColor(.ultraThin)
                                         .frame(height: 42)
 //                                        .offset(y: -7)

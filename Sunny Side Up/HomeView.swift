@@ -77,8 +77,8 @@ struct HomeView: View {
                     
                 
                
-                LinearGradient(gradient: Gradient(colors: [.black.opacity(0.8), .black.opacity(0.99)]), startPoint: .top, endPoint: .center)
-                   .blendMode(.multiply)
+                LinearGradient(gradient: Gradient(colors: [.black.opacity(0.8), .black.opacity(0.99)]), startPoint: .top, endPoint: .bottom)
+//                   .blendMode(.multiply)
                  
                     .opacity(0.8)
                     .edgesIgnoringSafeArea(.all)
@@ -155,29 +155,7 @@ struct HomeView: View {
 //                                    .padding(.leading, 9)
 //                                    .padding(.trailing, 9)
 //                                    .padding(.top, 25)
-                                //MARK: - Hourly chart
-                                
-                                
-                               
-                                VStack(alignment: .leading) {
-                                    
-                                    
-                                    ScrollView(.horizontal) {
-                                        HStack(spacing: 12) {
-                                            if let safeWeather = environmentLocationManager.weather {
-                                                let safear =  Array(safeWeather.hourlyForecast.filter({ hourlyWeather in
-                                                    return hourlyWeather.date.timeIntervalSince(Date()) >= 0
-                                                }).prefix(25))
-                                                
-                                                HourlyCard(hourlyWeather: safear, weatherColorIs: weatherColor)
-                                                
-                                                
-                                            }
-                                        }
-                                        
-                                    }.scrollIndicators(.hidden)
-                                    
-                                }.padding(.top, 51)
+                    
 //                                    .padding()
                                
                                 //hourly chart^
@@ -188,9 +166,12 @@ struct HomeView: View {
                                 VStack(alignment: .center) {
                                     
                                     HStack{
-                                        Text("Today")
-                                            .foregroundColor(.gray.opacity(0.6))
+                                        Image(systemName: "sun.max.fill")
+                                            .foregroundColor(.yellow.opacity(0.6))
                                             .padding(.leading, 15)
+                                        Text("Sun Stuff")
+                                            .foregroundColor(.gray.opacity(0.6))
+                                           
                                         Spacer()
                                     }
                                     
@@ -211,21 +192,37 @@ struct HomeView: View {
                                             }
                                         }
                                         
-                                        //2
-                                        HStack(spacing: 15) {
+                                        //MARK: - UV chart
+                                        
+                                        
+                                       
+                                        VStack(alignment: .leading) {
                                             
-                                            if let safeWeather = environmentLocationManager.weather?.dailyForecast {
-                                                
-                                                ConditionsCard(currentWeatherCondition: "Rain", weatherconditionValue: "\(safeWeather[0].precipitationChance.formatted(.percent))", weatherColorIs: weatherColor, icons: "drop.degreesign.fill")
-                                                
-                                            }
                                             
-                                            if let safeWeather = environmentLocationManager.weather?.currentWeather {
+                                            ScrollView(.horizontal) {
+                                                HStack(spacing: 12) {
+                                                    if let safeWeather = environmentLocationManager.weather {
+                                                        let safear =  Array(safeWeather.hourlyForecast.filter({ hourlyWeather in
+                                                            return hourlyWeather.date.timeIntervalSince(Date()) >= 0
+                                                        }).prefix(25))
+                                                        
+                                                        HourlyCard(hourlyWeather: safear, weatherColorIs: weatherColor)
+                                                        
+                                                        
+                                                    }
+                                                }
                                                 
-                                                ConditionsCard(currentWeatherCondition: "Humidity", weatherconditionValue: "\(safeWeather.humidity.formatted(.percent))", weatherColorIs: weatherColor, icons: "humidity.fill")
-                                                
-                                            }
+                                            }.scrollIndicators(.hidden)
+                                            
                                         }
+                                        .padding(.leading, 10)
+                                        .padding(.trailing, 10)
+                                        .padding(.bottom, 15)
+                                        
+                                        SunStuffCard()
+//                                            .padding()
+                                        //2
+                                 
                                     }
                                 }
                                 .padding()
@@ -242,28 +239,60 @@ struct HomeView: View {
                                 //                        }
                                 
                                 
+//
+//                                if let safeWeather = environmentLocationManager.weather {
+//                                    let safear =  Array(safeWeather.hourlyForecast.filter({ hourlyWeather in
+//                                        return hourlyWeather.date.timeIntervalSince(Date()) >= 0
+//                                    }).prefix(24))
+//
+//
+//
+//                                    HumidityHour(hourPrecipitation: safear, weatherColorIs: weatherColor)
+//                                        .padding()
+//                                        .padding(.top, 21)
+//                                        .padding(.bottom, 21)
+//                                }
                                 
-                                if let safeWeather = environmentLocationManager.weather {
-                                    let safear =  Array(safeWeather.hourlyForecast.filter({ hourlyWeather in
-                                        return hourlyWeather.date.timeIntervalSince(Date()) >= 0
-                                    }).prefix(24))
-                                    
-                                    
-                                    
-                                    HumidityHour(hourPrecipitation: safear, weatherColorIs: weatherColor)
-                                        .padding()
-                                        .padding(.top, 21)
-                                        .padding(.bottom, 21)
-                                }
-                                
+                               
                                 //weekly
                                 VStack (alignment: .center){
-                                    MoonCard(weatherColorIs: weatherColor)
+                                    
+                                    HStack{
+                                        Image(systemName: "moon.fill")
+                                            .foregroundColor(.yellow.opacity(0.6))
+                                            .padding(.leading, 15)
+                                        Text("Moon Stuff")
+                                            .foregroundColor(.gray.opacity(0.6))
+                                           
+                                        Spacer()
+                                    }
+                                    
+                                    if let safeWeather = environmentLocationManager.weather?.dailyForecast {
+                                        
+                                        MoonCard(moonPhases: safeWeather[0].moon.phase.description, moonSymbol: safeWeather[0].moon.phase.symbolName, moonRise: safeWeather[0].moon.moonrise?.formatted(date: .omitted, time: .shortened), moonSet: safeWeather[0].moon.moonset?.formatted(date: .omitted, time: .shortened), weatherColorIs: weatherColor )
+                                      
+                                    }
+                                    HStack(spacing: 15) {
+                                        
+                                        if let safeWeather = environmentLocationManager.weather?.dailyForecast {
+                                            
+                                            ConditionsCard(currentWeatherCondition: "Moonrise", weatherconditionValue: safeWeather[0].moon.moonrise?.formatted(date: .omitted, time: .shortened), weatherColorIs: weatherColor, icons: "moon.stars")
+                                            
+                                        }
+                                        
+                                        if let safeWeather = environmentLocationManager.weather?.dailyForecast {
+                                            
+                                            ConditionsCard(currentWeatherCondition: "Moonset", weatherconditionValue:safeWeather[0].moon.moonset?.formatted(date: .omitted, time: .shortened), weatherColorIs: weatherColor, icons: "moon.zzz")
+                                            
+                                        }
+                                    }
+                                    .padding(.top, 10)
+                                   
                                 }
                                 .padding()
                                 Spacer()
                                 
-                                
+                              
                                 
                             }.padding(.top, 60)
                                 .padding(.bottom, 100)
@@ -310,7 +339,7 @@ struct HomeView: View {
                                         self.weatherColor = Color.yellow
 
                                     default:
-                                        self.weatherColor = Color.yellow
+                                        self.weatherColor = Color.mint
                                     }
 
                                 }

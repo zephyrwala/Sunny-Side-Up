@@ -56,7 +56,7 @@ struct WeatherConditionsBtn: View {
                         .foregroundColor(self.selectedStuff == condition.id ? .white.opacity(0.9) : .gray)
                 }.frame(width: self.selectedStuff == condition.id ? 95 : 45, height: 30)
 
-                    .background(.ultraThinMaterial.opacity(0.99))
+                    .background(.ultraThickMaterial.opacity(0.99))
 //                    .background(self.selectedStuff == condition.id ? .yellow: .black)  // <-- Here
 //                    .background(selected ? Color.black : Color.yellow )
 //
@@ -67,7 +67,7 @@ struct WeatherConditionsBtn: View {
 //                            .stroke(self.selectedStuff == condition.id ? .yellow.opacity(0.6) : .black, lineWidth:  self.selectedStuff == condition.id ? 1 : 0)
 //                    )
 
-                    .opacity(self.selectedStuff == condition.id ? 0.8 : 0.6)
+                    .opacity(self.selectedStuff == condition.id ? 0.99 : 0.6)
             }        }
      
         .onAppear{

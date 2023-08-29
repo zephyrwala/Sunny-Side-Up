@@ -31,7 +31,7 @@ struct RainChartView: View {
                                 ZStack{
                                     if hourPrep.precipitationChance >= 0.10 {
                                     Circle()
-                                        .foregroundColor(Color.black.opacity(0.75))
+                                        .foregroundColor(Color.black.opacity(0.90))
     //                                    .foregroundColor(.ultraThin)
                                         .frame(height: 42)
 //                                        .offset(y: -7)
