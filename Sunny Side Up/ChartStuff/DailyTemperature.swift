@@ -70,8 +70,8 @@ extension Array where Element == HourWeather {
     
     
     func humidityRange() -> ClosedRange<Int> {
-        let min = 0.0
-        let max = 110.0
+        let min = 20.0
+        let max = 100.0
 //        let max = 100.0
 
         // Will round the min down 4.6 -> 4

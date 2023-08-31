@@ -45,42 +45,50 @@ struct WeekView: View {
                     
 //                }
               
-                LinearGradient(gradient: Gradient(colors: [.black.opacity(0.8), .black]), startPoint: .top, endPoint: .center)
-//                                .blendMode(.multiply)
-                    .opacity(0.8)
-                    .edgesIgnoringSafeArea(.all)
+//                LinearGradient(gradient: Gradient(colors: [.black.opacity(0.8), .black]), startPoint: .top, endPoint: .center)
+////                                .blendMode(.multiply)
+//                    .opacity(0.8)
+//                    .edgesIgnoringSafeArea(.all)
                 //                .blendMode(.multiply)
                 ScrollView(showsIndicators: false) {
+                    ZStack{
+                        LinearGradient(gradient: Gradient(colors: [.mint.opacity(0.9), .purple.opacity(0.99), .black.opacity(0.99), .black.opacity(0.99)]), startPoint: .top, endPoint: .center)
+        //                    .blendMode(.darken)
+
+                            .opacity(0.85)
+                            .edgesIgnoringSafeArea(.all)
                     
                     VStack{
-//                    HStack {
-//
-//                        Image(systemName: "location")
-//
-//                        Text(locationManger.locationName ?? "fetching location")
-//                            .foregroundColor(.black)
-//
-//
-//
-//                    }
-//                    .padding(.bottom, 56)
+                        //                    HStack {
+                        //
+                        //                        Image(systemName: "location")
+                        //
+                        //                        Text(locationManger.locationName ?? "fetching location")
+                        //                            .foregroundColor(.black)
+                        //
+                        //
+                        //
+                        //                    }
+                        //                    .padding(.bottom, 56)
                         if let saferWeather = environmentLocationManager.weather {
                             WeeklyChart(weeklyWeather: saferWeather.dailyForecast.forecast)
-//                             .frame(height: 300)
-                             .foregroundColor(.black)
-                             
+                            //                             .frame(height: 300)
+                                .foregroundColor(.black)
+                                .padding(.top, 20)
                         }
-                      
-                    VStack(spacing: 15) {
-                        Spacer()
-                        if let safeWeather = environmentLocationManager.weather {
-                            WeeklyCard(weeklyWeather: safeWeather.dailyForecast.forecast)
-                        }
-                            
                         
-                    }.padding(.bottom, 45)
-                    }.padding(.top, 12)
+                        VStack(spacing: 15) {
+                            Spacer()
+                            if let safeWeather = environmentLocationManager.weather {
+                                WeeklyCard(weeklyWeather: safeWeather.dailyForecast.forecast)
+                            }
+                            
+                            
+                        }.padding(.bottom, 45)
+                    }.padding(.top, 60)
+                            .padding(.bottom, 100)
                 }
+                }.edgesIgnoringSafeArea(.all)
                
             }
             

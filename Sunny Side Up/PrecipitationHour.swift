@@ -125,7 +125,7 @@ struct PrecipitationHour: View {
 //                            .foregroundStyle(Color.white.opacity(0.4))
                    
                        AxisValueLabel()
-                            .foregroundStyle(Color.white.opacity(0.6))
+                            .foregroundStyle(Color.gray)
                      }
                     
                 }

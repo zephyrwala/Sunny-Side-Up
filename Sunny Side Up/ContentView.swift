@@ -112,7 +112,7 @@ struct ContentView: View {
                             //
                             //                .cornerRadius(35)
                             //                .padding(.horizontal, 30)
-                        }.accentColor(Color.orange)
+                        }.accentColor(Color.mint)
                 
                     .environmentObject(environmentLocationManager)
                     

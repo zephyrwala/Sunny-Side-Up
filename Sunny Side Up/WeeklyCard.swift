@@ -23,7 +23,7 @@ struct WeeklyCard: View {
                         Image(systemName: "arrow.up")
                             .foregroundColor(.gray)
                         Text(weeklyWeatherItem.highTemperature.formatted())
-                            .foregroundColor(.yellow)
+                            .foregroundColor(.mint)
                     }
                     
     //                    .font(.system(size: 21))
@@ -38,7 +38,11 @@ struct WeeklyCard: View {
             }.frame(width: UIScreen.main.bounds.width - 30, height: 66)
             
 //                .background(.black.opacity(0.4))
-                .background(.ultraThickMaterial.opacity(0.9))
+                .background(.ultraThinMaterial.opacity(0.9))
+//                .background{
+//                    LinearGradient(colors: [.mint, .black], startPoint: .leading, endPoint: .trailing).opacity(0.6)
+//                }
+//                .blendMode(.multiply)
                 .shadow(color: .black.opacity(0.3), radius: 6)
                 .cornerRadius(10)
                 

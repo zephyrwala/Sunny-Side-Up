@@ -28,7 +28,7 @@ struct HumidityHour: View {
                            
                                 ZStack{
                                     Circle()
-                                        .foregroundColor(Color.black.opacity(0.90))
+                                        .foregroundColor(Color.black.opacity(0.75))
     //                                    .foregroundColor(.ultraThin)
                                         .frame(height: 42)
 //                                        .offset(y: -7)
@@ -47,7 +47,7 @@ struct HumidityHour: View {
                                     
                                     Text("\(hourPrep.humidity.formatted(.percent))" ?? "")
                                         .font(.system(.caption2))
-                                        .foregroundColor(weatherColorIs)
+                                        .foregroundColor(.white)
                                         .offset(y: 10)
                                     
                                 }
@@ -55,7 +55,7 @@ struct HumidityHour: View {
                         }
                 }
             }.frame(width: 1050, height: 175)
-                .foregroundColor(.gray)
+                .foregroundColor(.mint)
                 .chartYScale(
                     domain: hourPrecipitation.humidityRange()
                 )
@@ -64,7 +64,7 @@ struct HumidityHour: View {
 //                       AxisGridLine(centered: true, stroke: StrokeStyle(dash: [1, 2]))
 //                            .foregroundStyle(Color.white.opacity(0.6))
                        AxisValueLabel()
-                            .foregroundStyle(Color.white.opacity(0.6))
+                            .foregroundStyle(Color.gray)
                      }
                 }
 //                .chartYAxis{
