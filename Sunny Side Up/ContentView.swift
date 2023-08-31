@@ -112,7 +112,7 @@ struct ContentView: View {
                             //
                             //                .cornerRadius(35)
                             //                .padding(.horizontal, 30)
-                        }.accentColor(Color.yellow)
+                        }.accentColor(Color.orange)
                 
                     .environmentObject(environmentLocationManager)
                     
@@ -168,11 +168,11 @@ struct ContentView_Previews: PreviewProvider {
 //    override open func viewDidLoad() {
 //        super.viewDidLoad()
 ////    hidesBarsOnSwipe = true
-//    // other customizations
-////    navigationBar.tintColor = .yellow
-////        navigationBar.barTintColor = .yellow
-////        navigationBar.isTranslucent = true
-////        navigationBar.backgroundColor = .yellow
+////     other customizations
+//    navigationBar.tintColor = .yellow
+//        navigationBar.barTintColor = .yellow
+//        navigationBar.isTranslucent = true
+//        navigationBar.backgroundColor = .yellow
 // }
 //}
 

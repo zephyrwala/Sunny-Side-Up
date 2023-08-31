@@ -48,17 +48,17 @@ struct PrecipitationHour: View {
 //                                    .padding(.bottom, 8)
                             ZStack{
                                 Circle()
-                                    .foregroundColor(Color.black.opacity(0.90))
+                                    .foregroundColor(Color.black.opacity(0.75))
+//                                    .background(.ultraThickMaterial.opacity(0.9))
 //                                    .foregroundColor(.ultraThin)
                                     .frame(height: 42)
                                     .offset(y: -3)
                                 
                             
                                 VStack{
-                                    Image(systemName: "\(hourPrep.symbolName)")
-//                                        .symbolRenderingMode(.palette)
-//                                        .foregroundStyle(Color.white, weatherColorIs, .white)
-                                        .foregroundColor(.white)
+                                    Image(systemName: hourPrep.symbolName)
+                                        .symbolRenderingMode(.monochrome)
+                                        .foregroundStyle(.white)
                                         .opacity(0.9)
 //                                        .padding(.top, 1)
                                         .offset(y: 5)
@@ -67,7 +67,7 @@ struct PrecipitationHour: View {
                                     
                                     Text(hourPrep.temperature.formatted())
                                         .font(.system(.caption2))
-                                        .foregroundColor(weatherColorIs)
+                                        .foregroundColor(.primary)
                                         .offset(y: 18)
                                    
                                      
@@ -118,7 +118,7 @@ struct PrecipitationHour: View {
                     domain: hourPrecipitation.temperatureRange()
                 )
             
-                .foregroundColor(weatherColorIs.opacity(0.6))
+                .foregroundColor(.mint.opacity(0.9))
                 .chartXAxis{
                     AxisMarks(values: .automatic) { _ in
 //                       AxisGridLine(centered: true, stroke: StrokeStyle(dash: [1, 2]))

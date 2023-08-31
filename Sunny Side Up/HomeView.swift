@@ -12,7 +12,9 @@ import WeatherKit
 
 
 struct HomeView: View {
-    
+    init() {
+          UIScrollView.appearance().bounces = false
+       }
 //    @StateObject private var locationManager = LocationManager()
 //    @EnvironmentObject var locationManager: LocationManager
 //    @State private var weather: Weather?
@@ -76,13 +78,13 @@ struct HomeView: View {
                 
                     
                 
-               
-                LinearGradient(gradient: Gradient(colors: [.black.opacity(0.8), .black.opacity(0.99)]), startPoint: .top, endPoint: .bottom)
-//                   .blendMode(.multiply)
-                 
-                    .opacity(0.8)
+
+                LinearGradient(gradient: Gradient(colors: [.orange.opacity(0.9), .red.opacity(0.99), .black]), startPoint: .top, endPoint: .center)
+//                    .blendMode(.darken)
+
+                    .opacity(0.25)
                     .edgesIgnoringSafeArea(.all)
-                
+
              
                   
 //                LinearGradient(gradient: Gradient(colors: [.clear, .black]), startPoint: .top, endPoint: .center)
@@ -99,13 +101,26 @@ struct HomeView: View {
                         ZStack{
                             
                             
-                            LinearGradient(gradient: Gradient(colors: [.green.opacity(0.0), .black.opacity(0.6)]), startPoint: .topLeading, endPoint: .center)
-                                .blendMode(.hardLight)
-//                                .background(.ultraThinMaterial)
-                                 .opacity(0.3)
-                                 .edgesIgnoringSafeArea(.all)
+//                            LinearGradient(gradient: Gradient(colors: [.green.opacity(0.0), .black]), startPoint: .topLeading, endPoint: .bottom)
+////                                .blendMode(.hardLight)
+////                                .background(.ultraThinMaterial)
+//                                 .opacity(0.1)
+//                                 .edgesIgnoringSafeArea(.all)
                              
-                            
+                            LinearGradient(gradient: Gradient(colors: [.mint.opacity(0.9), .purple.opacity(0.99), .black.opacity(0.99), .black.opacity(0.99), .black.opacity(0.85)]), startPoint: .top, endPoint: .center)
+            //                    .blendMode(.darken)
+
+                                .opacity(0.85)
+                                .edgesIgnoringSafeArea(.all)
+                               
+
+//
+//                             LinearGradient(gradient: Gradient(colors: [.orange.opacity(0.9), .red.opacity(0.99), .black]), startPoint: .top, endPoint: .bottom)
+//             //                   .blendMode(.multiply)
+//
+//                                 .opacity(0.8)
+//                                 .edgesIgnoringSafeArea(.all)
+                             
                           
                             VStack(alignment: .leading) {
 //
@@ -339,7 +354,7 @@ struct HomeView: View {
                                         self.weatherColor = Color.yellow
 
                                     default:
-                                        self.weatherColor = Color.mint
+                                        self.weatherColor = Color.purple
                                     }
 
                                 }
@@ -377,7 +392,7 @@ struct HomeView: View {
                     
                     
             }
-            
+                
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbarColorScheme(.dark, for: .navigationBar)
                 .toolbar { // <2>
@@ -407,13 +422,13 @@ struct HomeView: View {
     //                                        .shadow(color: .black.opacity(0.3), radius: 9)
                                         if environmentLocationManager.showManualLocation == true {
                                             Text(thisPlaceReturned.name ?? "loading")
-                                                .foregroundColor(.white)
+                                                .foregroundColor(.primary)
                                                 .font(.subheadline)
     //                                            .shadow(color: weatherColor, radius: 3)
                                         } else {
 
                                             Text(environmentLocationManager.locationName ?? "loading")
-                                                .foregroundColor(.white)
+                                                .foregroundColor(.primary)
                                                 .font(.subheadline)
     //                                            .shadow(color: weatherColor, radius: 9)
                                         }
@@ -482,7 +497,7 @@ struct HomeView: View {
 //                        }
                     }
                     
-                    
+           
                
                         
                   

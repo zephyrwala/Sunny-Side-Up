@@ -48,12 +48,12 @@ struct WeatherConditionsBtn: View {
             } label: {
                 HStack{
                     Image(systemName: condition.icon)
-                        .foregroundColor(self.selectedStuff == condition.id ? .yellow : .white)
+                        .foregroundColor(self.selectedStuff == condition.id ? .mint : .white)
                         .font(.system(.caption))
 
                     Text(self.selectedStuff == condition.id ? condition.condition : "")
                         .font(.system(.caption))
-                        .foregroundColor(self.selectedStuff == condition.id ? .white.opacity(0.9) : .gray)
+                        .foregroundColor(self.selectedStuff == condition.id ? .primary.opacity(0.9) : .gray)
                 }.frame(width: self.selectedStuff == condition.id ? 95 : 45, height: 30)
 
                     .background(.ultraThickMaterial.opacity(0.99))

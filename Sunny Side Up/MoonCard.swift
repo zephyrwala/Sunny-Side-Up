@@ -17,49 +17,33 @@ struct MoonCard: View {
     var body: some View {
         HStack(spacing: 5) {
             
-            VStack(spacing: 15) {
+            HStack(spacing: 15) {
                 Image(systemName: "\(moonSymbol ?? "moonphase.full.moon")")
                     .symbolRenderingMode(.palette)
-                    .foregroundStyle(Color.black.opacity(0.6), weatherColorIs)
-                    .font(.system(size: 50))
-                
-                Text(moonPhases ?? "moony")
-                    .font(.caption)
-                    .foregroundColor(.gray)
-            }.padding(.leading, 50)
-            
-            Spacer()
-            
-            VStack(spacing: 15) {
-                HStack(spacing: 10) {
-                    Image(systemName: "moon.fill")
-                        .foregroundColor(.white.opacity(0.6))
-                    Text("Moon Rise - ")
-                        .font(.caption)
-                    .foregroundColor(.gray)
-                    
-                    + Text("\(moonRise ?? "")")
-                        .font(.caption)
-                    .foregroundColor(weatherColorIs)
+                    .foregroundStyle(.mint, Color.black.opacity(0.75))
+                    .font(.system(size: 70))
+                    .padding(.leading, 60)
+                Spacer()
+                VStack(alignment: .leading, spacing: 6){
+                    Text(moonPhases ?? "moony")
+                       
+                        .foregroundColor(.white)
+                    Text("Moon Phase")
+                        .foregroundColor(.gray)
                 }
-                HStack(spacing: 10) {
-                    Image(systemName: "moon")
-                        .foregroundColor(.gray.opacity(0.6))
-                    Text("Moon Set - ")
-                        .font(.caption)
-                    .foregroundColor(.gray)
-                    
-                    + Text("\(moonSet ?? "")")
-                        .font(.caption)
-                    .foregroundColor(weatherColorIs)
-                }
-            }.padding(.trailing, 50)
+               
+                    .padding(.trailing, 60)
+            }
+            
+//            Spacer()
+          
             
         }.frame(width: UIScreen.main.bounds.width - 30, height: 120)
 //            .background(.black.opacity(0.4))
             .background(.ultraThickMaterial.opacity(0.8))
 //            .shadow(color: .black.opacity(0.3), radius: 6)
             .cornerRadius(15)
+            .opacity(0.8)
     }
 }
 

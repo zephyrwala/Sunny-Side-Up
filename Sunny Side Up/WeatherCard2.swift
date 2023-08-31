@@ -21,14 +21,14 @@ struct WeatherCard2: View {
                 
                 VStack{
                     Text("\(currentWeather?.currentWeather.temperature.formatted(.measurement(width: .abbreviated, usage: .weather)) ?? "--")")
-                        .foregroundColor(weatherColorIs)
+                        .foregroundColor(.black)
                         .font(.system(size: 65))
                         .fontWeight(.regular)
-                        .foregroundColor(weatherColorIs)
+//                        .foregroundColor(weatherColorIs)
                     
                     Text(currentWeather?.currentWeather.condition.description ?? "fetching")
                        
-                        .font(.system(size: 27, weight: .semibold))
+                        .font(.system(size: 21, weight: .semibold))
                         .foregroundColor(.white.opacity(0.7))
                     
                 }
@@ -40,7 +40,7 @@ struct WeatherCard2: View {
                         .font(.system(size: 99))
                         .symbolRenderingMode(.palette)
                         .symbolRenderingMode(.palette)
-                        .foregroundStyle(Color.white.opacity(0.7), weatherColorIs)
+                        .foregroundStyle(Color.white.opacity(0.9), .black)
                     
                 }
                 
