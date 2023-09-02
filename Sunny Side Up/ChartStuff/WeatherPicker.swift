@@ -9,7 +9,7 @@ import SwiftUI
 
 struct WeatherPicker: View {
     var pickerWeatherConditions: [ConditionItems]
-    var pickerCOnditions = ["cloud.rain", "humidity", "thermometer.sun", "eye", "wind"]
+    var pickerCOnditions = ["cloud.rain", "humidity9009", "thermometer.sun", "eye", "wind"]
     @State private var selectedWeather = 0
     var body: some View {
       

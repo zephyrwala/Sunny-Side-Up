@@ -19,47 +19,113 @@ struct WeeklyChart: View {
                             ForEach(weeklyWeather, id: \.date) { weeklyWeatherItem in
                                 
                                 LineMark(x: .value("Day", weeklyWeatherItem.date.formatted(date: .abbreviated, time: .omitted)),
-                                         y: .value("Temp", weeklyWeatherItem.highTemperature.formatted(.measurement(width: .abbreviated, usage: .person))), series: .value("High", "High Temperature"))
-                                .foregroundStyle(Color.yellow.opacity(0.6))
-                                .symbol(by: .value("High", "High Temperature"))
+                                         y: .value("Temp", weeklyWeatherItem.highTemperature.value), series: .value("High", "High Temperature"))
+                                .foregroundStyle(Color.mint.opacity(0.6))
+//                                .symbol(by: .value("High", "High Temperature"))
                                 .interpolationMethod(.monotone)
+                                .symbol{
+                                 
+      
+                                    ZStack{
+                                        Circle()
+                                            .foregroundColor(Color.white.opacity(0.85))
+                                            .frame(height: 30)
+                                            .offset(y: -3)
+                                        
+                                    
+                                        VStack{
+                                            Image(systemName: weeklyWeatherItem.symbolName)
+                                                .font(.system(size: 12))
+                                                .symbolRenderingMode(.monochrome)
+                                                .foregroundStyle(.black)
+                                                .opacity(0.9)
+        //                                        .padding(.top, 1)
+                                                .offset(y: 5)
+        //
+                                            
+                                            
+                                            Text(weeklyWeatherItem.highTemperature.formatted())
+                                                .font(.system(.caption2))
+                                                .foregroundColor(.mint)
+                                                .offset(y: -50)
+                                           
+                                             
+      
+                                            .font(.system(.caption2))
+                                            .foregroundColor(.mint)
+                                            .padding(.top, 0.5)
+                                            //                                            .padding(.bottom, 8)
+                                        }
+                                        
+                                    }
+        //                                    .padding(.bottom, 8)
+
+                                        
+    
+                                        
+                                    
+                                }
 
                                 LineMark(x: .value("Day", weeklyWeatherItem.date.formatted(date: .abbreviated, time: .omitted)),
-                                         y: .value("sTemp", weeklyWeatherItem.lowTemperature.formatted(.measurement(width: .abbreviated, usage: .person))), series: .value("Low", "Low Temperature"))
+                                         y: .value("sTemp", weeklyWeatherItem.lowTemperature.value), series: .value("Low", "Low Temperature"))
                                 .foregroundStyle(Color.white.opacity(0.7))
                                 .interpolationMethod(.monotone)
-                                .symbol(by: .value("Low", "Low Temperature"))
-                                
+                                .symbol{
+                                 
+      
+                                    ZStack{
+                                        Circle()
+                                            .foregroundColor(Color.white.opacity(0.85))
+                                            .frame(height: 30)
+                                            .offset(y: -3)
+                                        
+                                    
+                                        VStack{
+                                            Image(systemName: weeklyWeatherItem.symbolName)
+                                                .font(.system(size: 12))
+                                                .symbolRenderingMode(.monochrome)
+                                                .foregroundStyle(.black)
+                                                
+                                                .opacity(0.9)
+        //                                        .padding(.top, 1)
+                                                .offset(y: 5)
+        //
+                                            
+                                            
+                                            Text(weeklyWeatherItem.lowTemperature.formatted())
+                                                .font(.system(.caption2))
+                                                .foregroundColor(.primary)
+                                                .offset(y: 21)
+                                           
+                                             
+      
+                                            .font(.system(.caption2))
+                                            .foregroundColor(.mint)
+                                            .padding(.top, 0.5)
+                                            //                                            .padding(.bottom, 8)
+                                        }
+                                        
+                                    }
+        //                                    .padding(.bottom, 8)
+
+                                        
+    
+                                        
+                                    
+                                }
                                
                                 
-                                
-                                
-//                                BarMark(x: .value("Day", weeklyWeatherItem.date.formatted(date: .abbreviated, time: .omitted)),
-//                                        y: .value("Temp", weeklyWeatherItem.highTemperature.converted(to: .fahrenheit).value))
-//                                .foregroundStyle(Color.yellow.opacity(0.9))
-//                                .cornerRadius(12)
-//                                .interpolationMethod(.linear)
-
-//                                AreaMark(x: .value("Day", weeklyWeatherItem.date.formatted(date: .abbreviated, time: .omitted)),
-//                                        y: .value("High", weeklyWeatherItem.highTemperature.formatted(.measurement(width: .narrow, usage: .person))))
-//                                .foregroundStyle(Color.yellow.opacity(0.9))
-//                                .interpolationMethod(.catmullRom)
-//
-//                                LineMark(x: .value("Day", weeklyWeatherItem.date.formatted(date: .abbreviated, time: .omitted)),
-//                                        y: .value("Temp", weeklyWeatherItem.highTemperature.converted(to: .fahrenheit).value))
-//
-//
-//                                .foregroundStyle(Color.yellow.opacity(0.9))
-////
-//                                .interpolationMethod(.catmullRom)
-                                
+       
                             }
                             
-                        }.frame(width: 950, height: 270)
+                        }.frame(width: 750, height: 270)
                 .aspectRatio(contentMode: .fit)
+                .chartYScale(
+                    domain: weeklyWeather.temperatureRange()
+                )
                 .chartForegroundStyleScale([
                         "Low Temperature": Color.black,
-                        "High Temperature": Color.yellow
+                        "High Temperature": Color.mint
                         
                     ])
 //                .chartLegend(position: .bottom, alignment: .leading, spacing: 16) {
@@ -67,8 +133,8 @@ struct WeeklyChart: View {
 //                        }
             .chartXAxis(){
                 AxisMarks(values: .automatic) { _ in
-                   AxisGridLine(centered: true, stroke: StrokeStyle(dash: [1, 2]))
-                        .foregroundStyle(Color.white.opacity(0.6))
+//                   AxisGridLine(centered: true, stroke: StrokeStyle(dash: [1, 2]))
+//                        .foregroundStyle(Color.white.opacity(0.6))
                    AxisValueLabel()
                         .foregroundStyle(Color.white.opacity(0.6))
                  }
@@ -77,13 +143,14 @@ struct WeeklyChart: View {
                 AxisMarks(position: .leading) { _ in
                    
                     
-                        
-                    AxisValueLabel()
-                        .foregroundStyle(Color.white.opacity(0.6))
+//
+//                    AxisValueLabel()
+//                        .foregroundStyle(Color.white.opacity(0.6))
                         
                  }
         }
         }.padding()
+            .scrollIndicators(.hidden)
         
     }
 }

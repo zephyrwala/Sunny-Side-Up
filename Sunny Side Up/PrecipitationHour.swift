@@ -49,8 +49,6 @@ struct PrecipitationHour: View {
                             ZStack{
                                 Circle()
                                     .foregroundColor(Color.black.opacity(0.75))
-//                                    .background(.ultraThickMaterial.opacity(0.9))
-//                                    .foregroundColor(.ultraThin)
                                     .frame(height: 42)
                                     .offset(y: -3)
                                 

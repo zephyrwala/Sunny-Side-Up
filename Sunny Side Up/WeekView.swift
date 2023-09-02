@@ -235,7 +235,7 @@ struct WeekView: View {
                             HStack {
                                 
                                 Image(systemName: "location.circle.fill")
-                                    .foregroundColor(.yellow)
+                                    .foregroundColor(.purple)
                                 if environmentLocationManager.showManualLocation == true {
                                     
                                     Text(environmentLocationManager.returnedPlace?.name ?? "loading")
